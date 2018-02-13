@@ -14,7 +14,7 @@
 % \usepackage{amsmath} %advanced maths
 % \usepackage{amssymb} %additional math symbols
 
-\usepackage{dirtree} %directory tree visualisation
+\usepackage{dirtree} %directory tree visualisation 
 \RequirePackage{pdfpages}
 
 % % list of acronyms
@@ -52,6 +52,8 @@
 \keywordsEN{web frontend, information system, ReactJS, PHP, framework Nette}
 % \website{http://site.example/thesis} %volitelná URL práce, objeví se v tiráži - úplně odstraňte, nemáte-li URL práce
 
+
+
 \begin{document}
 
 % \newacronym{CVUT}{{\v C}VUT}{{\v C}esk{\' e} vysok{\' e} u{\v c}en{\' i} technick{\' e} v Praze}
@@ -74,9 +76,14 @@
 	Cílem praktické části práce je návrh, implementace a otestování webového frontendu informačního systému.
 \chapter{Analýza a návrh}
 
+\section{Výběr modelovacího nástroje s ohledem na možnosti generování zdrojového kódu modelu}
+	Nástroj s možností generování modelu může velice pomoci při vývoji. V první řadě je potřeba pro vizualizaci problémové domény. Za druhé lze některé takové nástroje použít pro generování zdrojového kódu modelu nebo pro vytvoření databázových DDL skriptů. Pro potřeby systému jsem zaobíral především možností generovat gettery a settery a možností definice ORM notace pro Doctrine 2.
+\subsection{Enterprise Architect}
+	Enterprise Architect je poměrně robustní UML nástroj pro modelování celého vývojového cyklu softwaru. Pokrývá vše od sběru požadavků, modelování business procesů, architektury, domény až po class diagramy, či databázové modely. Dále umožňuje generování zdrojových kódů modelu pro jazyky Java, C++, C\#, Python, PHP, aj., které provádí na základě modifikovatelných šablon. Tyto šablony využívají vlastní jazyk nazýváný Transformation Template language. Enterprise Architect také nabízí generování DDL skriptů pro mnoho databázových enginů jako jsou Oracle, MySql, SQL Server a další.
+
 \section{research}
 	Analýza požadavků:
-	Zadavatel požaduje webový frontend, který napomůže k rychlému a hromadnému zadávání provozních dat. Hlavním požadavkem je responzivní web, který pomůže odvést práci rychle a bezchybně.
+	Zadavatel požaduje webový frontend, který napomůže k~rychlému a hromadnému zadávání provozních dat. Hlavním požadavkem je responzivní web, který pomůže odvést práci rychle a bezchybně.
 	
 	Realizované weby:	
 	Jako dobrý vzor pro realizaci je webový portál iDoklad.cz. Především sekce pro správu faktur. Zahrnuje přehled vydaných faktur, jejich editaci a mnoho dalších funkcí.
@@ -112,7 +119,8 @@
 % \printglossaries
 \begin{description}
 	\item[GUI] Graphical user interface
-	\item[XML] Extensible markup language
+	\item[DDL] Data definition language
+	\item[UML] Unified Modeling language
 \end{description}
 
 
