@@ -77,9 +77,16 @@
 \chapter{Analýza a návrh}
 
 \section{Výběr modelovacího nástroje s ohledem na možnosti generování zdrojového kódu modelu}
-	Nástroj s možností generování modelu může velice pomoci při vývoji. V první řadě je potřeba pro vizualizaci problémové domény. Za druhé lze některé takové nástroje použít pro generování zdrojového kódu modelu nebo pro vytvoření databázových DDL skriptů. Pro potřeby systému jsem zaobíral především možností generovat gettery a settery a možností definice ORM notace pro Doctrine 2.
+	Nástroj s možností generování modelu může velice pomoci při vývoji. V první řadě je potřeba pro vizualizaci problémové domény. Za druhé lze některé takové nástroje použít pro generování zdrojového kódu modelu nebo pro vytvoření databázových DDL skriptů. Pro potřeby systému jsem se zaobíral především možností generovat gettery a settery a možností definice ORM notace pro Doctrine 2.
+
 \subsection{Enterprise Architect}
-	Enterprise Architect je poměrně robustní UML nástroj pro modelování celého vývojového cyklu softwaru. Pokrývá vše od sběru požadavků, modelování business procesů, architektury, domény až po class diagramy, či databázové modely. Dále umožňuje generování zdrojových kódů modelu pro jazyky Java, C++, C\#, Python, PHP, aj., které provádí na základě modifikovatelných šablon. Tyto šablony využívají vlastní jazyk nazýváný Transformation Template language. Enterprise Architect také nabízí generování DDL skriptů pro mnoho databázových enginů jako jsou Oracle, MySql, SQL Server a další.
+	Enterprise Architect je poměrně robustní UML nástroj pro modelování celého vývojového cyklu softwaru. Pokrývá vše od sběru požadavků, modelování business procesů, architektury, domény až po class diagramy, či databázové modely. Dále umožňuje generování zdrojových kódů modelu včetně getter a setterů pro jazyky Java, C++, C\#, Python, PHP, aj., které provádí na základě modifikovatelných šablon. Tyto šablony využívají vlastní jazyk nazýváný Transformation Template language. Enterprise Architect také nabízí generování DDL skriptů pro mnoho databázových enginů jako jsou Oracle, MySql, SQL Server a další.
+
+\subsection{Skipper}
+	Skipper je E-R modelář zaměřený na programovací jazyk PHP. Umožňuje generovat zdrojový kód modelu s ohledem na použitý MVC framework a také dle zvolené ORM knihovny. Tím nepřímo přinese databázové DDL skripty. U Doctrine toto zajistí schema-tool, nástroj pro manipulaci s databázovým modelem používaný z příkazové řádky. Podporuje ORM knihovny Doctrine, Doctrine 2, Propel a CakePHP.
+	
+\subsection{Srovnání}
+	Skipper je určitě lépe připravený na ORM, to EA neřeší vůbec. Naopak v Enterprise Architectu lze generování pomocí doupravit a plně nakonfigurovat. To může být velmi užitečné například při použití traitu společného pro všechny třídy reprezentující databázové entity. Jednoduše se použití traitu vloží do šablony. Skipper toto neumožňuje a přidání je nutné dělat ručně. Nicméně vyladění šablon Entreprise Architectu pro generování zdrojového kódu by stálo hodně úsilí s nejistým výsledkem. Proto jsem se rozhodl pro využití Skipperu i přes jeho slabší konfigurovatelnost.
 
 \section{research}
 	Analýza požadavků:
@@ -121,6 +128,8 @@
 	\item[GUI] Graphical user interface
 	\item[DDL] Data definition language
 	\item[UML] Unified Modeling language
+	\item[ORM] Object relation mapping
+	\item[MVC] Model-view-controller
 \end{description}
 
 
