@@ -17,6 +17,7 @@
 \usepackage{dirtree} %directory tree visualisation 
 \RequirePackage{pdfpages}
 \usepackage{float}
+\usepackage[all]{nowidow}
 
 % % list of acronyms
 % \usepackage[acronym,nonumberlist,toc,numberedsection=autolabel]{glossaries}
@@ -52,7 +53,6 @@
 \keywordsCS{webový frontend, informační systém, návrh, implementace, testování, hromadné zadávání dat, ReactJS, PHP, Nette framework}
 \keywordsEN{web frontend, information system, design, implemtation, test, bulk data input, ReactJS, PHP, Nette framework}
 % \website{http://site.example/thesis} %volitelná URL práce, objeví se v tiráži - úplně odstraňte, nemáte-li URL práce
-
 
 
 \begin{document}
@@ -104,6 +104,7 @@
 		\begin{itemize}
 			\item Vyhledání, přidání, úprava a smazání nabízeného produktu
 		\end{itemize}
+	\newpage
 	\item Agenda firemního skladu
 		\begin{itemize}
 			\item evidovat skladové pohyby u jednotlivých produktů
@@ -141,6 +142,7 @@
 			\item Fyzické osoby
 		\end{itemize}
 	\end{itemize}
+	\newpage
 	\item Hromadné úpravy
 	\begin{itemize}
 		\item Více záznamů lze editovat jako jeden. 
@@ -180,7 +182,7 @@
 		\item Určená pole formuláře reagují na změnu v jiném poli. Například při výběru/zadání hodnoty v kolonce země se v návaznosti na to upraví nabídka v kolonce stát. 
 		\item Pokud je pro dané pole možné vyplnit pouze jednou hodnotu, bude tato hodnota automaticky doplněna.
 	\end{itemize}
-	\item Našeptávač
+	\item[4.NF] Našeptávač
 	\begin{itemize}
 		\item Při zapisování údaje do určené kolonky systém automaticky napovídá zbylou část textu.
 		\item Je potřeba, aby mohl našeptávat z více sloupců, včetně cizích. 
