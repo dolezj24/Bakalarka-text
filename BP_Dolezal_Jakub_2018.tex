@@ -16,6 +16,7 @@
 
 \usepackage{dirtree} %directory tree visualisation 
 \RequirePackage{pdfpages}
+\usepackage{float}
 
 % % list of acronyms
 % \usepackage[acronym,nonumberlist,toc,numberedsection=autolabel]{glossaries}
@@ -29,7 +30,7 @@
 % ODTUD DAL VSE ZMENTE
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 
-\department{Katedra \ldots (DOPLŇTE)}
+\department{Katedra Softwarového inženýrství}
 \title{Webový frontend informačního systému}
 \authorGN{Jakub} %(křestní) jméno (jména) autora
 \authorFN{Doležal} %příjmení autora
@@ -39,7 +40,7 @@
 \acknowledgements{Doplňte, máte-li komu a za co děkovat. V~opačném případě úplně odstraňte tento příkaz.}
 \abstractCS{Cílem této práce je návrh, implementace a otestování webového frontendu informačního systému pro firmu MAHALUX s.r.o.
 	
-	Na základě požadavků zadavatele je webový frontend implementovaný pomocí frameworku ReactJS v jazyce JavaScript. Serverová část aplikace je implementována v jazyce PHP s využitím frameworku Nette.
+	Na základě požadavků zadavatele je tento webový frontend implementovaný pomocí frameworku ReactJS v jazyce JavaScript. Serverová část aplikace je implementována v jazyce PHP s využitím frameworku Nette.
 	
 	Tento informační systém napomáhá k rychlému, hromadnému a bezchybnému zadávání dat. Zefektivňuje a centralizuje evidenci dat prováděnou zaměstnanci MAHALUX s.r.o.
 	
@@ -48,8 +49,8 @@
 \abstractEN{Sem doplňte ekvivalent abstraktu Vaší práce v~angličtině.}
 \placeForDeclarationOfAuthenticity{V~Praze}
 \declarationOfAuthenticityOption{4} %volba Prohlášení (číslo 1-6)
-\keywordsCS{webový frontend, informační systém pro MAHALUX s.r.o., návrh, implementace, testování, hromadné zadávání dat, ReactJS, PHP, framework Nette}
-\keywordsEN{web frontend, information system, ReactJS, PHP, framework Nette}
+\keywordsCS{webový frontend, informační systém, návrh, implementace, testování, hromadné zadávání dat, ReactJS, PHP, Nette framework}
+\keywordsEN{web frontend, information system, design, implemtation, test, bulk data input, ReactJS, PHP, Nette framework}
 % \website{http://site.example/thesis} %volitelná URL práce, objeví se v tiráži - úplně odstraňte, nemáte-li URL práce
 
 
@@ -60,21 +61,155 @@
 % \newacronym{FIT}{FIT}{Fakulta informa{\v c}n{\' i}ch technologi{\' i}}
 
 \begin{introduction}
-	V dnešní době je pro každou firmu rychlý a bezpečný IS nutností. Efektivní systém může přinést rozhodující náskok před konkurencí.
-	Pro malou začínající firmu MAHALUX s.r.o. a její zaměstnance takový systém přinese potřebné centralizované ukládání dat a přístup k ním,
-	což je mojí motivací pro výběr tohoto tématu.
+	MAHALUX s.r.o. je mladá expandující firma zabývající vývojem, výrobou a prodejem elektronický zařízení. I přesto že firma existuje poměrně krátce, již expeduje po celém světě. To přináší velké nároky na evidenci rozličných dat o adresách, bankovních spojeních a dalších informacích o zákaznících. Proto se firma MAHALUX s.r.o. rozhodla pro zavedení informačního systému s webovým frontendem, který přinese potřebné centralizované ukládání dat a pohodlný přístup k těmto datům.
 	
 	V práci se zabývám analýzou, návrhem, implementací a testováním webového informačního systému.
 	Úkolem úvodní části práce je sběr funkčních a nefunkčních požadavků zadavatele. Dále také analýza složitějších případů užití.
-	Následuje návrh struktury systému ve frameworku Nette, návrh komponetového prototypu a uživatelského rozhraní. Navazovat bude samotná implementace a na závěr testování.
-	
-	Systém bude využívat již zavedenou interní firemní databázi, která eviduje provozní data.
+	Následuje návrh struktury systému, návrh komponetového prototypu a uživatelského rozhraní v knihovně ReactJS. Navazovat bude samotná implementace a na závěr testování.
 \end{introduction}
 
 \chapter{Cíl práce}
-	Cílem rešeršní části práce je analýza požadavků zákazníka a složitějších případů užití, prozkoumání existujících řešení webových informačních systémů a jejich frontendů.
-	Cílem praktické části práce je návrh, implementace a otestování webového frontendu informačního systému.
+	Cílem rešeršní části práce je analýza požadavků zákazníka a analýza složitějších případů užití. Dále prozkoumání existujících řešení webových frontendů pro získání přehledu o best practicies. Mimo jiné se zaměřím na možnosti continuous integration a continuous deployment a jejich využití pro tento projekt. A v neposlední řadě provedu rešerši databázových enginů. Především porovnám open-source řešení MySQL a PostrgeSQL.
+	
+	Cílem praktické části práce je návrh, implementace a otestování webového frontendu tohoto informačního systému. Hlavní důraz bude kladen dynamičnost uživatelského rozhraní. To by mělo uživateli napomáhat k co nejrychlejšímu a pokud možno bezchybnému vkládání dat. K tomu budou využity šablony, které si uživatel nadefinuje společně s daty a ty následně ze šablony vloží do konkrétního formuláře. Dále by měla být zajištěna přehledná reprezentace větších záznamů a hromadné úpravy. Systém bude komponentový pro zaručení možnosti jednoduchého rozšíření systému.
+	
 \chapter{Analýza a návrh}
+
+\section{Specifikace systémových požadavků}
+
+	Na základě komunikace s firmou MAHALUX s.r.o. byly stanoveny následující systémové požadavky.
+	
+\subsection{Funkční požadavky}
+
+\begin{enumerate}
+	\item Agenda faktur a fakturovaných katalogových položek(fakturováno může být několik katalogových položek v počtu jeden a více)
+	\begin{itemize}
+		\item Přehled evidence vydaných faktur a fakturovaných položek a pro jednotlivé faktury:
+		\begin{itemize}
+			\item vytvoření nové faktury
+			\item editace faktury
+			\item smazání faktury 
+			\item tisk faktury.
+		\end{itemize}
+		\item Formulář pro vytvoření a úpravu 1 nebo více faktur na základě jedné nebo více objednávek - zajistit předvyplnění fakturačních položek na základě položek v objednávce či objednávkách.
+		\item Přehled přijatých faktur a pro jednotlivé faktury:
+		\begin{itemize}
+			\item Uložení přijaté faktury včetně souborů,
+			\item Změna stavu faktury (přijatá, částečně uhrazená, uhrazená),
+			\item smazání faktury a
+			\item tisk faktury.
+		\end{itemize}
+	\end{itemize}	
+	\item Evidence nabízených produktů
+		\begin{itemize}
+			\item Vyhledání, přidání, úprava a smazání nabízeného produktu
+		\end{itemize}
+	\item Agenda firemního skladu
+		\begin{itemize}
+			\item evidovat skladové pohyby u jednotlivých produktů
+			\item přehled položek ve skladu
+			\item editace položek skladu
+		\end{itemize}
+	\item Agenda objednávek - přehled evidovaných objednávek a pro jednotlivé objednávky:
+	\begin{itemize}
+		\item vložení nové objednávky
+		\item editace objednávky
+		\item smazání objednávky
+		\item vytvoření faktur na základě jedné nebo více objednávek
+		\item evidencí trackingu po expedování
+	\end{itemize}
+	\item Formulář pro přípravu expedice položek objednávky
+	\begin{itemize}
+		\item Formulář zobrazí objedané množství produktů a množství produktů na skladě. 
+		\item Přednastaví množství k odeslání podle toho zda je možné objednávku kompletně vybavit či ne.
+		\item Potvrzením vložení do expedice při nenulovém množství k odeslání dojde k vytvoření záznamů o balíčcích a jejich zařazení do následující expedice.
+	\end{itemize}
+	\item Agenda dodávek
+	\begin{itemize}
+		\item Přehled objednaných dodávek včetně trackingu.
+		\item Formulář pro vložení nové dodávky včetně trackingu
+		\item Editace dodávky v případě špatně nebo nekompletně dodané dodávky
+		\item Označení dodávky jako dodané způsobí automatické naskladnění
+	\end{itemize}
+	\item Agenda kontaktů
+	\begin{itemize}
+		\item Na základě příznaku evidovat dodavatele a odběratele
+		\item Evidovaní budou dodavatelé - právnické osoby
+		\item Evidence odběratelů
+		\begin{itemize}
+			\item Právnické osoby
+			\item Fyzické osoby
+		\end{itemize}
+	\end{itemize}
+	\item Hromadné úpravy
+	\begin{itemize}
+		\item Více záznamů lze editovat jako jeden. 
+		\item Pokud jsou původní hodnoty stejné, zobrazí se k úpravě stejně jako by se editoval jeden záznam. 
+		\item Pokud jsou původní hodnoty rozdílné, namísto pole k editaci se zobrazí tlačítko pro výběr jedné společné hodnoty (ideálně histogram), kterou lze potom opět editovat jako jednu hodnotu. Pokud se hodnota neupraví, zůstávají původní hodnoty.
+	\end{itemize}
+	\item Vyplňování formuláře šablonou
+	\begin{itemize}
+		\item Uživatel si nadefinuje šablonu s konkrétními daty v konkrétních polích a šablonu uloží. 
+		\item Při další vyplňování téhož formuláře bude moci vybrat uloženou šablonu a ta mu formulář vyplní uloženými daty. 
+		\item Uživatel bude dále moci data upravit a případně šablonu upravit či uložit novou.
+	\end{itemize}
+	\item Management uživatelů
+	\begin{itemize}
+		\item O každém uživateli evidovat loginID, username, skutečné jméno, heslo.
+		\item Každý uživatel má nějaké oprávnění. Oprávnění mohou být admin, expeditér.
+		\item Založení uživatele.
+		\item Upravení uživatele.
+		\item Deaktivace uživatele.
+		\item Přehled uživatelů.
+		\item Administrátor bude moci vygenerovat uživateli nové heslo při zapomenutí hesla.
+	\end{itemize}
+	\item Evidence úprav dat (kdo data upravil a kdy)
+	\begin{itemize}
+		\item Pro každý záznam ve všech tabulkách bude evidováno kdo a kdy řádek vytvořil, upravil a smazal(technika soft delete)
+		\item To kým byla data upravena bude zaznamenáno z loginu uživatele.	
+	\end{itemize}
+	\item Vytvořit API pro manipulaci se všemi tabulkami
+\end{enumerate}
+
+\subsection{Nefunkční požadavky}
+\begin{enumerate}
+	\item Odezvy v reálném čase (typicky maximálně 100 ms na 1000000 záznamů, u větších tabulek základní stránkování s použitím indexů)
+	\item Konzistence dat - na úrovni DB transakcí (server splňuje ACID)
+	\item Dynamicky reagující formuláře
+	\begin{itemize}
+		\item Určená pole formuláře reagují na změnu v jiném poli. Například při výběru/zadání hodnoty v kolonce země se v návaznosti na to upraví nabídka v kolonce stát. 
+		\item Pokud je pro dané pole možné vyplnit pouze jednou hodnotu, bude tato hodnota automaticky doplněna.
+	\end{itemize}
+	\item Našeptávač
+	\begin{itemize}
+		\item Při zapisování údaje do určené kolonky systém automaticky napovídá zbylou část textu.
+		\item Je potřeba, aby mohl našeptávat z více sloupců, včetně cizích. 
+		\item Našeptávač se bude využívat při odkazování na informace z jiné tabulky. Například při výběru položky z objednávky, našeptávač našeptává počet kusů z tabulky položky objednávky a název položky z tabulky číselníku. Vždy budou určeny konkrétní sloupce z odkazované tabulky.
+	\end{itemize}
+	\item Editace položek přehledů v pop-up okně
+\end{enumerate}
+
+\subsection{Požadavky na rozhraní}
+\begin{enumerate}
+	\item Integrace do MySQL databáze a souborového systému pro upload příloh.
+	\item Přívětivé uživatelské rozhraní v ReactJS napomáhající uživateli práci odvést rychle a bezchybně.
+\end{enumerate}
+
+\section{Doménový model}
+	Doménový model popisuje entity a vazby mezi nimi v doméně e-shopu firmy MAHALUX s.r.o.
+	
+\begin{figure}[H]
+	\includegraphics[height=\textwidth, angle=90]{domain_model.png}
+	\caption{Doménový model}\label{domain_model}
+\end{figure}
+
+\section{E-R model}
+E-R model popisuje entity se všemi vlastnostmi a vazby mezi nimi.
+
+\begin{figure}[H]
+	\includegraphics[width=500pt, height=\textwidth, angle=90]{mahasys_ermodel.png}
+	\caption{E-R model}\label{er_model}
+\end{figure}
 
 \section{Výběr modelovacího nástroje s ohledem na možnosti generování zdrojového kódu modelu}
 	Nástroj s možností generování modelu může velice pomoci při vývoji. V první řadě je potřeba pro vizualizaci problémové domény. Za druhé lze některé takové nástroje použít pro generování zdrojového kódu modelu nebo pro vytvoření databázových DDL skriptů. Pro potřeby systému jsem se zaobíral především možností generovat gettery a settery a možností definice ORM notace pro Doctrine 2.
@@ -86,27 +221,11 @@
 	Skipper je E-R modelář zaměřený na programovací jazyk PHP. Umožňuje generovat zdrojový kód modelu s ohledem na použitý MVC framework a také dle zvolené ORM knihovny. Tím nepřímo přinese databázové DDL skripty. U Doctrine toto zajistí schema-tool, nástroj pro manipulaci s databázovým modelem používaný z příkazové řádky. Podporuje ORM knihovny Doctrine, Doctrine 2, Propel a CakePHP.
 	
 \subsection{Srovnání}
-	Skipper je určitě lépe připravený na ORM, to EA neřeší vůbec. Naopak v Enterprise Architectu lze generování pomocí doupravit a plně nakonfigurovat. To může být velmi užitečné například při použití traitu společného pro všechny třídy reprezentující databázové entity. Jednoduše se použití traitu vloží do šablony. Skipper toto neumožňuje a přidání je nutné dělat ručně. Nicméně vyladění šablon Entreprise Architectu pro generování zdrojového kódu by stálo hodně úsilí s nejistým výsledkem. Proto jsem se rozhodl pro využití Skipperu i přes jeho slabší konfigurovatelnost.
-
-\section{research}
-	Analýza požadavků:
-	Zadavatel požaduje webový frontend, který napomůže k~rychlému a hromadnému zadávání provozních dat. Hlavním požadavkem je responzivní web, který pomůže odvést práci rychle a bezchybně.
-	
-	Realizované weby:	
-	Jako dobrý vzor pro realizaci je webový portál iDoklad.cz. Především sekce pro správu faktur. Zahrnuje přehled vydaných faktur, jejich editaci a mnoho dalších funkcí.
-	%Existující web is
-	
-	Technologie:
-	Pro webové uživatelské rozhraní je použit framework ReactJS. Tento framework v jazyku JavaScript velmi snadno reaguje na změny dat ve formuláři a umožňuje rychle interaktivní překlesení požadovaných částí stránky.
-	
-	Serverová část aplikace je realizována v frameworku Nette využivající jazyk PHP. Tato část aplikace poskytuje API pro webové rozhraní a přistupuje k interní MySQL databázi.
-	
-	
+	Skipper je určitě lépe připravený na ORM, to EA neřeší vůbec. Naopak v Enterprise Architectu lze generování pomocí doupravit a plně nakonfigurovat. To může být velmi užitečné například při použití traitu společného pro všechny třídy reprezentující databázové entity. Jednoduše se použití traitu vloží do šablony. Skipper toto neumožňuje a přidání je nutné dělat ručně. Nicméně vyladění šablon Entreprise Architectu pro generování zdrojového kódu by stálo hodně úsilí s nejistým výsledkem. Proto jsem se rozhodl pro využití Skipperu i přes jeho slabší konfigurovatelnost.	
 
 \chapter{Realizace}
 
 \section{praktická část}
-	Webový frontend %dělá co jsme chtěli
 
 \begin{conclusion}
 	%sem napište závěr Vaší práce
