@@ -73,7 +73,7 @@
 	
 	Cílem praktické části práce je návrh, implementace a otestování webového frontendu tohoto informačního systému. Hlavní důraz bude kladen dynamičnost uživatelského rozhraní. To by mělo uživateli napomáhat k co nejrychlejšímu a pokud možno bezchybnému vkládání dat. K tomu budou využity šablony, které si uživatel nadefinuje společně s daty a ty následně ze šablony vloží do konkrétního formuláře. Dále by měla být zajištěna přehledná reprezentace větších záznamů a hromadné úpravy. Systém bude komponentový pro zaručení možnosti jednoduchého rozšíření systému.
 	
-\chapter{Analýza a návrh}
+\chapter{Analýza}
 
 \section{Specifikace systémových požadavků}
 
@@ -84,7 +84,7 @@
 \begin{enumerate}
 	\item Agenda faktur a fakturovaných katalogových položek(fakturováno může být několik katalogových položek v počtu jeden a více)
 	\begin{itemize}
-		\item Přehled evidence vydaných faktur a fakturovaných položek a pro jednotlivé faktury:
+		\item[1FN] Přehled evidence vydaných faktur a fakturovaných položek a pro jednotlivé faktury:
 		\begin{itemize}
 			\item vytvoření nové faktury
 			\item editace faktury
@@ -100,18 +100,18 @@
 			\item tisk faktury.
 		\end{itemize}
 	\end{itemize}	
-	\item Evidence nabízených produktů
+	\item[2FN] Evidence nabízených produktů
 		\begin{itemize}
 			\item Vyhledání, přidání, úprava a smazání nabízeného produktu
 		\end{itemize}
 	\newpage
-	\item Agenda firemního skladu
+	\item[3FN] Agenda firemního skladu
 		\begin{itemize}
 			\item evidovat skladové pohyby u jednotlivých produktů
 			\item přehled položek ve skladu
 			\item editace položek skladu
 		\end{itemize}
-	\item Agenda objednávek - přehled evidovaných objednávek a pro jednotlivé objednávky:
+	\item[4FN] Agenda objednávek - přehled evidovaných objednávek a pro jednotlivé objednávky:
 	\begin{itemize}
 		\item vložení nové objednávky
 		\item editace objednávky
@@ -119,20 +119,20 @@
 		\item vytvoření faktur na základě jedné nebo více objednávek
 		\item evidencí trackingu po expedování
 	\end{itemize}
-	\item Formulář pro přípravu expedice položek objednávky
+	\item[5FN] Formulář pro přípravu expedice položek objednávky
 	\begin{itemize}
 		\item Formulář zobrazí objedané množství produktů a množství produktů na skladě. 
 		\item Přednastaví množství k odeslání podle toho zda je možné objednávku kompletně vybavit či ne.
 		\item Potvrzením vložení do expedice při nenulovém množství k odeslání dojde k vytvoření záznamů o balíčcích a jejich zařazení do následující expedice.
 	\end{itemize}
-	\item Agenda dodávek
+	\item[6FN] Agenda dodávek
 	\begin{itemize}
 		\item Přehled objednaných dodávek včetně trackingu.
 		\item Formulář pro vložení nové dodávky včetně trackingu
 		\item Editace dodávky v případě špatně nebo nekompletně dodané dodávky
 		\item Označení dodávky jako dodané způsobí automatické naskladnění
 	\end{itemize}
-	\item Agenda kontaktů
+	\item[7FN] Agenda kontaktů
 	\begin{itemize}
 		\item Na základě příznaku evidovat dodavatele a odběratele
 		\item Evidovaní budou dodavatelé - právnické osoby
@@ -143,19 +143,19 @@
 		\end{itemize}
 	\end{itemize}
 	\newpage
-	\item Hromadné úpravy
+	\item[8FN] Hromadné úpravy
 	\begin{itemize}
 		\item Více záznamů lze editovat jako jeden. 
 		\item Pokud jsou původní hodnoty stejné, zobrazí se k úpravě stejně jako by se editoval jeden záznam. 
 		\item Pokud jsou původní hodnoty rozdílné, namísto pole k editaci se zobrazí tlačítko pro výběr jedné společné hodnoty (ideálně histogram), kterou lze potom opět editovat jako jednu hodnotu. Pokud se hodnota neupraví, zůstávají původní hodnoty.
 	\end{itemize}
-	\item Vyplňování formuláře šablonou
+	\item[9FN] Vyplňování formuláře šablonou
 	\begin{itemize}
 		\item Uživatel si nadefinuje šablonu s konkrétními daty v konkrétních polích a šablonu uloží. 
 		\item Při další vyplňování téhož formuláře bude moci vybrat uloženou šablonu a ta mu formulář vyplní uloženými daty. 
 		\item Uživatel bude dále moci data upravit a případně šablonu upravit či uložit novou.
 	\end{itemize}
-	\item Management uživatelů
+	\item[10FN] Management uživatelů
 	\begin{itemize}
 		\item O každém uživateli evidovat loginID, username, skutečné jméno, heslo.
 		\item Každý uživatel má nějaké oprávnění. Oprávnění mohou být admin, expeditér.
@@ -165,45 +165,67 @@
 		\item Přehled uživatelů.
 		\item Administrátor bude moci vygenerovat uživateli nové heslo při zapomenutí hesla.
 	\end{itemize}
-	\item Evidence úprav dat (kdo data upravil a kdy)
+	\item[11FN] Evidence úprav dat (kdo data upravil a kdy)
 	\begin{itemize}
 		\item Pro každý záznam ve všech tabulkách bude evidováno kdo a kdy řádek vytvořil, upravil a smazal(technika soft delete)
 		\item To kým byla data upravena bude zaznamenáno z loginu uživatele.	
 	\end{itemize}
-	\item Vytvořit API pro manipulaci se všemi tabulkami
+	\item[12FN] Vytvořit API pro manipulaci se všemi tabulkami
 \end{enumerate}
 
 \subsection{Nefunkční požadavky}
 \begin{enumerate}
-	\item Odezvy v reálném čase (typicky maximálně 100 ms na 1000000 záznamů, u větších tabulek základní stránkování s použitím indexů)
-	\item Konzistence dat - na úrovni DB transakcí (server splňuje ACID)
-	\item Dynamicky reagující formuláře
+	\item[1NF] Odezvy v reálném čase (typicky maximálně 100 ms na 1000000 záznamů, u větších tabulek základní stránkování s použitím indexů)
+	\item[2NF] Konzistence dat - na úrovni DB transakcí (server splňuje ACID)
+	\item[3NF] Dynamicky reagující formuláře
 	\begin{itemize}
 		\item Určená pole formuláře reagují na změnu v jiném poli. Například při výběru/zadání hodnoty v kolonce země se v návaznosti na to upraví nabídka v kolonce stát. 
 		\item Pokud je pro dané pole možné vyplnit pouze jednou hodnotu, bude tato hodnota automaticky doplněna.
 	\end{itemize}
-	\item[4.NF] Našeptávač
+	\item[4NF] Našeptávač
 	\begin{itemize}
 		\item Při zapisování údaje do určené kolonky systém automaticky napovídá zbylou část textu.
 		\item Je potřeba, aby mohl našeptávat z více sloupců, včetně cizích. 
 		\item Našeptávač se bude využívat při odkazování na informace z jiné tabulky. Například při výběru položky z objednávky, našeptávač našeptává počet kusů z tabulky položky objednávky a název položky z tabulky číselníku. Vždy budou určeny konkrétní sloupce z odkazované tabulky.
 	\end{itemize}
-	\item Editace položek přehledů v pop-up okně
+	\item[5NF] Editace položek přehledů v pop-up okně
 \end{enumerate}
 
 \subsection{Požadavky na rozhraní}
 \begin{enumerate}
-	\item Integrace do MySQL databáze a souborového systému pro upload příloh.
-	\item Přívětivé uživatelské rozhraní v ReactJS napomáhající uživateli práci odvést rychle a bezchybně.
+	\item[1PR] Integrace do MySQL databáze a souborového systému pro upload příloh.
+	\item[2PR] Přívětivé uživatelské rozhraní v ReactJS napomáhající uživateli práci odvést rychle a bezchybně.
 \end{enumerate}
 
 \section{Doménový model}
-	Doménový model popisuje entity a vazby mezi nimi v doméně e-shopu firmy MAHALUX s.r.o.
+	Doménový model\ref{domain_model} popisuje entity a vazby mezi nimi v doméně e-shopu firmy MAHALUX s.r.o. Hlavní pozornost je zaměřena na objednávky a infrastrukturu procesu jejich vyřizování. Objednávka má vždy seznam položek objednaných produktů a jejich množství. Množstvím se rozumí počet kusů nebo číselnou hodnotu nějaké veličiny, například délky či váhy. U objednávky se dále evidují informace o zákazníkovi v závislosti na tom zda jde o fyzickou či právnickou osobu. O fyzické osobě je zaznamenáno jméno a příjmení a o právnické osobě pak název společnosti a daňové ID. Dále se eviduje doručovací adresa a také, pokud je odlišná od doručovací, fakturační adresa.
 	
-\begin{figure}[H]
+	V návaznosti na objednávky vznikají balíčky s objednanými produkty k odeslání zákazníkovi. O balíčcích jsou vedeny následující informace: hmotnost v kilogramech, množství objednaného produktu v balíčku, doručovací služba, která balíček doručuje, a pokud je k dispozici, tak také internetová adresa pro sledování balíčku neboli tracking. Dále platí, že objednávka může být rozdělena do více balíčků a to i v rámci jednotlivé položky. Proto je nutné zaznamenávat množství konkrétního produktu v balíčku. Balíčky jsou pravidelně expedovány každý pracovní den ve várce pro jednotlivou doručovací společnost. Aktuálně se jedná pouze o Českou poštu, s.p. U těchto expedičních várek je evidováno datum provedení expedice a informace o tom zda byla várka vyexpedována.
+	
+	V případech, kdy není možné objednávku kompletně vyexpedovat ze zásob skladu, vznikají zásobovací dodávky. U těchto dodávek je opět nutné evidovat seznam položek s objednaným množstvím produktu, tak jak bylo definováno pro objednávky. Dále se zaznamenávají informace o dodavateli, datum objednání dodávky, stav dodávky a případně internetovou adresu sledování dodávky. Dodavatelé bývají využíváni opakovaně.
+	
+	Na základě přijatých zásobovacích dodávek(naskladnění) a vyexpedovaných objednávek(vyskladění) vznikají pohyby na skladě. Každý skladový pohyb je způsoben jednou z těchto dvou událostí. Je nutné evidovat množství produktu znamenající pohyb skladu, stejně jako u položek objednávek a dodávek. Vyskladnění znamená pohyb skladu se záporným množstvím. Naskladnění poté představuje skladový pohyb s kladným množstvím.
+	
+	Nezávisle na objednávkách je poté vedena evidence faktur a to jak vydaných, tak i těch přijatých. Pro faktury vydané je znovu třeba ukládat seznam fakturovaných položek a jejich množství. Dále faktura obsahuje informace o zákazníkovi, opět podle toho zda se jedná o fyzickou či právnickou osobu. 
+	
+\begin{figure}
 	\includegraphics[height=\textwidth, angle=90]{domain_model.png}
 	\caption{Doménový model}\label{domain_model}
 \end{figure}
+
+\section{Výběr modelovacího nástroje s ohledem na možnosti generování zdrojového kódu modelu}
+Nástroj s možností generování modelu může velice pomoci při vývoji. V první řadě je potřeba pro vizualizaci problémové domény. Za druhé lze některé takové nástroje použít pro generování zdrojového kódu modelu nebo pro vytvoření databázových DDL skriptů. Pro potřeby systému jsem se zaobíral především možností generovat gettery a settery a možností definice ORM notace pro Doctrine 2.
+
+\subsection{Enterprise Architect}
+Enterprise Architect je poměrně robustní UML nástroj pro modelování celého vývojového cyklu softwaru. Pokrývá vše od sběru požadavků, modelování business procesů, architektury, domény až po class diagramy, či databázové modely. Dále umožňuje generování zdrojových kódů modelu včetně getter a setterů pro jazyky Java, C++, C\#, Python, PHP, aj., které provádí na základě modifikovatelných šablon. Tyto šablony využívají vlastní jazyk nazýváný Transformation Template language. Enterprise Architect také nabízí generování DDL skriptů pro mnoho databázových enginů jako jsou Oracle, MySql, SQL Server a další.
+
+\subsection{Skipper}
+Skipper je E-R modelář zaměřený na programovací jazyk PHP. Umožňuje generovat zdrojový kód modelu s ohledem na použitý MVC framework a také dle zvolené ORM knihovny. Tím nepřímo přinese databázové DDL skripty. U Doctrine toto zajistí schema-tool, nástroj pro manipulaci s databázovým modelem používaný z příkazové řádky. Podporuje ORM knihovny Doctrine, Doctrine 2, Propel a CakePHP.
+
+\subsection{Srovnání}
+Skipper je určitě lépe připravený na ORM, to EA neřeší vůbec. Naopak v Enterprise Architectu lze generování pomocí doupravit a plně nakonfigurovat. To může být velmi užitečné například při použití traitu společného pro všechny třídy reprezentující databázové entity. Jednoduše se použití traitu vloží do šablony. Skipper toto neumožňuje a přidání je nutné dělat ručně. Nicméně vyladění šablon Entreprise Architectu pro generování zdrojového kódu by stálo hodně úsilí s nejistým výsledkem. Proto jsem se rozhodl pro využití Skipperu i přes jeho slabší konfigurovatelnost.	
+
+\chapter{Návrh}
 
 \section{E-R model}
 E-R model popisuje entity se všemi vlastnostmi a vazby mezi nimi.
@@ -212,18 +234,6 @@ E-R model popisuje entity se všemi vlastnostmi a vazby mezi nimi.
 	\includegraphics[width=500pt, height=\textwidth, angle=90]{mahasys_ermodel.png}
 	\caption{E-R model}\label{er_model}
 \end{figure}
-
-\section{Výběr modelovacího nástroje s ohledem na možnosti generování zdrojového kódu modelu}
-	Nástroj s možností generování modelu může velice pomoci při vývoji. V první řadě je potřeba pro vizualizaci problémové domény. Za druhé lze některé takové nástroje použít pro generování zdrojového kódu modelu nebo pro vytvoření databázových DDL skriptů. Pro potřeby systému jsem se zaobíral především možností generovat gettery a settery a možností definice ORM notace pro Doctrine 2.
-
-\subsection{Enterprise Architect}
-	Enterprise Architect je poměrně robustní UML nástroj pro modelování celého vývojového cyklu softwaru. Pokrývá vše od sběru požadavků, modelování business procesů, architektury, domény až po class diagramy, či databázové modely. Dále umožňuje generování zdrojových kódů modelu včetně getter a setterů pro jazyky Java, C++, C\#, Python, PHP, aj., které provádí na základě modifikovatelných šablon. Tyto šablony využívají vlastní jazyk nazýváný Transformation Template language. Enterprise Architect také nabízí generování DDL skriptů pro mnoho databázových enginů jako jsou Oracle, MySql, SQL Server a další.
-
-\subsection{Skipper}
-	Skipper je E-R modelář zaměřený na programovací jazyk PHP. Umožňuje generovat zdrojový kód modelu s ohledem na použitý MVC framework a také dle zvolené ORM knihovny. Tím nepřímo přinese databázové DDL skripty. U Doctrine toto zajistí schema-tool, nástroj pro manipulaci s databázovým modelem používaný z příkazové řádky. Podporuje ORM knihovny Doctrine, Doctrine 2, Propel a CakePHP.
-	
-\subsection{Srovnání}
-	Skipper je určitě lépe připravený na ORM, to EA neřeší vůbec. Naopak v Enterprise Architectu lze generování pomocí doupravit a plně nakonfigurovat. To může být velmi užitečné například při použití traitu společného pro všechny třídy reprezentující databázové entity. Jednoduše se použití traitu vloží do šablony. Skipper toto neumožňuje a přidání je nutné dělat ručně. Nicméně vyladění šablon Entreprise Architectu pro generování zdrojového kódu by stálo hodně úsilí s nejistým výsledkem. Proto jsem se rozhodl pro využití Skipperu i přes jeho slabší konfigurovatelnost.	
 
 \chapter{Realizace}
 
