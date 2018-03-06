@@ -232,8 +232,16 @@
 	
 	První, tmavěji zelená sekce, popisuje evidované informace o uživateli systému. Každý uživatel(User) může mít více rolí(UserRole) a zároveň každou roli může zaujímat více uživatelů. Jde tedy o vazbu m:n. Tu realizuje vazební tabulka UserRoleUser. Vzhledem k tomu, že každou roli může mít každý uživatel pouze jednou, tvoří primární klíč této tabulky dvojice cizích klíčů z tabulek User a UserRole.
 	
-	Světle fialová oblast nastiňuje strukturu informací o kontaktních adresách. Rozlišují se kontakty zákazníků, zaměstnanců firmy, firemní kontakty, kontakty dodavatelů a kontakty tržních míst. Všechny společné informace jsou vedeny ve společné tabulce Address. Typ kontaktu je rozlišen sloupcem diskriminátoru addressType. Všechny typy kontaktů dále maji vlastní tabulky s jejich specifickými informacemi. Tyto tabulky jsou vázány ke společné tabulce vazbou 1:1. Tato vazba je zajištěna cizími klíči v tabulkách potomků, které jsou zároveň i klíče primárni.
+	Světle fialová oblast nastiňuje strukturu informací o kontaktních adresách. Rozlišují se kontakty zákazníků, zaměstnanců firmy, firemní kontakty, kontakty dodavatelů a kontakty tržních míst. Všechny společné informace jsou vedeny ve společné tabulce Address. Typ kontaktu je rozlišen sloupcem diskriminátoru addressType. Všechny typy kontaktů dále maji vlastní tabulky s jejich specifickými informacemi. Tyto tabulky jsou vázány ke společné tabulce vazbou 1:1. Tato vazba je zajištěna cizími klíči v tabulkách potomků, které jsou zároveň i klíče primárni. Dále je zaveden rejstřík zemí včetně jejich států(krajů). Země typicky mají několik států a stát náleží pouze jedné zemi. O zemích je dále vedeno na kterém kontinentě se nacházejí.
+	
+	Expedované balíčky jsou znázorněny ve světle zeleném obdélníku. Balíček bývá zařezen do konkrétní expediční várky. V této várce bývá více balíčků. U balíčků je také nutné evidovat jejich soubory, typicky to jsou jejich fotografie. Podobně je tomu tak i u kompletních várek. U balíčku je také nutné znát doručovací službu. Tato služba bývá použita vícekrát. Zmiňované soubory jsou popsány v bílé sekci. Soubory budou uloženy v jejich binární podobě. U fotografií bude vytvořen a uložen i datově menší náhled fotografie. Pro textové dokumenty bude volitelně uložen jejich text získanný optickým čtením.
 
+	Struktura schéma pro objednávky je zobrazeno v světle růžovém poli. Pro každou objednávku jsou evidovány jedntlivé řádky objednávky. Dále platí, že na každém řádku objednávky může být několik produktů v libovolném množství. U objednávky je dále nutné zaznamenat odesílací a fakturační adresu zákazníka. Volitelně pak adresu tržního místa a vlastní firemní adresu.
+	
+	V tmavě modré oblasti je pak popsán model informací o nabízených produktech. O produktech jsou například evidovány jednotlivé jeho atributy. Každý definovaný atribut může být vyhodnocene pro více produktů. U produktů je rozlišován také jejich typ. U typů produktů je rozlišeno zda jde o fyzický produkt, službu, interní produkt nebo kombinace předchozích.
+	
+	Pro indexaci, a s tím spojené rychlejší vyhledávání podle hodnot sloupců, jsem zvolil následující sloupce: name z tabulky Product, ourOrderUID z tablky Order, lastName a email z tabluky Address, name z tabulky State, name z tabulky Country a name z tabulky User.
+	
 \begin{figure}
 	\includegraphics[width=500pt, height=\textwidth, angle=90]{mahasys_ermodel.png}
 	\caption{E-R model}\label{er_model}
