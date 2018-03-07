@@ -213,6 +213,15 @@
 	\caption{Doménový model}\label{domain_model}
 \end{figure}
 
+\section{Životní cyklus objednávky}
+	Na obrázku \ref{oredr_cycle} je znázorněn životní cycklus objednávky. Zajímovstí je například to, že pokud je objednané zboží z části na skladě, je možné objednávku částečně vyexpedovat. V takovém případě s objednávka dostene do stavu Částečně v expedici. 
+	
+\begin{figure}
+	\includegraphics[width=\textwidth]{order_cycle.png}
+	\caption{Životní cyklus objednávky}\label{oredr_cycle}
+\end{figure}
+
+
 \section{Výběr modelovacího nástroje s ohledem na možnosti generování zdrojového kódu modelu}
 	Nástroj s možností generování modelu může velice pomoci při vývoji. V první řadě je potřeba pro vizualizaci problémové domény. Za druhé lze některé takové nástroje použít pro generování zdrojového kódu modelu nebo pro vytvoření databázových DDL skriptů. Pro potřeby systému jsem se zaobíral především možností generovat gettery a settery a možností definice ORM notace pro Doctrine 2.
 
@@ -232,7 +241,7 @@
 	
 	První, tmavěji zelená sekce, popisuje evidované informace o uživateli systému. Každý uživatel(User) může mít více rolí(UserRole) a zároveň každou roli může zaujímat více uživatelů. Jde tedy o vazbu m:n. Tu realizuje vazební tabulka UserRoleUser. Vzhledem k tomu, že každou roli může mít každý uživatel pouze jednou, tvoří primární klíč této tabulky dvojice cizích klíčů z tabulek User a UserRole.
 	
-	Světle fialová oblast nastiňuje strukturu informací o kontaktních adresách. Rozlišují se kontakty zákazníků, zaměstnanců firmy, firemní kontakty, kontakty dodavatelů a kontakty tržních míst. Všechny společné informace jsou vedeny ve společné tabulce Address. Typ kontaktu je rozlišen sloupcem diskriminátoru addressType. Všechny typy kontaktů dále maji vlastní tabulky s jejich specifickými informacemi. Tyto tabulky jsou vázány ke společné tabulce vazbou 1:1. Tato vazba je zajištěna cizími klíči v tabulkách potomků, které jsou zároveň i klíče primárni. Dále je zaveden rejstřík zemí včetně jejich států(krajů). Země typicky mají několik států a stát náleží pouze jedné zemi. O zemích je dále vedeno na kterém kontinentě se nacházejí.
+	Světle fialová oblast nastiňuje strukturu informací o kontaktních adresách. Rozlišují se kontakty zákazníků, zaměstnanců firmy, firemní kontakty, kontakty dodavatelů a kontakty tržních míst. Všechny společné informace jsou vedeny ve společné tabulce Address. Typ kontaktu je rozlišen sloupcem diskriminátoru addressType. Všechny typy kontaktů dále maji vlastní tabulky s jejich specifickými informacemi. Tyto tabulky jsou vázány ke společné tabulce vazbou 1:1. Tato vazba je zajištěna cizími klíči v tabulkách potomků, které jsou zároveň i klíče primárni. Dále je zaveden rejstřík zemí včetně jejich států(krajů). Země typicky mají několik států a stát náleží pouze jedné zemi. O zemích je dále vedeno to na kterém kontinentě se nacházejí.
 	
 	Expedované balíčky jsou znázorněny ve světle zeleném obdélníku. Balíček bývá zařezen do konkrétní expediční várky. V této várce bývá více balíčků. U balíčků je také nutné evidovat jejich soubory, typicky to jsou jejich fotografie. Podobně je tomu tak i u kompletních várek. U balíčku je také nutné znát doručovací službu. Tato služba bývá použita vícekrát. Zmiňované soubory jsou popsány v bílé sekci. Soubory budou uloženy v jejich binární podobě. U fotografií bude vytvořen a uložen i datově menší náhled fotografie. Pro textové dokumenty bude volitelně uložen jejich text získanný optickým čtením.
 
@@ -240,12 +249,27 @@
 	
 	V tmavě modré oblasti je pak popsán model informací o nabízených produktech. O produktech jsou například evidovány jednotlivé jeho atributy. Každý definovaný atribut může být vyhodnocene pro více produktů. U produktů je rozlišován také jejich typ. U typů produktů je rozlišeno zda jde o fyzický produkt, službu, interní produkt nebo kombinace předchozích.
 	
-	Pro indexaci, a s tím spojené rychlejší vyhledávání podle hodnot sloupců, jsem zvolil následující sloupce: name z tabulky Product, ourOrderUID z tablky Order, lastName a email z tabluky Address, name z tabulky State, name z tabulky Country a name z tabulky User.
+	Pro indexaci, a s tím spojené rychlejší vyhledávání podle hodnot sloupců, jsem zvolil následující sloupce: name z tabulky Product, ourOrderUID z tablky Order, lastName a email z tabluky Address, name z tabulky State, name z tabulky Country a alias z tabulky User. Pro všechny vazby ve schématu je voleno výchozí nastavení pro operace delete a update a to akce restrict, která nepovoluje operace update a delete pro rodičovskou tabulku.
 	
 \begin{figure}
 	\includegraphics[width=500pt, height=\textwidth, angle=90]{mahasys_ermodel.png}
 	\caption{E-R model}\label{er_model}
 \end{figure}
+	
+\section{Použité technologie}
+
+\subsection{ReactJS}
+	ReactJS je JavaScriptová knihovna zaměřená na vykreslování webových aplikací. Je založená na vizuálních komponentách \cite{reactjs}, které při změně stavu aplikace efektivně překresluje. Tento proces je implementován pomocí virtualizace DOM, kterým je zaznamenáván stav skučného DOM. Při změně stavu je virtuální DOM porovnán se skutečným a následně je překreslena pouze dotčená část skutečného DOM. \cite{react-crud-app}
+	
+	React je příkladem tzv. jednosměrného vázání dat. To znamená, že události uživatelského rozhraní jsou přenášeny do stavu aplikace   změnou modelu, která je provedena voláním metody \verb|setState()|. Jde o tzv. manuální detekci změny. React je tím informován o modifikaci modelu a provede již zmíněný proces propagace změn do DOM.\cite{data_binding} Tento proces je znázorněn na obrázku \ref{data_binding}.
+	
+\begin{figure}
+	\includegraphics[width=\textwidth]{databinding2.png}
+	\caption{Jednosměrné datové vázání}\label{data_binding}
+\end{figure}
+	
+	Pro definici toho jak se má jednotlivá komponenta vykreslit využívá React speciální jazyk JSX. Jde o syntaktické rozšíření jazyku JavaScript, v kterém je možné zapisovat HTML tagy. Může připomínát šablonovací systém, ale v JSX lze zapisovat přímo příkazy JavaSciptu jejich vložením do složených závorek. Díky JSX lze zapisovat kód pro vykreslování a ostatní logiku uživatelského rozhraní společně a získat tak lepší přehled o aplikaci.\cite{jsx} 
+	
 
 \chapter{Realizace}
 
@@ -273,6 +297,8 @@
 	\item[UML] Unified Modeling language
 	\item[ORM] Object relation mapping
 	\item[MVC] Model-view-controller
+	\item[DOM] Document Object Model
+	\item[JSX] JavaScript Syntax eXtension
 \end{description}
 
 
