@@ -69,7 +69,7 @@
 \end{introduction}
 
 \chapter{Cíl práce}
-	Cílem rešeršní části práce je analýza požadavků zákazníka a analýza složitějších případů užití. Dále prozkoumání existujících řešení webových frontendů pro získání přehledu o best practicies. Mimo jiné se zaměřím na možnosti continuous integration a continuous deployment a jejich využití pro tento projekt. A v neposlední řadě provedu rešerši databázových enginů. Především porovnám open-source řešení MySQL a PostrgeSQL.
+	Cílem rešeršní části práce je analýza požadavků zákazníka a analýza složitějších případů užití. Dále prozkoumání existujících řešení webových frontendů pro získání přehledu o best practicies. Mimo jiné se zaměřím na možnosti continuous integration a continuous deployment a jejich využití pro tento projekt.
 	
 	Cílem praktické části práce je návrh, implementace a otestování webového frontendu tohoto informačního systému. Hlavní důraz bude kladen dynamičnost uživatelského rozhraní. To by mělo uživateli napomáhat k co nejrychlejšímu a pokud možno bezchybnému vkládání dat. K tomu budou využity šablony, které si uživatel nadefinuje společně s daty a ty následně ze šablony vloží do konkrétního formuláře. Dále by měla být zajištěna přehledná reprezentace větších záznamů a hromadné úpravy. Systém bude komponentový pro zaručení možnosti jednoduchého rozšíření systému.
 	
@@ -77,85 +77,85 @@
 
 \section{Specifikace systémových požadavků}
 
-	Na základě komunikace s firmou MAHALUX s.r.o. byly stanoveny následující systémové požadavky.
+	Na základě diskuze s firmou MAHALUX s.r.o. byly stanoveny následující systémové požadavky.
 	
 \subsection{Funkční požadavky}
 
 \begin{enumerate}
 	\item Agenda faktur a fakturovaných katalogových položek(fakturováno může být několik katalogových položek v počtu jeden a více)
 	\begin{itemize}
-		\item[1FN] Přehled evidence vydaných faktur a fakturovaných položek a pro jednotlivé faktury:
+		\item[FN1] Přehled evidence vydaných faktur a fakturovaných položek a pro jednotlivé faktury:
 		\begin{itemize}
-			\item vytvoření nové faktury
-			\item editace faktury
-			\item smazání faktury 
+			\item vytvoření nové faktury,
+			\item editace faktury,
+			\item smazání faktury a
 			\item tisk faktury.
 		\end{itemize}
-		\item Formulář pro vytvoření a úpravu 1 nebo více faktur na základě jedné nebo více objednávek - zajistit předvyplnění fakturačních položek na základě položek v objednávce či objednávkách.
+		\item Formulář pro vytvoření a úpravu 1 nebo více faktur na základě jedné nebo více objednávek. Zajistit předvyplnění fakturačních položek na základě položek v objednávce či objednávkách.
 		\item Přehled přijatých faktur a pro jednotlivé faktury:
 		\begin{itemize}
-			\item Uložení přijaté faktury včetně souborů,
+			\item uložení přijaté faktury včetně souborů,
 			\item Změna stavu faktury (přijatá, částečně uhrazená, uhrazená),
 			\item smazání faktury a
 			\item tisk faktury.
 		\end{itemize}
 	\end{itemize}	
-	\item[2FN] Evidence nabízených produktů
-		\begin{itemize}
-			\item Vyhledání, přidání, úprava a smazání nabízeného produktu
-		\end{itemize}
+	\item[FN2] Evidence nabízených produktů.
+	 	Vyhledání, přidání, úprava a smazání nabízeného produktu.
 	\newpage
-	\item[3FN] Agenda firemního skladu
+	\item[FN3] Agenda firemního skladu:
 		\begin{itemize}
-			\item evidovat skladové pohyby u jednotlivých produktů
-			\item přehled položek ve skladu
-			\item editace položek skladu
+			\item evidovat skladové pohyby u jednotlivých produktů,
+			\item přehled položek ve skladu a
+			\item editace položek skladu.
 		\end{itemize}
-	\item[4FN] Agenda objednávek - přehled evidovaných objednávek a pro jednotlivé objednávky:
+	\item[FN4] Agenda objednávek - přehled evidovaných objednávek a pro jednotlivé objednávky:
 	\begin{itemize}
-		\item vložení nové objednávky
-		\item editace objednávky
-		\item smazání objednávky
-		\item vytvoření faktur na základě jedné nebo více objednávek
-		\item evidencí trackingu po expedování
+		\item vložení nové objednávky,
+		\item editace objednávky,
+		\item smazání objednávky,
+		\item vytvoření faktur na základě jedné nebo více objednávek a
+		\item evidence trackingu po expedování.
 	\end{itemize}
-	\item[5FN] Formulář pro přípravu expedice položek objednávky
+	\item[FN5] Formulář pro přípravu expedice položek objednávky.
 	\begin{itemize}
 		\item Formulář zobrazí objedané množství produktů a množství produktů na skladě. 
-		\item Přednastaví množství k odeslání podle toho zda je možné objednávku kompletně vybavit či ne.
+		\item Ve formuláři se přednastaví množství k odeslání podle toho zda je možné objednávku kompletně vybavit či ne. Pokud lze objednávky vybavit kompletně, nastavená hodnota bude rovna objednanému množství. Pokud nepůjde odbavit objednávku kompletní, bude nastavena hodnota 0.
+		\item Expeditér dále bude moci upravit množství k odeslání na hodnoty v rozmezí 0 až objednané množství nebo množství na skladě podle toho, která hodnota je menší.
 		\item Potvrzením vložení do expedice při nenulovém množství k odeslání dojde k vytvoření záznamů o balíčcích a jejich zařazení do následující expedice.
 	\end{itemize}
-	\item[6FN] Agenda dodávek
+	\item[FN6] Agenda dodávek.
 	\begin{itemize}
 		\item Přehled objednaných dodávek včetně trackingu.
-		\item Formulář pro vložení nové dodávky včetně trackingu
-		\item Editace dodávky v případě špatně nebo nekompletně dodané dodávky
-		\item Označení dodávky jako dodané způsobí automatické naskladnění
+		\item Formulář pro vložení nové dodávky včetně trackingu.
+		\item Editace dodávky v případě špatně nebo nekompletně dodané dodávky.
+		\item Označení dodávky jako dodané způsobí automatické naskladnění.
 	\end{itemize}
-	\item[7FN] Agenda kontaktů
+	\item[FN7] Agenda kontaktů.
 	\begin{itemize}
-		\item Na základě příznaku evidovat dodavatele a odběratele
-		\item Evidovaní budou dodavatelé - právnické osoby
-		\item Evidence odběratelů
+		\item Na základě příznaku evidovat dodavatele a odběratele.
+		\item Evidovaní budou dodavatelé - právnické osoby.
+		\item Evidence odběratelů:
 		\begin{itemize}
-			\item Právnické osoby
-			\item Fyzické osoby
+			\item právnické osoby a
+			\item fyzické osoby.
 		\end{itemize}
+		\item Evidence kontaktů tržních míst.
 	\end{itemize}
-	\newpage
-	\item[8FN] Hromadné úpravy
+
+	\item[FN8] Hromadné úpravy.
 	\begin{itemize}
 		\item Více záznamů lze editovat jako jeden. 
 		\item Pokud jsou původní hodnoty stejné, zobrazí se k úpravě stejně jako by se editoval jeden záznam. 
 		\item Pokud jsou původní hodnoty rozdílné, namísto pole k editaci se zobrazí tlačítko pro výběr jedné společné hodnoty (ideálně histogram), kterou lze potom opět editovat jako jednu hodnotu. Pokud se hodnota neupraví, zůstávají původní hodnoty.
 	\end{itemize}
-	\item[9FN] Vyplňování formuláře šablonou
+	\item[FN9] Vyplňování formuláře šablonou.
 	\begin{itemize}
 		\item Uživatel si nadefinuje šablonu s konkrétními daty v konkrétních polích a šablonu uloží. 
 		\item Při další vyplňování téhož formuláře bude moci vybrat uloženou šablonu a ta mu formulář vyplní uloženými daty. 
 		\item Uživatel bude dále moci data upravit a případně šablonu upravit či uložit novou.
 	\end{itemize}
-	\item[10FN] Management uživatelů
+	\item[FN10] Management uživatelů.
 	\begin{itemize}
 		\item O každém uživateli evidovat loginID, username, skutečné jméno, heslo.
 		\item Každý uživatel má nějaké oprávnění. Oprávnění mohou být admin, expeditér.
@@ -165,36 +165,38 @@
 		\item Přehled uživatelů.
 		\item Administrátor bude moci vygenerovat uživateli nové heslo při zapomenutí hesla.
 	\end{itemize}
-	\item[11FN] Evidence úprav dat (kdo data upravil a kdy)
+	\item[FN11] Evidence úprav dat (kdo data upravil a kdy).
 	\begin{itemize}
-		\item Pro každý záznam ve všech tabulkách bude evidováno kdo a kdy řádek vytvořil, upravil a smazal(technika soft delete)
+		\item Pro každý záznam ve všech tabulkách bude evidováno kdo a kdy řádek vytvořil, upravil a smazal(technika soft delete).
 		\item To kým byla data upravena bude zaznamenáno z loginu uživatele.	
 	\end{itemize}
-	\item[12FN] Vytvořit API pro manipulaci se všemi tabulkami
+	\item[FN12] Vytvořit API pro manipulaci se všemi tabulkami.
 \end{enumerate}
 
 \subsection{Nefunkční požadavky}
 \begin{enumerate}
-	\item[1NF] Odezvy v reálném čase (typicky maximálně 100 ms na 1000000 záznamů, u větších tabulek základní stránkování s použitím indexů)
-	\item[2NF] Konzistence dat - na úrovni DB transakcí (server splňuje ACID)
-	\item[3NF] Dynamicky reagující formuláře
+	\item[NF1] Odezvy v reálném čase (typicky maximálně 100 ms na 1000000 záznamů, u větších tabulek základní stránkování s použitím indexů).
+	\item[NF2] Konzistence dat - na úrovni DB transakcí (server splňuje ACID).
+	\item[NF3] Dynamicky reagující formuláře.
 	\begin{itemize}
 		\item Určená pole formuláře reagují na změnu v jiném poli. Například při výběru/zadání hodnoty v kolonce země se v návaznosti na to upraví nabídka v kolonce stát. 
 		\item Pokud je pro dané pole možné vyplnit pouze jednou hodnotu, bude tato hodnota automaticky doplněna.
 	\end{itemize}
-	\item[4NF] Našeptávač
+	\item[NF4] Dynamické doplňování zapisovaného textu(našeptávač).
 	\begin{itemize}
 		\item Při zapisování údaje do určené kolonky systém automaticky napovídá zbylou část textu.
 		\item Je potřeba, aby mohl našeptávat z více sloupců, včetně cizích. 
 		\item Našeptávač se bude využívat při odkazování na informace z jiné tabulky. Například při výběru položky z objednávky, našeptávač našeptává počet kusů z tabulky položky objednávky a název položky z tabulky číselníku. Vždy budou určeny konkrétní sloupce z odkazované tabulky.
 	\end{itemize}
-	\item[5NF] Editace položek přehledů v pop-up okně
+	\item[NF5] Editace položek přehledů v modálním okně.
+	\item[NF6] V tabulkových přehledech záznamů možnost zobrazit subtabulku pro zobrazení souvisejích položek.
+	\item[NF7] Filtrování záznamů v tabulkách nad všemi sloupci.
 \end{enumerate}
 
 \subsection{Požadavky na rozhraní}
 \begin{enumerate}
-	\item[1PR] Integrace do MySQL databáze a souborového systému pro upload příloh.
-	\item[2PR] Přívětivé uživatelské rozhraní v ReactJS napomáhající uživateli práci odvést rychle a bezchybně.
+	\item[PR1] Integrace do MySQL databáze a souborového systému pro upload příloh.
+	\item[PR1] Přívětivé uživatelské rozhraní v ReactJS napomáhající uživateli práci odvést rychle a bezchybně.
 \end{enumerate}
 
 \section{Doménový model}
@@ -222,17 +224,45 @@
 \end{figure}
 
 
-\section{Výběr modelovacího nástroje s ohledem na možnosti generování zdrojového kódu modelu}
-	Nástroj s možností generování modelu může velice pomoci při vývoji. V první řadě je potřeba pro vizualizaci problémové domény. Za druhé lze některé takové nástroje použít pro generování zdrojového kódu modelu nebo pro vytvoření databázových DDL skriptů. Pro potřeby systému jsem se zaobíral především možností generovat gettery a settery a možností definice ORM notace pro Doctrine 2.
+\section{Použité technologie}
 
-\subsection{Enterprise Architect}
-	Enterprise Architect je poměrně robustní UML nástroj pro modelování celého vývojového cyklu softwaru. Pokrývá vše od sběru požadavků, modelování business procesů, architektury, domény až po class diagramy, či databázové modely. Dále umožňuje generování zdrojových kódů modelu včetně getter a setterů pro jazyky Java, C++, C\#, Python, PHP, aj., které provádí na základě modifikovatelných šablon. Tyto šablony využívají vlastní jazyk nazýváný Transformation Template language. Enterprise Architect také nabízí generování DDL skriptů pro mnoho databázových enginů jako jsou Oracle, MySql, SQL Server a další.
+\subsection{ReactJS}
+	ReactJS je JavaScriptová knihovna zaměřená na vykreslování webových aplikací. Je založená na vizuálních komponentách \cite{reactjs}, které při změně stavu aplikace efektivně překresluje. Tento proces je implementován pomocí virtualizace DOM, kterým je zaznamenáván stav skučného DOM. Při změně stavu je virtuální DOM porovnán se skutečným a následně je překreslena pouze dotčená část skutečného DOM. \cite{react-crud-app}
 
-\subsection{Skipper}
-	Skipper je E-R modelář zaměřený na programovací jazyk PHP. Umožňuje generovat zdrojový kód modelu s ohledem na použitý MVC framework a také dle zvolené ORM knihovny. Tím nepřímo zajistí databázové schéma. U Doctrine 2 je toto dosaženo pomocí schema-tool, nástroj pro manipulaci s databázovým modelem používaný z příkazové řádky, který na základě vygenerovaných ORM notací vytvoří databázové DDL skripty pro zavedení databázového schématu. Skipper podporuje ORM knihovny Doctrine, Doctrine 2, Propel a CakePHP.
+	React je příkladem tzv. jednosměrného vázání dat. To znamená, že události uživatelského rozhraní jsou přenášeny do stavu aplikace   změnou modelu, která je provedena voláním metody \verb|setState()|. Jde o tzv. manuální detekci změny. React je tím informován o modifikaci modelu a provede již zmíněný proces propagace změn do DOM.\cite{data_binding} Tento proces je znázorněn na obrázku \ref{data_binding}.
 
-\subsection{Srovnání}
+	\begin{figure}
+		\includegraphics[width=\textwidth]{databinding2.png}
+		\caption{Jednosměrné datové vázání}\label{data_binding}
+	\end{figure}
+
+	Pro definici toho jak se má jednotlivá komponenta vykreslit využívá React speciální jazyk JSX. Jde o syntaktické rozšíření jazyku JavaScript, v kterém 	je možné zapisovat HTML tagy. Může připomínát šablonovací systém, ale v JSX lze zapisovat přímo příkazy JavaSciptu jejich vložením do složených závorek. Díky JSX lze zapisovat kód pro vykreslování a ostatní logiku uživatelského rozhraní společně a získat tak lepší přehled o aplikaci.\cite{jsx} 
+	
+\subsection{Doctrine 2}
+	Doctrine 2 je ORM knihovna pro jazyk PHP. Zajišťuje tedy mapování relační databáze na PHP objekty. Doctrine 2 je postavena na návrhovém vzoru Data Mapper, reprezentovaném vůči zbytku aplikace zejména fasádou v podobě Entity Manageru. Pro definici vlastností jednotlivých entit se elegantně využívají komentářové anotace. Není tedy nutné entity dědit od nějakého společného předka a můžeme si hierarchii dědičností udělat zcela dle svých potřeb. Struktura databáze i veškeré její změny se generují automaticky z definic entit pomocí nástroje schema-tool. \cite{doctrine2} 
+	
+	Schema-tool nástroj pro manipulaci s databázovým modelem, používaný z příkazové řádky. Na základě ORM anotací vytvoří databázové DDL skripty pro zavedení databázového schématu, které mohou být dále odladěny nebo automaticky provedeny.
+	
+	Doctrine 2 je rozdělena do tří vrstev:
+	\begin{description}
+		\item[Common] Definuje základní obecná rozhraní, třídy a knihovny. Například nástroje pro práci s kolekcemi, anotacemi, cachováním, událostmi apod. Ty jsou pak využívány oběma vyššími vrstvami. Common sám o sobě je ale na zbylých vrstvách nezávislý, takže je ho teoreticky možné používat i samostatně. Všechno, co sem patří, je definováno v namespace \verb|DoctrineCommon|.
+		\item[DBAL (DataBase Abstraction Layer)] Abstrahuje zbytek aplikace od konkrétního typu databáze. Primárně rozšiřuje standardní PDO, ale umí pracovat i s jinými databázovými drivery. DBAL je závislý na Common, ale může být opět teoreticky používán i samostatně bez poslední ORM vrstvy. Všechno, co sem patří, je definováno v namespace \verb|DoctrineDBAL|.
+		\item[ORM (Object-Relational Mapping)] Nejvyšší vrstva, která zajišťuje mapování aplikačních objektů na relační databázi, jejich persistování a načítání. ORM je závislá na DBAL i Common. Namespace této vrstvy je \verb|DoctrineORM|.\cite{doctrine2}
+	\end{description}
+
+\section{Výběr nástroje pro modelování tříd}
+	Hlavním cílem bylo najít nástroj, který by uměl z namodelovaného schématu vygenerovat třídní model včetně ORM notací pro Doctrine 2, getterů a setterů. Takový nástroj by velice pomohl při vývoji. V první řadě je potřeba pro vizualizaci problémové domény. Za drhuhé poskytne zdrojový kód modelu zastřešující databázové schéma. Vybíral jsem z následujících dvou modelářů.
+
+\begin{description}
+	\item[Enterprise Architect]
+	je poměrně robustní UML nástroj pro modelování celého vývojového cyklu softwaru. Pokrývá vše od sběru požadavků, modelování business procesů, architektury, domény až po class diagramy, či databázové modely. Dále umožňuje generování zdrojových kódů modelu včetně getterů a setterů pro jazyky Java, C++, C\#, Python, PHP, aj., které provádí na základě modifikovatelných šablon. Tyto šablony využívají vlastní jazyk nazýváný Transformation Template language. Enterprise Architect také nabízí generování DDL skriptů pro mnoho databázových enginů jako jsou Oracle, MySql, SQL Server a další.
+
+	\item[Skipper]
+	je E-R modelář zaměřený na programovací jazyk PHP. Umožňuje generovat zdrojový kód modelu s ohledem na použitý MVC framework a také dle zvolené ORM knihovny. Tím například u Doctrine 2 nepřímo zajistí i databázové schéma. To je dosaženo pomocí schema-tool. Skipper podporuje ORM knihovny Doctrine, Doctrine 2, Propel a CakePHP.
+\end{description}
+
 	Skipper je bezesporu lépe připravený na ORM. Generování notace pro Doctrine 2 zvládá bezchybně. Enterprise Architect ORM neřeší. Na druhou stranu, v Enterprise Architectu lze generování kódu doupravit pomocí šablon a plně nakonfigurovat. To může být velmi užitečné, například při použití traitu společného pro všechny třídy reprezentující databázové entity. Programový kód pro použití traitu se jednoduše vloží do šablony. Skipper toto neumožňuje a přidání je nutné dělat ručně. Nicméně vyladění šablon Entreprise Architectu pro generování zdrojového kódu včetně notace Doctrine 2 by bylo poměrně obtížné s nejistým výsledkem. Proto jsem se rozhodl pro využití Skipperu i přes jeho slabší konfigurovatelnost.	
+
 
 \chapter{Návrh}
 
@@ -256,27 +286,15 @@
 	\caption{E-R model}\label{er_model}
 \end{figure}
 
-\section{Formulář pro naplánování expedice}
-	Na obrázku \ref{expedice} je navržený formulář pro naplánování expedice definovaný v funkčním požadavku 5FN.
+\section{Návrh uživatelského rozhraní}
+
+\subsection{Formulář pro naplánování expedice}
+	Na obrázku \ref{expedice} je navržený formulář pro naplánování expedice definovaný v funkčním požadavku FN5.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{expedition_plan.png}
 	\caption{Formulář pro naplánování expedice}\label{expedice}
 \end{figure}
-	
-\section{Použité technologie}
-
-\subsection{ReactJS}
-	ReactJS je JavaScriptová knihovna zaměřená na vykreslování webových aplikací. Je založená na vizuálních komponentách \cite{reactjs}, které při změně stavu aplikace efektivně překresluje. Tento proces je implementován pomocí virtualizace DOM, kterým je zaznamenáván stav skučného DOM. Při změně stavu je virtuální DOM porovnán se skutečným a následně je překreslena pouze dotčená část skutečného DOM. \cite{react-crud-app}
-	
-	React je příkladem tzv. jednosměrného vázání dat. To znamená, že události uživatelského rozhraní jsou přenášeny do stavu aplikace   změnou modelu, která je provedena voláním metody \verb|setState()|. Jde o tzv. manuální detekci změny. React je tím informován o modifikaci modelu a provede již zmíněný proces propagace změn do DOM.\cite{data_binding} Tento proces je znázorněn na obrázku \ref{data_binding}.
-	
-\begin{figure}
-	\includegraphics[width=\textwidth]{databinding2.png}
-	\caption{Jednosměrné datové vázání}\label{data_binding}
-\end{figure}
-	
-	Pro definici toho jak se má jednotlivá komponenta vykreslit využívá React speciální jazyk JSX. Jde o syntaktické rozšíření jazyku JavaScript, v kterém je možné zapisovat HTML tagy. Může připomínát šablonovací systém, ale v JSX lze zapisovat přímo příkazy JavaSciptu jejich vložením do složených závorek. Díky JSX lze zapisovat kód pro vykreslování a ostatní logiku uživatelského rozhraní společně a získat tak lepší přehled o aplikaci.\cite{jsx} 
 	
 
 \chapter{Realizace}
@@ -307,6 +325,7 @@
 	\item[MVC] Model-view-controller
 	\item[DOM] Document Object Model
 	\item[JSX] JavaScript Syntax eXtension
+	\item[PDO] PHP Data Objects
 \end{description}
 
 
