@@ -82,9 +82,9 @@
 \subsection{Funkční požadavky}
 
 \begin{enumerate}
-	\item Agenda faktur a fakturovaných katalogových položek(fakturováno může být několik katalogových položek v počtu jeden a více)
+	\item[FN1] Agenda faktur a fakturovaných katalogových položek(fakturováno může být několik katalogových položek v počtu jeden a více)
 	\begin{itemize}
-		\item[FN1] Přehled evidence vydaných faktur a fakturovaných položek a pro jednotlivé faktury:
+		\item Přehled evidence vydaných faktur a fakturovaných položek a pro jednotlivé faktury:
 		\begin{itemize}
 			\item vytvoření nové faktury,
 			\item editace faktury,
@@ -188,15 +188,18 @@
 		\item Je potřeba, aby mohl našeptávat z více sloupců, včetně cizích. 
 		\item Našeptávač se bude využívat při odkazování na informace z jiné tabulky. Například při výběru položky z objednávky, našeptávač našeptává počet kusů z tabulky položky objednávky a název položky z tabulky číselníku. Vždy budou určeny konkrétní sloupce z odkazované tabulky.
 	\end{itemize}
-	\item[NF5] Editace položek přehledů v modálním okně.
-	\item[NF6] V tabulkových přehledech záznamů možnost zobrazit subtabulku pro zobrazení souvisejích položek.
-	\item[NF7] Filtrování záznamů v tabulkách nad všemi sloupci.
+	\item[NF5] Tabulka pro zobrazení záznamů databázové tabulky.
+	\begin{itemize}
+		\item Editace řádků v modálním okně. Zobrazení upravených dat až po odeslání na server a jejich opětovného načtení.
+		\item Možnost zobrazit subtabulku pro jednotlivé řádky pro zobrazení souvisejích položek.
+		\item Globální filtrování záznamů v tabulce nad všemi sloupci a textové filtrování na všemi sloupci.
+	\end{itemize}
 \end{enumerate}
 
 \subsection{Požadavky na rozhraní}
 \begin{enumerate}
 	\item[PR1] Integrace do MySQL databáze a souborového systému pro upload příloh.
-	\item[PR1] Přívětivé uživatelské rozhraní v ReactJS napomáhající uživateli práci odvést rychle a bezchybně.
+	\item[PR2] Přívětivé uživatelské rozhraní v ReactJS napomáhající uživateli práci odvést rychle a bezchybně.
 \end{enumerate}
 
 \section{Doménový model}
@@ -243,6 +246,7 @@
 	
 	Schema-tool nástroj pro manipulaci s databázovým modelem, používaný z příkazové řádky. Na základě ORM anotací vytvoří databázové DDL skripty pro zavedení databázového schématu, které mohou být dále odladěny nebo automaticky provedeny.
 	
+	\newpage
 	Doctrine 2 je rozdělena do tří vrstev:
 	\begin{description}
 		\item[Common] Definuje základní obecná rozhraní, třídy a knihovny. Například nástroje pro práci s kolekcemi, anotacemi, cachováním, událostmi apod. Ty jsou pak využívány oběma vyššími vrstvami. Common sám o sobě je ale na zbylých vrstvách nezávislý, takže je ho teoreticky možné používat i samostatně. Všechno, co sem patří, je definováno v namespace \verb|DoctrineCommon|.
@@ -251,7 +255,7 @@
 	\end{description}
 
 \section{Výběr nástroje pro modelování tříd}
-	Hlavním cílem bylo najít nástroj, který by uměl z namodelovaného schématu vygenerovat třídní model včetně ORM notací pro Doctrine 2, getterů a setterů. Takový nástroj by velice pomohl při vývoji. V první řadě je potřeba pro vizualizaci problémové domény. Za drhuhé poskytne zdrojový kód modelu zastřešující databázové schéma. Vybíral jsem z následujících dvou modelářů.
+	Hlavním cílem bylo najít nástroj, který by uměl z namodelovaného schématu vygenerovat třídní model včetně ORM notací pro Doctrine 2 a metod get a set. Takový nástroj by velice pomohl při vývoji. V první řadě je potřeba pro vizualizaci problémové domény. Za drhuhé poskytne zdrojový kód modelu zastřešující databázové schéma. Vybíral jsem z následujících dvou modelářů.
 
 \begin{description}
 	\item[Enterprise Architect]
@@ -261,7 +265,7 @@
 	je E-R modelář zaměřený na programovací jazyk PHP. Umožňuje generovat zdrojový kód modelu s ohledem na použitý MVC framework a také dle zvolené ORM knihovny. Tím například u Doctrine 2 nepřímo zajistí i databázové schéma. To je dosaženo pomocí schema-tool. Skipper podporuje ORM knihovny Doctrine, Doctrine 2, Propel a CakePHP.
 \end{description}
 
-	Skipper je bezesporu lépe připravený na ORM. Generování notace pro Doctrine 2 zvládá bezchybně. Enterprise Architect ORM neřeší. Na druhou stranu, v Enterprise Architectu lze generování kódu doupravit pomocí šablon a plně nakonfigurovat. To může být velmi užitečné, například při použití traitu společného pro všechny třídy reprezentující databázové entity. Programový kód pro použití traitu se jednoduše vloží do šablony. Skipper toto neumožňuje a přidání je nutné dělat ručně. Nicméně vyladění šablon Entreprise Architectu pro generování zdrojového kódu včetně notace Doctrine 2 by bylo poměrně obtížné s nejistým výsledkem. Proto jsem se rozhodl pro využití Skipperu i přes jeho slabší konfigurovatelnost.	
+	Skipper je bezesporu lépe připravený na ORM. Generování notace pro Doctrine 2 zvládá bezchybně. Enterprise Architect ORM neřeší. Na druhou stranu, v Enterprise Architectu lze generování kódu doupravit pomocí šablon a plně nakonfigurovat. To může být velmi užitečné, například při použití traitu společného pro všechny třídy reprezentující databázové entity. Programový kód pro použití traitu se jednoduše vloží do šablony. Skipper toto neumožňuje a přidání je nutné dělat ručně. Nicméně vyladění šablon Entreprise Architectu pro generování zdrojového kódu, včetně notace pro Doctrine 2 by bylo poměrně obtížné a s nejistým výsledkem. Proto jsem se rozhodl pro využití Skipperu i přes jeho slabší konfigurovatelnost.	
 
 
 \chapter{Návrh}
@@ -289,17 +293,27 @@
 \section{Návrh uživatelského rozhraní}
 
 \subsection{Formulář pro naplánování expedice}
-	Na obrázku \ref{expedice} je navržený formulář pro naplánování expedice definovaný v funkčním požadavku FN5.
+	Na obrázku \ref{expedice} je navržený formulář pro naplánování expedice definovaný ve funkčním požadavku FN5.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{expedition_plan.png}
 	\caption{Formulář pro naplánování expedice}\label{expedice}
 \end{figure}
+
+\subsection{Tabulka}
+	Obrázek \ref{tabulka} zobrazuje navrženou tabulku pro zobrazení hodnot z databáze. Jako základ tabulky je použita react komponenta react-bootstrap-table2. Tato komponenta využívající komponenty a styly bootstrap 3.3 poskytla základní kostru tabulky -- jednotlivé řádky a sloupce s hlavičkami. Dále umožnila přidat sloupec pro výběr řádků, filtrování textovými poli v hlavičkách sloupců, řazení dle jednotlivých sloupců pomocí šipek u jména sloupců a nastavitelné stránkování.
+	
+	K prvkům react-bootstrap-table-2 byly doplněny tlačítka pro přidání nového záznamu, smazání záznamu nebo záznamů na základě výběru řádků a tlačítko pro hromadnou editaci řádků. Pro filtrování na všemi sloupci bylo vpravo nad tabulku vloženo textové pole pro zadání hledaného textu.
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{data_table.png}
+	\caption{Tabulka}\label{tabulka}
+\end{figure}
 	
 
 \chapter{Realizace}
 
-\section{praktická část}
+
 
 \begin{conclusion}
 	%sem napište závěr Vaší práce
