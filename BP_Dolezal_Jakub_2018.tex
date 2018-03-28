@@ -218,6 +218,14 @@
 	\caption{Doménový model}\label{domain_model}
 \end{figure}
 
+\section{Diagram procesu zpracování objednávky}
+	Tento diagram \ref{order_activity} aktivit popisuje proces zpracování objednávky od jejího přijetí až po její přijetí. Objednávku vytváří zákazník a dále ji odesílá firmě MAHALUX. Ta ji po přijetí zpracovává. Kontroluje se především, zda jsou odjednané produkty na skladě. V závislosti na tom pak vznikají i dodávky. Po kompletaci objednávky následuje její expedice. Ta může nastat i v případě objednávky, která není kompletně na skladě, ale zákazník si ji přeje odeslat nekompletní. Po vyexpedování je zákazník informován o předání zásilky dopravci.
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{order_activity.png}
+	\caption{Diagram procesu zpracování objednávky}\label{order_activity}
+\end{figure}
+
 \section{Životní cyklus objednávky}
 	Na obrázku \ref{oredr_cycle} je znázorněn životní cycklus objednávky. Zajímovstí je například to, že pokud je objednané zboží z části na skladě, je možné objednávku částečně vyexpedovat. V takovém případě s objednávka dostene do stavu Částečně v expedici. 
 	
@@ -276,6 +284,12 @@
 	První, tmavěji zelená sekce, popisuje evidované informace o uživateli systému. Každý uživatel(User) může mít více rolí(UserRole) a zároveň každou roli může zaujímat více uživatelů. Jde tedy o vazbu m:n. Tu realizuje vazební tabulka UserRoleUser. Vzhledem k tomu, že každou roli může mít každý uživatel pouze jednou, tvoří primární klíč této tabulky dvojice cizích klíčů z tabulek User a UserRole.
 	
 	Světle fialová oblast nastiňuje strukturu informací o kontaktních adresách. Rozlišují se kontakty zákazníků, zaměstnanců firmy, firemní kontakty, kontakty dodavatelů a kontakty tržních míst. Všechny společné informace jsou vedeny ve společné tabulce Address. Typ kontaktu je rozlišen sloupcem diskriminátoru addressType. Všechny typy kontaktů dále maji vlastní tabulky s jejich specifickými informacemi. Tyto tabulky jsou vázány ke společné tabulce vazbou 1:1. Tato vazba je zajištěna cizími klíči v tabulkách potomků, které jsou zároveň i klíče primárni. Dále je zaveden rejstřík zemí včetně jejich států(krajů). Země typicky mají několik států a stát náleží pouze jedné zemi. O zemích je dále vedeno to na kterém kontinentě se nacházejí.
+	
+	Tabulky popisují strukturu informací faktur jsou v XXX části. Evidence přijatých a vydaných je vzájemně oddělena. U vydaných faktur je důležité ukládat jednotlivé fakturované položky produktů a jejich množství. Fakturováno může být několik položek. Dále je pro každou vydanou fakturu nutné eveidovat fakturační adresu zákazníka. K přijatým fakturám jsou uloženy souboru reprezentující tyto faktury. Platí, že každý takový soubor může být pouze u jedné evidované faktury. Dále je zaznamenána fakturovaná částka a stav zaplacení faktury. 
+	
+	Pro popis dodávek je použito žluté pole. Pro dodávky je opět evidováno kolik a jaké produkty tyto dodávky zahrnují. K dodávkám je pomocí cizího klíče uveden dodavatel, přepravní služba a volitelně i uživatel, který dodávku vytvořil. Přijetím dodávky vždy vznikají pohyby skladu s kladným množtvním.
+	
+	Sklad je popsán v tmavě růžové sekci. Pro jednotlivé sklady je pomocí cizího klíče z tabulky AddressOur evidováno to, na které adrese se sklad nachází. Pro každý sklad jsou dále evidovány skladové pohyby. Ty bývají inicovány již zmíněnými dodávkami nebo expedováním balíčku. Jedná se o dva výlučné stavy. Nemůže nestat stav, že by skadový pohyb odkazoval na přijatou dodváku a zároveň na expedovaný balíček. Toto bude ošetřeno tabulkovým constraintem, který toto bude kontrolovat.
 	
 	Expedované balíčky jsou znázorněny ve světle zeleném obdélníku. Balíček bývá zařezen do konkrétní expediční várky. V této várce bývá více balíčků. U balíčků je také nutné evidovat jejich soubory, typicky to jsou jejich fotografie. Podobně je tomu tak i u kompletních várek. U balíčku je také nutné znát doručovací službu. Tato služba bývá použita vícekrát. Zmiňované soubory jsou popsány v bílé sekci. Soubory budou uloženy v jejich binární podobě. U fotografií bude vytvořen a uložen i datově menší náhled fotografie. Pro textové dokumenty bude volitelně uložen jejich text získanný optickým čtením.
 
