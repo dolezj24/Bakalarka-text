@@ -254,7 +254,6 @@
 	
 	Schema-tool nástroj pro manipulaci s databázovým modelem, používaný z příkazové řádky. Na základě ORM anotací vytvoří databázové DDL skripty pro zavedení databázového schématu, které mohou být dále odladěny nebo automaticky provedeny.
 	
-	\newpage
 	Doctrine 2 je rozdělena do tří vrstev:
 	\begin{description}
 		\item[Common] Definuje základní obecná rozhraní, třídy a knihovny. Například nástroje pro práci s kolekcemi, anotacemi, cachováním, událostmi apod. Ty jsou pak využívány oběma vyššími vrstvami. Common sám o sobě je ale na zbylých vrstvách nezávislý, takže je ho teoreticky možné používat i samostatně. Všechno, co sem patří, je definováno v namespace \verb|DoctrineCommon|.
