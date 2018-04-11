@@ -95,7 +95,7 @@
 		\item Přehled přijatých faktur a pro jednotlivé faktury:
 		\begin{itemize}
 			\item uložení přijaté faktury včetně souborů,
-			\item Změna stavu faktury (přijatá, částečně uhrazená, uhrazená),
+			\item změna stavu faktury (přijatá, částečně uhrazená, uhrazená),
 			\item smazání faktury a
 			\item tisk faktury.
 		\end{itemize}
@@ -238,7 +238,7 @@
 \section{Použité technologie}
 
 \subsection{ReactJS}
-	ReactJS je JavaScriptová knihovna zaměřená na vykreslování webových aplikací. Je založená na vizuálních komponentách \cite{reactjs}, které při změně stavu aplikace efektivně překresluje. Tento proces je implementován pomocí virtualizace DOM, kterým je zaznamenáván stav skučného DOM. Při změně stavu je virtuální DOM porovnán se skutečným a následně je překreslena pouze dotčená část skutečného DOM. \cite{react-crud-app}
+	ReactJS\cite{reactjs} je JavaScriptová knihovna zaměřená na vykreslování webových aplikací. Je založená na vizuálních komponentách, které při změně stavu aplikace efektivně překresluje. Tento proces je implementován pomocí virtualizace DOM, kterým je zaznamenáván stav skučného DOM. Při změně stavu je virtuální DOM porovnán se skutečným a následně je překreslena pouze dotčená část skutečného DOM. \cite{react-crud-app}
 
 	React je příkladem tzv. jednosměrného vázání dat. To znamená, že události uživatelského rozhraní jsou přenášeny do stavu aplikace   změnou modelu, která je provedena voláním metody \verb|setState()|. Jde o tzv. manuální detekci změny. React je tím informován o modifikaci modelu a provede již zmíněný proces propagace změn do DOM.\cite{data_binding} Tento proces je znázorněn na obrázku \ref{data_binding}.
 
@@ -248,6 +248,22 @@
 	\end{figure}
 
 	Pro definici toho jak se má jednotlivá komponenta vykreslit využívá React speciální jazyk JSX. Jde o syntaktické rozšíření jazyku JavaScript, v kterém 	je možné zapisovat HTML tagy. Může připomínát šablonovací systém, ale v JSX lze zapisovat přímo příkazy JavaSciptu jejich vložením do složených závorek. Díky JSX lze zapisovat kód pro vykreslování a ostatní logiku uživatelského rozhraní společně a získat tak lepší přehled o aplikaci.\cite{jsx} 
+	
+\subsection{Nette Framework}
+	Nette\cite{nette} je kompletní framework pro PHP, který výrazně zjednodušuje tvorbu webových aplikací. Jeho autorem je český vývojář David Grudl. Je založen na samostatných knihovnách, které dohromady tvoří celý framework. Jednou z hlavních předností Nette je vysoké míra zabezpečení za pomoci technologií, které eliminují všechny bezpečnostní mezery. Nette staví na architektuře MVC.
+	
+	Model-View-Controller\ref{mvc_arch} je softwarová architektura, která vznikla z potřeby oddělit u aplikací s grafickým rozhraním kód obsluhy (controller) od kódu aplikační logiky (model) a od kódu zobrazujícího data (view). Tím jednak aplikaci zpřehledňuje, usnadňuje budoucí vývoj a umožňuje testování jednotlivých části zvlášť.
+	
+	\begin{description}
+		\item[Model] je datový a zejména funkční základ celé aplikace. Je v něm obsažena aplikační logika. Jakákoliv akce uživatele (přihlášení, vložení zboží do košíku, změna hodnoty v databázi) představuje akci modelu. Model si spravuje svůj vnitřní stav a ven nabízí pevně dané rozhraní. Voláním funkcí tohoto rozhraní můžeme zjišťovat či měnit jeho stav. Model o existenci view nebo kontroleru neví.
+		\item[View] neboli pohled, je vrstva aplikace, která má na starost zobrazení výsledku požadavku. Obvykle používá šablonovací systém a ví, jak se má zobrazit ta která komponenta nebo výsledek získaný z modelu.
+		\item[Controller]je řadič, který zpracovává požadavky uživatele a na jejich základě pak volá patřičnou aplikační logiku (tj. model) a poté požádá view o vykreslení dat. Obdobou kontrolerů v Nette Framework jsou presentery.\cite{nette_mvc}
+	\end{description}
+
+	\begin{figure}
+		\includegraphics[width=420pt]{mvc.png}
+		\caption{Architektura MVC}\label{mvc_arch}
+	\end{figure}
 	
 \subsection{Doctrine 2}
 	Doctrine 2 je ORM knihovna pro jazyk PHP. Zajišťuje tedy mapování relační databáze na PHP objekty. Doctrine 2 je postavena na návrhovém vzoru Data Mapper, reprezentovaném vůči zbytku aplikace zejména fasádou v podobě Entity Manageru. Pro definici vlastností jednotlivých entit se elegantně využívají komentářové anotace. Není tedy nutné entity dědit od nějakého společného předka a můžeme si hierarchii dědičností udělat zcela dle svých potřeb. Struktura databáze i veškeré její změny se generují automaticky z definic entit pomocí nástroje schema-tool. \cite{doctrine2} 
@@ -265,11 +281,11 @@
 	Hlavním cílem bylo najít nástroj, který by uměl z namodelovaného schématu vygenerovat třídní model včetně ORM notací pro Doctrine 2 a metod get a set. Takový nástroj by velice pomohl při vývoji. V první řadě je potřeba pro vizualizaci problémové domény. Za drhuhé poskytne zdrojový kód modelu zastřešující databázové schéma. Vybíral jsem z následujících dvou modelářů.
 
 \begin{description}
-	\item[Enterprise Architect]
-	je poměrně robustní UML nástroj pro modelování celého vývojového cyklu softwaru. Pokrývá vše od sběru požadavků, modelování business procesů, architektury, domény až po class diagramy, či databázové modely. Dále umožňuje generování zdrojových kódů modelu včetně getterů a setterů pro jazyky Java, C++, C\#, Python, PHP, aj., které provádí na základě modifikovatelných šablon. Tyto šablony využívají vlastní jazyk nazýváný Transformation Template language. Enterprise Architect také nabízí generování DDL skriptů pro mnoho databázových enginů jako jsou Oracle, MySql, SQL Server a další.
+	\item[Enterprise Architect]\cite{enterprise_architect}
+	je poměrně robustní UML nástroj pro modelování celého vývojového cyklu softwaru. Pokrývá vše od sběru požadavků, modelování business procesů, architektury, domény až po class diagramy, či databázové modely. Dále umožňuje generování zdrojových kódů modelu včetně getterů a setterů pro jazyky Java, C++, C\#, Python, PHP, aj., které provádí na základě modifikovatelných šablon. Tyto šablony využívají vlastní jazyk nazýváný Transformation Template language. Enterprise Architect také nabízí generování DDL skriptů pro mnoho databázových enginů jako jsou Oracle, MySql, SQL Server a další.\cite{enterprise_architect}
 
-	\item[Skipper]
-	je E-R modelář zaměřený na programovací jazyk PHP. Umožňuje generovat zdrojový kód modelu s ohledem na použitý MVC framework a také dle zvolené ORM knihovny. Tím například u Doctrine 2 nepřímo zajistí i databázové schéma. To je dosaženo pomocí schema-tool. Skipper podporuje ORM knihovny Doctrine, Doctrine 2, Propel a CakePHP.
+	\item[Skipper]\cite{skipper}
+	je E-R modelář zaměřený na programovací jazyk PHP. Umožňuje generovat zdrojový kód modelu s ohledem na použitý MVC framework a také dle zvolené ORM knihovny. Tím například u Doctrine 2 nepřímo zajistí i databázové schéma. To je dosaženo pomocí schema-tool. Skipper podporuje ORM knihovny Doctrine, Doctrine 2, Propel a CakePHP.\cite{skipper_features}
 \end{description}
 
 	Skipper je bezesporu lépe připravený na ORM. Generování notace pro Doctrine 2 zvládá bezchybně. Enterprise Architect ORM neřeší. Na druhou stranu, v Enterprise Architectu lze generování kódu doupravit pomocí šablon a plně nakonfigurovat. To může být velmi užitečné, například při použití traitu společného pro všechny třídy reprezentující databázové entity. Programový kód pro použití traitu se jednoduše vloží do šablony. Skipper toto neumožňuje a přidání je nutné dělat ručně. Nicméně vyladění šablon Entreprise Architectu pro generování zdrojového kódu, včetně notace pro Doctrine 2 by bylo poměrně obtížné a s nejistým výsledkem. Proto jsem se rozhodl pro využití Skipperu i přes jeho slabší konfigurovatelnost.	
@@ -284,7 +300,7 @@
 	
 	Světle fialová oblast nastiňuje strukturu informací o kontaktních adresách. Rozlišují se kontakty zákazníků, zaměstnanců firmy, firemní kontakty, kontakty dodavatelů a kontakty tržních míst. Všechny společné informace jsou vedeny ve společné tabulce Address. Typ kontaktu je rozlišen sloupcem diskriminátoru addressType. Všechny typy kontaktů dále maji vlastní tabulky s jejich specifickými informacemi. Tyto tabulky jsou vázány ke společné tabulce vazbou 1:1. Tato vazba je zajištěna cizími klíči v tabulkách potomků, které jsou zároveň i klíče primárni. Dále je zaveden rejstřík zemí včetně jejich států(krajů). Země typicky mají několik států a stát náleží pouze jedné zemi. O zemích je dále vedeno to na kterém kontinentě se nacházejí.
 	
-	Tabulky popisují strukturu informací faktur jsou v XXX části. Evidence přijatých a vydaných je vzájemně oddělena. U vydaných faktur je důležité ukládat jednotlivé fakturované položky produktů a jejich množství. Fakturováno může být několik položek. Dále je pro každou vydanou fakturu nutné eveidovat fakturační adresu zákazníka. K přijatým fakturám jsou uloženy souboru reprezentující tyto faktury. Platí, že každý takový soubor může být pouze u jedné evidované faktury. Dále je zaznamenána fakturovaná částka a stav zaplacení faktury. 
+	Tabulky popisují strukturu informací faktur jsou v bílé levé dolní části. Evidence přijatých a vydaných je vzájemně oddělena. U vydaných faktur je důležité ukládat jednotlivé fakturované položky produktů a jejich množství. Fakturováno může být několik položek. Dále je pro každou vydanou fakturu nutné eveidovat fakturační adresu zákazníka. K přijatým fakturám jsou uloženy souboru reprezentující tyto faktury. Platí, že každý takový soubor může být pouze u jedné evidované faktury. Dále je zaznamenána fakturovaná částka a stav zaplacení faktury. 
 	
 	Pro popis dodávek je použito žluté pole. Pro dodávky je opět evidováno kolik a jaké produkty tyto dodávky zahrnují. K dodávkám je pomocí cizího klíče uveden dodavatel, přepravní služba a volitelně i uživatel, který dodávku vytvořil. Přijetím dodávky vždy vznikají pohyby skladu s kladným množtvním.
 	
@@ -296,14 +312,26 @@
 	
 	V tmavě modré oblasti je pak popsán model informací o nabízených produktech. O produktech jsou například evidovány jednotlivé jeho atributy. Každý definovaný atribut může být vyhodnocene pro více produktů. U produktů je rozlišován také jejich typ. U typů produktů je rozlišeno zda jde o fyzický produkt, službu, interní produkt nebo kombinace předchozích.
 	
-	Pro indexaci, a s tím spojené rychlejší vyhledávání podle hodnot sloupců, jsem zvolil následující sloupce: name z tabulky Product, ourOrderUID z tablky Order, lastName a email z tabluky Address, name z tabulky State, name z tabulky Country a alias z tabulky User. Pro všechny vazby ve schématu je voleno výchozí nastavení pro operace delete a update a to akce restrict, která nepovoluje operace update a delete pro rodičovskou tabulku.
+	Pro indexaci, a s tím spojené rychlejší vyhledávání podle hodnot sloupců, jsem zvolil následující sloupce: 
+	\begin{itemize}
+		\item name z tabulky Product,
+		\item ourOrderUID z tablky Order,
+		\item lastName a email z tabluky Address,
+		\item name z tabulky State,
+		\item name z tabulky Country a
+		\item alias z tabulky User.
+	\end{itemize}
+	Pro všechny vazby ve schématu je voleno výchozí nastavení pro operace delete a update a to akce restrict, která nepovoluje operace update a delete pro rodičovskou tabulku.
 	
 \begin{figure}
 	\includegraphics[width=500pt, height=\textwidth, angle=90]{mahasys_ermodel.png}
 	\caption{E-R model}\label{er_model}
 \end{figure}
 
-\section{Návrh uživatelského rozhraní}
+\section{Architektura}
+	Pro architekturu systému bude využita struktura Nette. Půjde tedy o architekturu MVC(MVP). Část uživatelského rozhraní bude generována pomocí Latte šablon. Zbytek uživatelské rozhraní bude sestaven z vytvořených komponent React. Nette presentery budou taktéž využity pro vytvoření API.
+
+\section{Uživatelské rozhraní}
 
 \subsection{Formulář pro naplánování expedice}
 	Na obrázku \ref{expedice} je navržený formulář pro naplánování expedice definovaný ve funkčním požadavku FN5.
@@ -311,6 +339,14 @@
 \begin{figure}
 	\includegraphics[width=\textwidth]{expedition_plan.png}
 	\caption{Formulář pro naplánování expedice}\label{expedice}
+\end{figure}
+
+\subsection{Formulář pro vytvoření faktury}
+	Obrázek \ref{faktura} nastiňuje navržený formulář pro vytvoření faktury definovaný ve funkčním požadavku FN1. V levé části se nachází seznam objednávek včetně objednaných položek. Položky lze nezávisle na objednávce vkládat do fakturačních položek pomocí tlačítka \uv{Billing}. Fakturované množství lze následně upravit ve sloupci \uv{Qty} nebo položku z faktury kompletně odstranit červeným tlačítkem \uv{X}. 
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{invoice_form.png}
+	\caption{Formulář pro vytvoření faktury}\label{faktura}
 \end{figure}
 
 \subsection{Tabulka}
@@ -350,9 +386,11 @@
 	\item[UML] Unified Modeling language
 	\item[ORM] Object relation mapping
 	\item[MVC] Model-view-controller
+	\item[MVP] Model-view-presenter
 	\item[DOM] Document Object Model
 	\item[JSX] JavaScript Syntax eXtension
 	\item[PDO] PHP Data Objects
+	\item[API] Application interface
 \end{description}
 
 
