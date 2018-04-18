@@ -355,14 +355,40 @@
 	K prvkům react-bootstrap-table-2 byly doplněny tlačítka pro přidání nového záznamu, smazání záznamu nebo záznamů na základě výběru řádků a tlačítko pro hromadnou editaci řádků. Pro filtrování na všemi sloupci bylo vpravo nad tabulku vloženo textové pole pro zadání hledaného textu.
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{data_table.png}
+	\includegraphics[width=500pt, height=0.8\textwidth, angle=90]{data_table.png}
 	\caption{Tabulka}\label{tabulka}
 \end{figure}
 	
 
 \chapter{Realizace}
 
+\section{Diagram nasazení}
+	Diagram nasazení\ref{deployment_view} popisuje hardwarové rozmístění zdrojů systému.
 
+\begin{figure}
+	\includegraphics[width=\textwidth]{Deployment_view.png}
+	\caption{Diagram nasazení}\label{deployment_view}
+\end{figure}
+
+\section{Uživatelská příručka}
+
+\subsection{Tabulka}
+	Tabulka\ref{tabulka} poskytuje mnoho funkcí pro manipulaci, procházení a vyhladávání tabulovaných dat. Jde o následující funkce.
+	\begin{description}
+		\item[Výber 1 řádky] je uskutečněn kliknutím na požadovanou řádku, zároveň se stisknutím klávesy Ctrl. Opětovným kliknutím tu samou řádku při zmáčkuté klávese Ctrl dojde ke zrušení výběru. Opakováním postupu lze vybrat více řádek.
+		\item[Výber více řádků] je docílen dvěma kroky. Najprve označíme nebo odznačíme první krajní řádek výběru, tak jak bylo popsáno v předchozím bodě. Poté klikneme, zároveň se stlačenou klávesou Shift, na druhou krajní řádku výběru. Tím dojde výběru všech řádek mezi krajními včetně krajních.
+		\item[Manipulace s daty] -- úprava dat probíhá ve formulářích v rámci modálního okno tabulky. Úpravy dat jsou potvrzené stisknutím tlačítka Save v modálním. Zrušení změn pak tlačítkem Cancel. K dispozici jsou tyto operace.
+			\begin{description}
+				\item[Nový záznam] -- stisknutím tlačítka \textbf{New} bude otevřen nevyplněný formulář pro zadání nového záznamu.
+				\item[Editace záznamu] -- klikntím na řádku s požadovaným záznamem a následnou úpravou dat ve formuláři modálního okna.
+				\item[Smazání záznamu(ů)] -- označením jednoho nebo více záznamů a následným stisknutím tlačítka \textbf{Delete}.
+				\item[Hromadná editace] -- výběrem několika řádků a následným stisknutím tlačítka \textbf{Edit as one} dojde k otevření prázdného formuláře pro zadání společných hodnot pro každý vybraný řádek.
+			\end{description}
+		\item[Filtování] -- vložením hledaného výrazu do textového vstupu v hlavičce tabulky a jeho potvrzení stisknutím klávesy Enter nebo kliknutím na tlačítko s lupou. Výraz je vyhledán nad všemi sloupci.
+		\item[Řazení] -- kliknutím na hlavičku sloupce budou záznamy seřazeny vzestupně dle hodnot v daném sloupci. Opětovným stiskem se záznamy seřadí sestupně a třetím kliknutím bude řazení zrušeno.
+		\item[Stránkování] -- pro procházení stránek se záznamy jsou určena tlačítka v pravém dolním rohu tabulky. Kromě toho lze zvolit množství zobrazených záznamů na jedné stránce výběrem hodnoty v sousedním select boxu.
+		\item[Subtabulka] -- pro tabulky s daty, které zahrnují i nějaká pomocná data, je možné zobrazit subtabulku kliknutím na malý trohúhelník na levém kraji řádku. Opětovným stisknutím tohoto trojúhelníku dojde ke skrytí subtabulky.
+	\end{description}
 
 \begin{conclusion}
 	%sem napište závěr Vaší práce
