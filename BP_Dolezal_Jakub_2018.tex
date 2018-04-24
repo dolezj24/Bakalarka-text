@@ -294,7 +294,7 @@
 \chapter{Návrh}
 
 \section{E-R model}
-	E-R model\ref{er_model} popisuje relační databázový model navržený pro vyvýjený system. Model popisuje entity se všemi vlastnostmi a vazby mezi nimi. Je vytvořen v programu Skipper, který vygeneruje zdrojový kód zastřešujících tříd včetně notací pro ORM knihovnu Doctrine 2. A pomocí schema-tool je zavedeno i databázové schéma. Vzhledem k jeho rozsáhlosti byl model rozdělen do několika sekcí.
+	E-R model\ref{er_model} popisuje relační databázový model navržený pro vyvýjený system. Model popisuje entity se všemi vlastnostmi a vazby mezi nimi. Je vytvořen v programu Skipper, který vygeneruje zdrojový kód zastřešujících PHP tříd včetně notací pro ORM knihovnu Doctrine 2. A pomocí schema-tool je zavedeno i databázové schéma. Vzhledem k jeho rozsáhlosti byl model rozdělen do několika sekcí.
 	
 	První, tmavěji zelená sekce, popisuje evidované informace o uživateli systému. Každý uživatel(User) může mít více rolí(UserRole) a zároveň každou roli může zaujímat více uživatelů. Jde tedy o vazbu m:n. Tu realizuje vazební tabulka UserRoleUser. Vzhledem k tomu, že každou roli může mít každý uživatel pouze jednou, tvoří primární klíč této tabulky dvojice cizích klíčů z tabulek User a UserRole.
 	
@@ -389,6 +389,15 @@
 		\item[Stránkování] -- pro procházení stránek se záznamy jsou určena tlačítka v pravém dolním rohu tabulky. Kromě toho lze zvolit množství zobrazených záznamů na jedné stránce výběrem hodnoty v sousedním select boxu.
 		\item[Subtabulka] -- pro tabulky s daty, které zahrnují i nějaká pomocná data, je možné zobrazit subtabulku kliknutím na malý trohúhelník na levém kraji řádku. Opětovným stisknutím tohoto trojúhelníku dojde ke skrytí subtabulky.
 	\end{description}
+
+\chapter{Testování}
+
+\section{Testovací scénáře}
+	\begin{enumerate}
+		\item Po přijetí tří objednávek expeditér připraví balíčky s požadovanými produkty. První objednávka je kompletně na skladě a bude vyřízena jedním balíčkem. Druhá objednávka je taktéž kompletně na skladě, ale expeditér produkty rozdělý do dvou balíčků. Třetí objednávka je pouze částečně na skladě, zákazník však požaduje odeslání objednávky, i přestože není kompletní. Expeditér tedy vytvoří balíček s produkty, které jsou na skladě.
+		\item Po naplánování rozložení produktů do balíčků expeditér zjistí, že rozdělení nebylo vhodné. Expeditér upraví množství produktů v jednotlivých balíčcích.
+		\item Zákazník provede dvě samostatné objednávky. Dále požaduje aby obě objednávky byly vyfakturovány společně. Uživatel vytvoří fakturu na základě těchto dvou objednávek.
+	\end{enumerate}
 
 \begin{conclusion}
 	%sem napište závěr Vaší práce
