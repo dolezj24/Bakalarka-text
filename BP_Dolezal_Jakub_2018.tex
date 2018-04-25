@@ -227,7 +227,7 @@
 \end{figure}
 
 \section{Životní cyklus objednávky}
-	Na obrázku \ref{oredr_cycle} je znázorněn životní cycklus objednávky. Zajímovstí je například to, že pokud je objednané zboží z části na skladě, je možné objednávku částečně vyexpedovat. V takovém případě s objednávka dostene do stavu Částečně v expedici. 
+	Na obrázku \ref{oredr_cycle} je znázorněn životní cycklus objednávky. Zajímovstí je například to, že pokud si zákazník přeje objednávku odeslat, i když není kompletně na skladu, objednávka se dostene do stavu \uv{Částečně v expedici}. 
 	
 \begin{figure}
 	\includegraphics[width=\textwidth]{order_cycle.png}
@@ -252,7 +252,7 @@
 \subsection{Nette Framework}
 	Nette\cite{nette} je kompletní framework pro PHP, který výrazně zjednodušuje tvorbu webových aplikací. Jeho autorem je český vývojář David Grudl. Je založen na samostatných knihovnách, které dohromady tvoří celý framework. Jednou z hlavních předností Nette je vysoké míra zabezpečení za pomoci technologií, které eliminují všechny bezpečnostní mezery. Nette staví na architektuře MVC.
 	
-	Model-View-Controller\ref{mvc_arch} je softwarová architektura, která vznikla z potřeby oddělit u aplikací s grafickým rozhraním kód obsluhy (controller) od kódu aplikační logiky (model) a od kódu zobrazujícího data (view). Tím jednak aplikaci zpřehledňuje, usnadňuje budoucí vývoj a umožňuje testování jednotlivých části zvlášť.
+	Model-View-Controller je softwarová architektura, která vznikla z potřeby oddělit u aplikací s grafickým rozhraním kód obsluhy (controller) od kódu aplikační logiky (model) a od kódu zobrazujícího data (view). Tím jednak aplikaci zpřehledňuje, usnadňuje budoucí vývoj a umožňuje testování jednotlivých části zvlášť.
 	
 	\begin{description}
 		\item[Model] je datový a zejména funkční základ celé aplikace. Je v něm obsažena aplikační logika. Jakákoliv akce uživatele (přihlášení, vložení zboží do košíku, změna hodnoty v databázi) představuje akci modelu. Model si spravuje svůj vnitřní stav a ven nabízí pevně dané rozhraní. Voláním funkcí tohoto rozhraní můžeme zjišťovat či měnit jeho stav. Model o existenci view nebo kontroleru neví.
@@ -260,13 +260,15 @@
 		\item[Controller]je řadič, který zpracovává požadavky uživatele a na jejich základě pak volá patřičnou aplikační logiku (tj. model) a poté požádá view o vykreslení dat. Obdobou kontrolerů v Nette Framework jsou presentery.\cite{nette_mvc}
 	\end{description}
 
+	Komunikace mezi jednotlivými částmi je znázorněna na obrázku \ref{mvc_arch}.
+
 	\begin{figure}
 		\includegraphics[width=420pt]{mvc.png}
 		\caption{Architektura MVC}\label{mvc_arch}
 	\end{figure}
 	
 \subsection{Doctrine 2}
-	Doctrine 2 je ORM knihovna pro jazyk PHP. Zajišťuje tedy mapování relační databáze na PHP objekty. Doctrine 2 je postavena na návrhovém vzoru Data Mapper, reprezentovaném vůči zbytku aplikace zejména fasádou v podobě Entity Manageru. Pro definici vlastností jednotlivých entit se elegantně využívají komentářové anotace. Není tedy nutné entity dědit od nějakého společného předka a můžeme si hierarchii dědičností udělat zcela dle svých potřeb. Struktura databáze i veškeré její změny se generují automaticky z definic entit pomocí nástroje schema-tool. \cite{doctrine2} 
+	Doctrine 2 je ORM knihovna pro jazyk PHP. Zajišťuje tedy mapování relační databáze na PHP objekty. Doctrine 2 je postavena na návrhovém vzoru Data Mapper, reprezentovaném vůči zbytku aplikace fasádou v podobě Entity Manageru. Pro definici vlastností jednotlivých entit se elegantně využívají komentářové anotace. Není tedy nutné entity dědit od nějakého společného předka a můžeme si hierarchii dědičností udělat zcela dle svých potřeb. Struktura databáze i veškeré její změny se generují automaticky z definic entit pomocí nástroje schema-tool. \cite{doctrine2} 
 	
 	Schema-tool nástroj pro manipulaci s databázovým modelem, používaný z příkazové řádky. Na základě ORM anotací vytvoří databázové DDL skripty pro zavedení databázového schématu, které mohou být dále odladěny nebo automaticky provedeny.
 	
@@ -282,7 +284,9 @@
 
 \begin{description}
 	\item[Enterprise Architect]\cite{enterprise_architect}
-	je poměrně robustní UML nástroj pro modelování celého vývojového cyklu softwaru. Pokrývá vše od sběru požadavků, modelování business procesů, architektury, domény až po class diagramy, či databázové modely. Dále umožňuje generování zdrojových kódů modelu včetně getterů a setterů pro jazyky Java, C++, C\#, Python, PHP, aj., které provádí na základě modifikovatelných šablon. Tyto šablony využívají vlastní jazyk nazýváný Transformation Template language. Enterprise Architect také nabízí generování DDL skriptů pro mnoho databázových enginů jako jsou Oracle, MySql, SQL Server a další.\cite{enterprise_architect}
+	je poměrně robustní UML nástroj pro modelování celého vývojového cyklu softwaru. Pokrývá vše od sběru požadavků, modelování business procesů, architektury, domény až po class diagramy, či databázové modely. Dále umožňuje generování zdrojových kódů modelu včetně getterů a setterů pro jazyky Java, C++, C\#, Python, PHP, aj., které provádí na základě modifikovatelných šablon. 
+	
+	Tyto šablony využívají vlastní jazyk nazýváný Transformation Template language. Enterprise Architect také podporuje generování DDL skriptů pro mnoho databázových enginů jako jsou Oracle, MySql, SQL Server a další.\cite{enterprise_architect}
 
 	\item[Skipper]\cite{skipper}
 	je E-R modelář zaměřený na programovací jazyk PHP. Umožňuje generovat zdrojový kód modelu s ohledem na použitý MVC framework a také dle zvolené ORM knihovny. Tím například u Doctrine 2 nepřímo zajistí i databázové schéma. To je dosaženo pomocí schema-tool. Skipper podporuje ORM knihovny Doctrine, Doctrine 2, Propel a CakePHP.\cite{skipper_features}
@@ -293,16 +297,52 @@
 
 \chapter{Návrh}
 
+\section{Architektura}
+Pro architekturu systému bude využita struktura Nette. Půjde tedy o architekturu MVC(MVP). Část uživatelského rozhraní bude generována pomocí Latte šablon. Zbytek webového frontendu bude sestaven z vytvořených komponent React. Nette presentery budou taktéž využity pro vytvoření API.
+
+\section{Model tříd}
+	V návrhový model tříd si klade za cíl správně přiřadit zodpovědnost třídám. Dále také může popisovat použité návrhové vzory a programovací techniky.\cite{si1_pred6} Pro účely navrhovaného systému jsem model tříd rozdělil do dvou částí. V první části, popisující reactové komponenty na klientské straně aplikace, jde spíše o popis prototypů JavaScriptových objektů. V drůhé části jsou poté vyobrazeny třídy pro jazyk PHP.
+	
+\subsection{Klientská strana}
+	Komponenty Reactu jsou vytvářeny děděním od React.Component, to lze pozorovat na obrázku \ref{ui_komponents}. Skládáním jednotlivých komponent jsou vytvářeny jednotlivé webové stránky.
+	
+\begin{figure}
+	\includegraphics[width=\textwidth]{UI_components.png}
+	\caption{Komponenty uživatelského rozhraní}\label{ui_komponents}
+\end{figure}
+
+\subsection{Serverová strana}
+	Na serverové straně jsou využity knihovny frameworku Nette, a to především presentery a formuláře. Od samotné aplikace je pak oddělen modul API. Vše je znázorněno na obrázku \ref{server_side}.
+	
+\begin{figure}
+	\includegraphics[width=\textwidth]{server_side.png}
+	\caption{Balíčky serverové strany}\label{server_side}
+\end{figure}
+
+	Z aplikace je nejzajímavější struktura presenterů, která je vyobrazena na snímku \ref{server_side_presenters}. Lze zde pozorovat architekturu MVP, kde model zastupují třídy *Service, view reprezentují šablony Latté a presentery představují samotné třídy *Presenter, které jsou odděděny od Nette Preseneteru.
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{server_side_presenters.png}
+	\caption{Presentery aplikace}\label{server_side_presenters}
+\end{figure}	
+	
+	Podobně vypadá model presenterů API. Ačkoli zde ze zjevného důvodu chybí šablony pro vykreslování. Zachyceno je to na diagramu \ref{api_presenters}.
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{api_presenters.png}
+	\caption{Presentery API}\label{api_presenters}
+\end{figure}	
+
 \section{E-R model}
-	E-R model\ref{er_model} popisuje relační databázový model navržený pro vyvýjený system. Model popisuje entity se všemi vlastnostmi a vazby mezi nimi. Je vytvořen v programu Skipper, který vygeneruje zdrojový kód zastřešujících PHP tříd včetně notací pro ORM knihovnu Doctrine 2. A pomocí schema-tool je zavedeno i databázové schéma. Vzhledem k jeho rozsáhlosti byl model rozdělen do několika sekcí.
+	E-R model\ref{er_model} popisuje relační databázový model navržený pro vyvýjený system. Model popisuje entity se všemi vlastnostmi a vazby mezi nimi. Je vytvořen v programu Skipper, který vygeneruje zdrojový kód zastřešujících PHP datových objektů včetně notací pro ORM knihovnu Doctrine 2. Pomocí schema-tool je ze vzniklých tříd zavedeno databázové schéma. Vzhledem k jeho rozsáhlosti byl model rozdělen do několika částí.
 	
 	První, tmavěji zelená sekce, popisuje evidované informace o uživateli systému. Každý uživatel(User) může mít více rolí(UserRole) a zároveň každou roli může zaujímat více uživatelů. Jde tedy o vazbu m:n. Tu realizuje vazební tabulka UserRoleUser. Vzhledem k tomu, že každou roli může mít každý uživatel pouze jednou, tvoří primární klíč této tabulky dvojice cizích klíčů z tabulek User a UserRole.
 	
-	Světle fialová oblast nastiňuje strukturu informací o kontaktních adresách. Rozlišují se kontakty zákazníků, zaměstnanců firmy, firemní kontakty, kontakty dodavatelů a kontakty tržních míst. Všechny společné informace jsou vedeny ve společné tabulce Address. Typ kontaktu je rozlišen sloupcem diskriminátoru addressType. Všechny typy kontaktů dále maji vlastní tabulky s jejich specifickými informacemi. Tyto tabulky jsou vázány ke společné tabulce vazbou 1:1. Tato vazba je zajištěna cizími klíči v tabulkách potomků, které jsou zároveň i klíče primárni. Dále je zaveden rejstřík zemí včetně jejich států(krajů). Země typicky mají několik států a stát náleží pouze jedné zemi. O zemích je dále vedeno to na kterém kontinentě se nacházejí.
+	Světle fialová oblast nastiňuje strukturu informací o kontaktních adresách. Rozlišují se kontakty zákazníků, zaměstnanců firmy, firemní kontakty, kontakty dodavatelů a kontakty tržních míst. Všechny společné informace jsou vedeny ve společné tabulce Address. Typ kontaktu je rozlišen sloupcem diskriminátoru addressType. Všechny typy kontaktů dále maji vlastní tabulky s jejich specifickými informacemi. Tyto tabulky jsou vázány ke společné tabulce vazbou 1:1. Tato vazba je zajištěna cizími klíči v tabulkách potomků, které jsou zároveň i klíči primárními. Dále je zaveden rejstřík zemí včetně jejich států(krajů). Země typicky mají několik států a stát náleží pouze jedné zemi. O zemích je dále vedeno to na kterém kontinentě se nacházejí.
 	
-	Tabulky popisují strukturu informací faktur jsou v bílé levé dolní části. Evidence přijatých a vydaných je vzájemně oddělena. U vydaných faktur je důležité ukládat jednotlivé fakturované položky produktů a jejich množství. Fakturováno může být několik položek. Dále je pro každou vydanou fakturu nutné eveidovat fakturační adresu zákazníka. K přijatým fakturám jsou uloženy souboru reprezentující tyto faktury. Platí, že každý takový soubor může být pouze u jedné evidované faktury. Dále je zaznamenána fakturovaná částka a stav zaplacení faktury. 
+	Tabulky popisují strukturu informací o fakturách jsou v bílé levé dolní části. Evidence přijatých a vydaných faktur je vzájemně oddělena. U vydaných faktur je důležité ukládat jednotlivé fakturované položky produktů a jejich množství. Fakturováno může být několik položek. Dále je pro každou vydanou fakturu nutné eveidovat fakturační adresu zákazníka. K přijatým fakturám jsou uloženy soubory reprezentující tyto faktury. Platí, že každý takový soubor může být pouze u jedné evidované faktury. Dále je zaznamenána fakturovaná částka a stav zaplacení faktury. 
 	
-	Pro popis dodávek je použito žluté pole. Pro dodávky je opět evidováno kolik a jaké produkty tyto dodávky zahrnují. K dodávkám je pomocí cizího klíče uveden dodavatel, přepravní služba a volitelně i uživatel, který dodávku vytvořil. Přijetím dodávky vždy vznikají pohyby skladu s kladným množtvním.
+	Pro popis dodávek je použito žluté pole. U dodávek je opět evidováno jaké a v jakém množství jsou produkty v dodávce zastoupeny. K dodávkám je pomocí cizího klíče uveden dodavatel, přepravní služba a volitelně i uživatel, který dodávku vytvořil. Přijetím dodávky vždy vzniká pohyb skladu s kladným množtvním.
 	
 	Sklad je popsán v tmavě růžové sekci. Pro jednotlivé sklady je pomocí cizího klíče z tabulky AddressOur evidováno to, na které adrese se sklad nachází. Pro každý sklad jsou dále evidovány skladové pohyby. Ty bývají inicovány již zmíněnými dodávkami nebo expedováním balíčku. Jedná se o dva výlučné stavy. Nemůže nestat stav, že by skadový pohyb odkazoval na přijatou dodváku a zároveň na expedovaný balíček. Toto bude ošetřeno tabulkovým constraintem, který toto bude kontrolovat.
 	
@@ -321,15 +361,14 @@
 		\item name z tabulky Country a
 		\item alias z tabulky User.
 	\end{itemize}
-	Pro všechny vazby ve schématu je voleno výchozí nastavení pro operace delete a update a to akce restrict, která nepovoluje operace update a delete pro rodičovskou tabulku.
+	Pro všechny vazby ve schématu je voleno výchozí nastavení pro operace delete a update a to akce restrict, která nepovoluje operace update a delete pro záznamy v rodičovské tabulce mající potomky v podřízené tabulce.
 	
 \begin{figure}
 	\includegraphics[width=500pt, height=\textwidth, angle=90]{mahasys_ermodel.png}
 	\caption{E-R model}\label{er_model}
 \end{figure}
 
-\section{Architektura}
-	Pro architekturu systému bude využita struktura Nette. Půjde tedy o architekturu MVC(MVP). Část uživatelského rozhraní bude generována pomocí Latte šablon. Zbytek uživatelské rozhraní bude sestaven z vytvořených komponent React. Nette presentery budou taktéž využity pro vytvoření API.
+
 
 \section{Uživatelské rozhraní}
 
@@ -350,9 +389,9 @@
 \end{figure}
 
 \subsection{Tabulka}
-	Obrázek \ref{tabulka} zobrazuje navrženou tabulku pro zobrazení hodnot z databáze. Jako základ tabulky je použita react komponenta react-bootstrap-table2. Tato komponenta využívající komponenty a styly bootstrap 3.3 poskytla základní kostru tabulky -- jednotlivé řádky a sloupce s hlavičkami. Dále umožnila přidat sloupec pro výběr řádků, filtrování textovými poli v hlavičkách sloupců, řazení dle jednotlivých sloupců pomocí šipek u jména sloupců a nastavitelné stránkování.
+	Obrázek \ref{tabulka} zobrazuje navrženou tabulku pro zobrazení hodnot z databáze. Základem tabulky je jqxDataTable\cite{jqx_dataTable} od jQWidgets. JqxDataTable poskytuje již hotové stránkování, textové řazení podle jednotlivých sloupců, textové pole pro filtrování a možnost zobrazit vloženou tabulku. Díky rozsáhlému API umožňuje vytvoření vlastního způsobu vybírání řádek. Komponenty od jQWidgets mojí mnoho vlastních stylů. V návrhové ukázce je použit styl \uv{Light}.
 	
-	K prvkům react-bootstrap-table-2 byly doplněny tlačítka pro přidání nového záznamu, smazání záznamu nebo záznamů na základě výběru řádků a tlačítko pro hromadnou editaci řádků. Pro filtrování na všemi sloupci bylo vpravo nad tabulku vloženo textové pole pro zadání hledaného textu.
+	K prvkům jqxDataTable jsou doplněna tlačítka pro přidání nového záznamu, smazání záznamu nebo záznamů na základě výběru řádků a tlačítko pro hromadnou editaci řádků.
 
 \begin{figure}
 	\includegraphics[width=500pt, height=0.8\textwidth, angle=90]{data_table.png}
@@ -363,7 +402,7 @@
 \chapter{Realizace}
 
 \section{Diagram nasazení}
-	Diagram nasazení\ref{deployment_view} popisuje hardwarové rozmístění zdrojů systému.
+	Diagram nasazení\ref{deployment_view} popisuje fyzické rozmístění komponent a hardwarových zdrojů systému včetně jejich propojení.\cite{si1_pred7}
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{Deployment_view.png}
@@ -373,7 +412,7 @@
 \section{Uživatelská příručka}
 
 \subsection{Tabulka}
-	Tabulka\ref{tabulka} poskytuje mnoho funkcí pro manipulaci, procházení a vyhladávání tabulovaných dat. Jde o následující funkce.
+	Tabulka\ref{tabulka} poskytuje možnosti pro manipulaci, procházení a vyhladávání tabulovaných dat. Jde o následující funkce.
 	\begin{description}
 		\item[Výber 1 řádky] je uskutečněn kliknutím na požadovanou řádku, zároveň se stisknutím klávesy Ctrl. Opětovným kliknutím tu samou řádku při zmáčkuté klávese Ctrl dojde ke zrušení výběru. Opakováním postupu lze vybrat více řádek.
 		\item[Výber více řádků] je docílen dvěma kroky. Najprve označíme nebo odznačíme první krajní řádek výběru, tak jak bylo popsáno v předchozím bodě. Poté klikneme, zároveň se stlačenou klávesou Shift, na druhou krajní řádku výběru. Tím dojde výběru všech řádek mezi krajními včetně krajních.
@@ -387,7 +426,7 @@
 		\item[Filtování] -- vložením hledaného výrazu do textového vstupu v hlavičce tabulky a jeho potvrzení stisknutím klávesy Enter nebo kliknutím na tlačítko s lupou. Výraz je vyhledán nad všemi sloupci.
 		\item[Řazení] -- kliknutím na hlavičku sloupce budou záznamy seřazeny vzestupně dle hodnot v daném sloupci. Opětovným stiskem se záznamy seřadí sestupně a třetím kliknutím bude řazení zrušeno.
 		\item[Stránkování] -- pro procházení stránek se záznamy jsou určena tlačítka v pravém dolním rohu tabulky. Kromě toho lze zvolit množství zobrazených záznamů na jedné stránce výběrem hodnoty v sousedním select boxu.
-		\item[Subtabulka] -- pro tabulky s daty, které zahrnují i nějaká pomocná data, je možné zobrazit subtabulku kliknutím na malý trohúhelník na levém kraji řádku. Opětovným stisknutím tohoto trojúhelníku dojde ke skrytí subtabulky.
+		\item[Subtabulka] -- pro tabulky s daty, které zahrnují i nějaká pomocná data, je možné zobrazit subtabulku kliknutím na malý trohúhelník na levém kraji řádky. Opětovným stisknutím tohoto trojúhelníku dojde ke skrytí subtabulky.
 	\end{description}
 
 \chapter{Testování}
