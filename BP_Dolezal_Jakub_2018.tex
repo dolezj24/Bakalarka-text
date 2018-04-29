@@ -263,33 +263,33 @@
 	Komunikace mezi jednotlivými částmi je znázorněna na obrázku \ref{mvc_arch}.
 
 	\begin{figure}
-		\includegraphics[width=420pt]{mvc.png}
+		\includegraphics[width=\textwidth]{mvc.png}
 		\caption{Architektura MVC}\label{mvc_arch}
 	\end{figure}
 	
 \subsection{Doctrine 2}
-	Doctrine 2 je ORM knihovna pro jazyk PHP. Zajišťuje tedy mapování relační databáze na PHP objekty. Doctrine 2 je postavena na návrhovém vzoru Data Mapper, reprezentovaném vůči zbytku aplikace fasádou v podobě Entity Manageru. Pro definici vlastností jednotlivých entit se elegantně využívají komentářové anotace. Není tedy nutné entity dědit od nějakého společného předka a můžeme si hierarchii dědičností udělat zcela dle svých potřeb. Struktura databáze i veškeré její změny se generují automaticky z definic entit pomocí nástroje schema-tool. \cite{doctrine2} 
+	Doctrine 2 je ORM knihovna pro jazyk PHP. Zajišťuje tedy mapování relační databáze na PHP objekty. Takové objekty se nazývají \uv{Entity}. Doctrine 2 je postavena na návrhovém vzoru Data Mapper, reprezentovaném vůči zbytku aplikace fasádou v podobě Entity Manageru. Pro definici vlastností jednotlivých entit se elegantně využívají komentářové anotace. Není tedy nutné entity dědit od nějakého společného předka a můžeme si hierarchii dědičností udělat zcela dle svých potřeb. Struktura databáze i veškeré její změny se generují automaticky z definic entit pomocí nástroje schema-tool. \cite{doctrine2} 
 	
 	Schema-tool nástroj pro manipulaci s databázovým modelem, používaný z příkazové řádky. Na základě ORM anotací vytvoří databázové DDL skripty pro zavedení databázového schématu, které mohou být dále odladěny nebo automaticky provedeny.
 	
 	Doctrine 2 je rozdělena do tří vrstev:
 	\begin{description}
-		\item[Common] Definuje základní obecná rozhraní, třídy a knihovny. Například nástroje pro práci s kolekcemi, anotacemi, cachováním, událostmi apod. Ty jsou pak využívány oběma vyššími vrstvami. Common sám o sobě je ale na zbylých vrstvách nezávislý, takže je ho teoreticky možné používat i samostatně. Všechno, co sem patří, je definováno v namespace \verb|DoctrineCommon|.
-		\item[DBAL (DataBase Abstraction Layer)] Abstrahuje zbytek aplikace od konkrétního typu databáze. Primárně rozšiřuje standardní PDO, ale umí pracovat i s jinými databázovými drivery. DBAL je závislý na Common, ale může být opět teoreticky používán i samostatně bez poslední ORM vrstvy. Všechno, co sem patří, je definováno v namespace \verb|DoctrineDBAL|.
-		\item[ORM (Object-Relational Mapping)] Nejvyšší vrstva, která zajišťuje mapování aplikačních objektů na relační databázi, jejich persistování a načítání. ORM je závislá na DBAL i Common. Namespace této vrstvy je \verb|DoctrineORM|.\cite{doctrine2}
+		\item[Common] Definuje základní obecná rozhraní, třídy a knihovny. Například nástroje pro práci s kolekcemi, anotacemi, cachováním, událostmi apod. Ty jsou pak využívány oběma vyššími vrstvami. Common sám o sobě je ale na zbylých vrstvách nezávislý, takže je ho teoreticky možné používat i samostatně. Všechno, co sem patří, je definováno v namespace \verb|Doctrine\Common|.
+		\item[DBAL (DataBase Abstraction Layer)] Abstrahuje zbytek aplikace od konkrétního typu databáze. Primárně rozšiřuje standardní PDO, ale umí pracovat i s jinými databázovými drivery. DBAL je závislý na Common, ale může být opět teoreticky používán i samostatně bez poslední ORM vrstvy. Všechno, co sem patří, je definováno v namespace \verb|Doctrine\DBAL|.
+		\item[ORM (Object-Relational Mapping)] Nejvyšší vrstva, která zajišťuje mapování aplikačních objektů na relační databázi, jejich persistování a načítání. ORM je závislá na DBAL i Common. Namespace této vrstvy je \verb|Doctrine\ORM|.\cite{doctrine2}
 	\end{description}
 
 \section{Výběr nástroje pro modelování tříd}
-	Hlavním cílem bylo najít nástroj, který by uměl z namodelovaného schématu vygenerovat třídní model včetně ORM notací pro Doctrine 2 a metod get a set. Takový nástroj by velice pomohl při vývoji. V první řadě je potřeba pro vizualizaci problémové domény. Za drhuhé poskytne zdrojový kód modelu zastřešující databázové schéma. Vybíral jsem z následujících dvou modelářů.
+	Hlavním cílem bylo najít nástroj, který by uměl z namodelovaného schématu vygenerovat třídní model včetně ORM notací pro Doctrine 2 a metod get a set. Takový nástroj by velice pomohl při vývoji. V první řadě je potřeba pro vizualizaci problémové domény. Za druhé poskytne zdrojový kód modelu zastřešující databázové schéma. Vybíral jsem z následujících dvou nástrojů.
 
 \begin{description}
-	\item[Enterprise Architect]\cite{enterprise_architect}
+	\item[Enterprise Architect\cite{enterprise_architect}]
 	je poměrně robustní UML nástroj pro modelování celého vývojového cyklu softwaru. Pokrývá vše od sběru požadavků, modelování business procesů, architektury, domény až po class diagramy, či databázové modely. Dále umožňuje generování zdrojových kódů modelu včetně getterů a setterů pro jazyky Java, C++, C\#, Python, PHP, aj., které provádí na základě modifikovatelných šablon. 
 	
 	Tyto šablony využívají vlastní jazyk nazýváný Transformation Template language. Enterprise Architect také podporuje generování DDL skriptů pro mnoho databázových enginů jako jsou Oracle, MySql, SQL Server a další.\cite{enterprise_architect}
 
-	\item[Skipper]\cite{skipper}
-	je E-R modelář zaměřený na programovací jazyk PHP. Umožňuje generovat zdrojový kód modelu s ohledem na použitý MVC framework a také dle zvolené ORM knihovny. Tím například u Doctrine 2 nepřímo zajistí i databázové schéma. To je dosaženo pomocí schema-tool. Skipper podporuje ORM knihovny Doctrine, Doctrine 2, Propel a CakePHP.\cite{skipper_features}
+	\item[Skipper\cite{skipper}]
+	je nástroj pro modelování E-R schémat zaměřený na programovací jazyk PHP. Umožňuje generovat zdrojový kód modelu s ohledem na použitý MVC framework a také dle zvolené ORM knihovny. Tím například u Doctrine 2 nepřímo zajistí i databázové schéma. To je dosaženo pomocí schema-tool. Skipper podporuje ORM knihovny Doctrine, Doctrine 2, Propel a CakePHP.\cite{skipper_features}
 \end{description}
 
 	Skipper je bezesporu lépe připravený na ORM. Generování notace pro Doctrine 2 zvládá bezchybně. Enterprise Architect ORM neřeší. Na druhou stranu, v Enterprise Architectu lze generování kódu doupravit pomocí šablon a plně nakonfigurovat. To může být velmi užitečné, například při použití traitu společného pro všechny třídy reprezentující databázové entity. Programový kód pro použití traitu se jednoduše vloží do šablony. Skipper toto neumožňuje a přidání je nutné dělat ručně. Nicméně vyladění šablon Entreprise Architectu pro generování zdrojového kódu, včetně notace pro Doctrine 2 by bylo poměrně obtížné a s nejistým výsledkem. Proto jsem se rozhodl pro využití Skipperu i přes jeho slabší konfigurovatelnost.	
@@ -401,7 +401,43 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o architekt
 
 \chapter{Realizace}
 
-\section{Diagram nasazení}
+\section{Instalační příručka}
+	V této kapitole je popsána instalace aplikace na Linuxové distribuci Debian 9.
+\subsection{Instalace systému}
+	Jako první provedeme instalaci Debianu 9 na náš stroj. Instalační obrazy jsou dostupné na stránkách\cite{debian} Debianu. Obraz Debianu zahrnuje i webový server Apache2, jeho instalaci zajistíme zaškrtnutím volby \uv{web server} u výběru komponent systému. Při zavádění systému taktéž vytvoříme uživatele \uv{mahasys}.
+\subsection{Nastavení uživatele}
+	Po instalaci systému bude dalším krokem nastavení vytvořeného uživatele. Nejprve za pomoci uživatele \uv{root} doinstalujeme nástroj sudo, a to příkazem \verb|apt-get intsall sudo|. Dále přidáme uživatele mahasys do skupiny uživatelů sudo pokynem \verb|adduser mahasys sudo|. Poté se pomocí \verb|su mahasys| přepneme na uživatele mahasys.
+\subsection{Instalace PHP}
+	Aplikace používá skriptovací jazyk PHP verze 7.2. Spuštěním následujících příkazů nainstalujeme tuto verzi PHP a její rozšíření.
+	\begin{verbatim}
+	sudo apt-get install apt-transport-https ca-certificates
+	sudo wget https://packages.sury.org/php/apt.gpg
+	sudo mv apt.gpg /etc/apt/trusted.gpg.d/php.gpg 
+	echo "deb https://packages.sury.org/php/ stretch main" | 
+	sudo tee /etc/apt/sources.list.d/php.list
+	sudo apt-get update
+	sudo apt-get install php7.2-cli libapache2-mod-php7.2
+	sudo apt-get install php7.2-sqlite3 php7.2-mysql
+	\end{verbatim}
+\subsection{Nastavení PHP a Apache}
+	Rozšíření naistalovaná v předchozím kroku musíme povolit. Docíleme toho následujícími příkazy:
+	\begin{verbatim}
+		sudo phpenmod pdo_mysql
+		sudo phpenmod pdo_sqlite
+		sudo phpenmod sqlite3
+	\end{verbatim}
+	Nyní v souboru \uv{/etc/apache2/apache2.conf} upravíme nastavení složky\newline\uv{/var/www/} do nasledujícího tvaru.
+	\begin{verbatim}
+		<Directory "/var/www/">
+		Options Indexes FollowSymLinks
+		AllowOverride All
+		Require all granted
+		</Directory>
+	\end{verbatim}
+	Dále povolíme modul rewrite příkazem \verb|sudo a2enmod rewrite| a takto restartujeme Apache: \verb|sudo apache2ctl -k restart|.
+\subsection{Stažení aplikace}
+	Aplikaci nainstalujeme do složky \uv{/var/www/html}. Přesuneme se do ní příkazem \verb|cd /var/www/html|. Samoutnou aplikaci stáhneme pomocí\newline\verb|sudo wget | \url{http://147.251.253.183:1080/dolezj24/mahasys/repository/production/archive.zip}. Stažený archiv rozbalíme příkazem\newline\verb|sudo unzip archive.zip| a vzniklou složku přejmenujeme\newline\verb|mv mahasys* mahasys|. Do této složky se přesuneme a pomocí\newline\verb|sudo chmod -R a+rw temp log| přidáme práva čtení a zápisu všem uživatelům pro složky temp a log. A na závěr nainstalujeme všechny balíčky na kterých aplikace závisý příkazem \verb|sudo php composer.phar install|.
+\subsection{Diagram nasazení}
 	Diagram nasazení\ref{deployment_view} popisuje fyzické rozmístění komponent a hardwarových zdrojů systému včetně jejich propojení.\cite{si1_pred7}
 
 \begin{figure}
@@ -414,14 +450,14 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o architekt
 \subsection{Tabulka}
 	Tabulka\ref{tabulka} poskytuje možnosti pro manipulaci, procházení a vyhladávání tabulovaných dat. Jde o následující funkce.
 	\begin{description}
-		\item[Výber 1 řádky] je uskutečněn kliknutím na požadovanou řádku, zároveň se stisknutím klávesy Ctrl. Opětovným kliknutím tu samou řádku při zmáčkuté klávese Ctrl dojde ke zrušení výběru. Opakováním postupu lze vybrat více řádek.
-		\item[Výber více řádků] je docílen dvěma kroky. Najprve označíme nebo odznačíme první krajní řádek výběru, tak jak bylo popsáno v předchozím bodě. Poté klikneme, zároveň se stlačenou klávesou Shift, na druhou krajní řádku výběru. Tím dojde výběru všech řádek mezi krajními včetně krajních.
-		\item[Manipulace s daty] -- úprava dat probíhá ve formulářích v rámci modálního okno tabulky. Úpravy dat jsou potvrzené stisknutím tlačítka Save v modálním. Zrušení změn pak tlačítkem Cancel. K dispozici jsou tyto operace.
+		\item[Výběr 1 řádky] je uskutečněn kliknutím na požadovanou řádku, zároveň se stisknutím klávesy Ctrl. Opětovným kliknutím tu samou řádku při zmáčkuté klávese Ctrl dojde ke zrušení výběru. Opakováním postupu lze vybrat více řádek.
+		\item[Výběr více řádků] je docílen dvěma kroky. Najprve označíme nebo odznačíme první krajní řádek výběru, tak jak bylo popsáno v předchozím bodě. Poté klikneme, zároveň se stlačenou klávesou Shift, na druhou krajní řádku výběru. Tím dojde výběru všech řádek mezi krajními včetně krajních.
+		\item[Manipulace s daty] -- úprava dat probíhá ve formulářích v rámci modálního okna tabulky. Úpravy dat jsou potvrzené stisknutím tlačítka Save v modálním. Zrušení změn pak tlačítkem Cancel. K dispozici jsou tyto operace.
 			\begin{description}
 				\item[Nový záznam] -- stisknutím tlačítka \textbf{New} bude otevřen nevyplněný formulář pro zadání nového záznamu.
 				\item[Editace záznamu] -- klikntím na řádku s požadovaným záznamem a následnou úpravou dat ve formuláři modálního okna.
 				\item[Smazání záznamu(ů)] -- označením jednoho nebo více záznamů a následným stisknutím tlačítka \textbf{Delete}.
-				\item[Hromadná editace] -- výběrem několika řádků a následným stisknutím tlačítka \textbf{Edit as one} dojde k otevření prázdného formuláře pro zadání společných hodnot pro každý vybraný řádek.
+				\item[Hromadná editace] -- výběrem několika řádků a následným stisknutím tlačítka \textbf{Edit as one} dojde k otevření formuláře pro zadání společných hodnot pro každý vybraný řádek.
 			\end{description}
 		\item[Filtování] -- vložením hledaného výrazu do textového vstupu v hlavičce tabulky a jeho potvrzení stisknutím klávesy Enter nebo kliknutím na tlačítko s lupou. Výraz je vyhledán nad všemi sloupci.
 		\item[Řazení] -- kliknutím na hlavičku sloupce budou záznamy seřazeny vzestupně dle hodnot v daném sloupci. Opětovným stiskem se záznamy seřadí sestupně a třetím kliknutím bude řazení zrušeno.
