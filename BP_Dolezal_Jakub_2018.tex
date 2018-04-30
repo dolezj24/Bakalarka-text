@@ -434,9 +434,9 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o architekt
 		Require all granted
 		</Directory>
 	\end{verbatim}
-	Dále povolíme modul rewrite příkazem \verb|sudo a2enmod rewrite| a takto restartujeme Apache: \verb|sudo apache2ctl -k restart|.
+	Dále povolíme modul rewrite příkazem \verb|sudo a2enmod rewrite| a restartujeme Apache: \verb|sudo apache2ctl -k restart|.
 \subsection{Stažení aplikace}
-	Aplikaci nainstalujeme do složky \uv{/var/www/html}. Přesuneme se do ní příkazem \verb|cd /var/www/html|. Samoutnou aplikaci stáhneme pomocí\newline\verb|sudo wget | \url{http://147.251.253.183:1080/dolezj24/mahasys/repository/production/archive.zip}. Stažený archiv rozbalíme příkazem\newline\verb|sudo unzip archive.zip| a vzniklou složku přejmenujeme\newline\verb|mv mahasys* mahasys|. Do této složky se přesuneme a pomocí\newline\verb|sudo chmod -R a+rw temp log| přidáme práva čtení a zápisu všem uživatelům pro složky temp a log. A na závěr nainstalujeme všechny balíčky na kterých aplikace závisý příkazem \verb|sudo php composer.phar install|.
+	Aplikaci nainstalujeme do složky \uv{/var/www/html}. Přesuneme se do ní příkazem \verb|cd /var/www/html|. Samoutnou aplikaci stáhneme pomocí\newline\verb|sudo wget | \url{http://147.251.253.183:1080/dolezj24/mahasys/repository/production/archive.zip}. Stažený archiv rozbalíme příkazem\newline\verb|sudo unzip archive.zip| a vzniklou složku přejmenujeme\newline\verb|sudo mv mahasys* mahasys|. Do této složky se přesuneme a pomocí\newline\verb|sudo chmod -R a+rw temp log| přidáme práva čtení a zápisu všem uživatelům pro složky temp a log. A na závěr nainstalujeme všechny balíčky na kterých aplikace závisý příkazem \verb|sudo php composer.phar install|.
 \subsection{Diagram nasazení}
 	Diagram nasazení\ref{deployment_view} popisuje fyzické rozmístění komponent a hardwarových zdrojů systému včetně jejich propojení.\cite{si1_pred7}
 
@@ -465,14 +465,40 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o architekt
 		\item[Subtabulka] -- pro tabulky s daty, které zahrnují i nějaká pomocná data, je možné zobrazit subtabulku kliknutím na malý trohúhelník na levém kraji řádky. Opětovným stisknutím tohoto trojúhelníku dojde ke skrytí subtabulky.
 	\end{description}
 
-\chapter{Testování}
+\chapter{Testování a údržba}
 
-\section{Testovací scénáře}
+\section{Testování}
+	Testování aplikace primárně zajišťují jednotkové testy. Na úrovni jednotkových testů je také kontrolována správnost úprav dat, které aplikace zapisuje do databáze. Na aplikaci bylo také provedeno uživatelské testování použitelnosti, v rámci kterého byly provedeny následující testovací scénáře.
 	\begin{enumerate}
 		\item Po přijetí tří objednávek expeditér připraví balíčky s požadovanými produkty. První objednávka je kompletně na skladě a bude vyřízena jedním balíčkem. Druhá objednávka je taktéž kompletně na skladě, ale expeditér produkty rozdělý do dvou balíčků. Třetí objednávka je pouze částečně na skladě, zákazník však požaduje odeslání objednávky, i přestože není kompletní. Expeditér tedy vytvoří balíček s produkty, které jsou na skladě.
 		\item Po naplánování rozložení produktů do balíčků expeditér zjistí, že rozdělení nebylo vhodné. Expeditér upraví množství produktů v jednotlivých balíčcích.
 		\item Zákazník provede dvě samostatné objednávky. Dále požaduje aby obě objednávky byly vyfakturovány společně. Uživatel vytvoří fakturu na základě těchto dvou objednávek.
 	\end{enumerate}
+
+\section{Údržba}
+	V této kapitole jsou popsány postupy pro úpravy aplikace v návaznosti na změnu databázového modelu.
+\subsection{Změna modelu v nástroji Skipper}
+	Úprava modelu je jednoduchá, entity a jejich atributy se mění snadno pomocí formulářů. Pro nové entity je vhodné nastavit jméno vygenerovaného souboru s definicí. Tvar jména bude typicky \uv{<jméno entity>.php}. Do nové entity je také vhodné vložit atribut primárního klíče nazývaný \uv{id}, ačkoliv ve vygenerovaném souboru entity bude nahrazen použitím identifikačního traitu. Důležité je to především u entit, kde primární klíč bude sloužit jako cizí klíč v jiné tabulce. Díky tomu budou správně vygenerovány vazební vlasnostni tříd.
+\subsection{Vytvoření datového typu enumerate}
+	Doctrine 2 nepodporuje datový typ enumerete, je tedy nutné vytvořit vlastní datový typ a ten jí předat. Výčtový typ vytvoříme pomocí PHP třídy, kterou oddědíme od třídy \verb|MahaSys\Entity\EnumType|. Dále už jen nastavíme jméno datového typu a pole s hodnotami výčtu. Výsledná třída může vypadat následovně.
+	\begin{verbatim}
+		namespace MahaSys\Entity;
+		class EnumVisibility extends Entity\EnumType
+		{
+		     protected $name = 'enum_visibility';
+		     protected $values = array('visible', 'invisible');
+		}
+	\end{verbatim}
+	Dále nově vzniklý datový typ zaregistrujeme v souboru \emph{config.neon}.
+	\begin{verbatim}
+		doctrine:
+			types: 
+				enum_visibility: MahaSys\Entity\EnumVisibility
+	\end{verbatim}
+	Pro možnost nastavení nově vytvořeného datového typu pro sloupec entity v nástroji Skipper vložíme řádek \verb|<data-type name="enum_visibility"/>| do tagu \verb|<data-types>| v souboru \emph{MahaSys\_Doctrine2.skipper.cfg.xml}.
+\subsection{Zavedení nového schématu}
+\subsection{Vytvoření formuláře}
+\subsection{Nastavení tabulky zobrazující data}
 
 \begin{conclusion}
 	%sem napište závěr Vaší práce
