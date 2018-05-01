@@ -185,10 +185,10 @@
 	\item[NF4] Dynamické doplňování zapisovaného textu(našeptávač).
 	\begin{itemize}
 		\item Při zapisování údaje do určené kolonky systém automaticky napovídá zbylou část textu.
-		\item Je potřeba, aby mohl našeptávat z více sloupců, včetně cizích. 
+		\item Je potřeba, aby našeptávač mohl našeptávat z více sloupců.. 
 		\item Našeptávač se bude využívat při odkazování na informace z jiné tabulky. Například při výběru položky z objednávky, našeptávač našeptává počet kusů z tabulky položky objednávky a název položky z tabulky číselníku. Vždy budou určeny konkrétní sloupce z odkazované tabulky.
 	\end{itemize}
-	\item[NF5] Tabulka pro zobrazení záznamů databázové tabulky.
+	\item[NF5] Tabulka pro zobrazení záznamů z databázové tabulky.
 	\begin{itemize}
 		\item Editace řádků v modálním okně. Zobrazení upravených dat až po odeslání na server a jejich opětovného načtení.
 		\item Možnost zobrazit subtabulku pro jednotlivé řádky pro zobrazení souvisejích položek.
@@ -326,12 +326,12 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o architekt
 	\caption{Presentery aplikace}\label{server_side_presenters}
 \end{figure}	
 	
-	Podobně vypadá model presenterů API. Ačkoli zde ze zjevného důvodu chybí šablony pro vykreslování. Zachyceno je to na diagramu \ref{api_presenters}.
-
+	Podobně vypadá model presenterů API. Ačkoli zde ze zjevného důvodu chybí šablony pro vykreslování. Struktura prezenterů API je zachycena na diagramu \ref{api_presenters}.
 \begin{figure}
 	\includegraphics[width=\textwidth]{api_presenters.png}
 	\caption{Presentery API}\label{api_presenters}
-\end{figure}	
+\end{figure}
+	Dostupnost API je navržena přes <adresa-systému>/api.
 
 \section{E-R model}
 	E-R model\ref{er_model} popisuje relační databázový model navržený pro vyvýjený system. Model popisuje entity se všemi vlastnostmi a vazby mezi nimi. Je vytvořen v programu Skipper, který vygeneruje zdrojový kód zastřešujících PHP datových objektů včetně notací pro ORM knihovnu Doctrine 2. Pomocí schema-tool je ze vzniklých tříd zavedeno databázové schéma. Vzhledem k jeho rozsáhlosti byl model rozdělen do několika částí.
@@ -478,9 +478,9 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o architekt
 \section{Údržba}
 	V této kapitole jsou popsány postupy pro úpravy aplikace v návaznosti na změnu databázového modelu.
 \subsection{Změna modelu v nástroji Skipper}
-	Úprava modelu je jednoduchá, entity a jejich atributy se mění snadno pomocí formulářů. Pro nové entity je vhodné nastavit jméno vygenerovaného souboru s definicí. Tvar jména bude typicky \uv{<jméno entity>.php}. Do nové entity je také vhodné vložit atribut primárního klíče nazývaný \uv{id}, ačkoliv ve vygenerovaném souboru entity bude nahrazen použitím identifikačního traitu. Důležité je to především u entit, kde primární klíč bude sloužit jako cizí klíč v jiné tabulce. Díky tomu budou správně vygenerovány vazební vlasnostni tříd.
+	Úprava modelu provedeme pomocí formulářů v nástroji Skipper. Pro nové entity je vhodné nastavit jméno vygenerovaného souboru s definicí. Tvar jména bude typicky \uv{<jméno entity>.php}. Do nové entity je také vhodné vložit atribut primárního klíče nazývaný \uv{id}, ačkoliv ve vygenerovaném souboru entity bude nahrazen použitím identifikačního traitu. Důležité je to především u entit, kde primární klíč bude sloužit jako cizí klíč v jiné tabulce. Díky tomu budou správně vygenerovány vazební vlasnostni tříd.
 \subsection{Vytvoření datového typu enumerate}
-	Doctrine 2 nepodporuje datový typ enumerete, je tedy nutné vytvořit vlastní datový typ a ten jí předat. Výčtový typ vytvoříme pomocí PHP třídy, kterou oddědíme od třídy \verb|MahaSys\Entity\EnumType|. Dále už jen nastavíme jméno datového typu a pole s hodnotami výčtu. Výsledná třída může vypadat následovně.
+	Pokud potřebujeme použít datový typ enumerate, je nutné vytvořit vlastní datový typ, protože Doctrine 2 enumerate nepodporuje. Následně je nezbytné nový datový typ Doctrine předat. Výčtový typ vytvoříme pomocí PHP třídy, kterou oddědíme od třídy \verb|MahaSys\Entity\EnumType|. Dále už jen nastavíme jméno datového typu a pole s hodnotami výčtu. Výsledná třída může vypadat následovně.
 	\begin{verbatim}
 		namespace MahaSys\Entity;
 		class EnumVisibility extends Entity\EnumType
@@ -495,10 +495,20 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o architekt
 			types: 
 				enum_visibility: MahaSys\Entity\EnumVisibility
 	\end{verbatim}
-	Pro možnost nastavení nově vytvořeného datového typu pro sloupec entity v nástroji Skipper vložíme řádek \verb|<data-type name="enum_visibility"/>| do tagu \verb|<data-types>| v souboru \emph{MahaSys\_Doctrine2.skipper.cfg.xml}.
-\subsection{Zavedení nového schématu}
+	A také v souboru \emph{/db-managment-proj/bootstrap.php} přidáním řádky:\newline\verb|Type::addType('enum_visibility','MahaSys\Entity\EnumVisibility');|
+	Pro možnost nastavení nově vytvořeného datového typu pro sloupec entity v nástroji Skipper vložíme řádek \verb|<data-type name="enum_visibility"/>| do tagu \verb|<data-types>| v souboru \emph{MahaSys\_Doctrine2.skipper.cfg.xml}, kde je uloženo přídavné nastavení shématu pro soubor \emph{MahaSys.skipper}.
+\subsection{Zavedení úprav schématu}
+	Po vygenerování tříd pomocí programu Skipper zaneseme změněné třídy do složek \emph{db-managment-proj/src/MahaSys/Entity} a \emph{app/Entity}. Do upravených tříd přidáme metody get a set a zároveň nahradíme atribut id za použití identifikačního traitu příkezem \verb|use \MahaSys\Entity\BaseEntityTrait;|. Nyní pomocí příkazu\newline\verb|.\doctrine.bat orm:schema-tool:update --force --dump-sql|\newline vygenerujeme příslušné SQL příkazy. Ve těchto příkazech nahradíme názvy tabulek a sloupců z tvarů lower-CamelCase za zápisy s podtržítky. Výsledné příkazy spustíme v databázi.
 \subsection{Vytvoření formuláře}
+	Formuláře se vkládají do složky \emph{app/components}. Využívají Nette formuláře, kompletní popis tvorby formuláře je k dispozici na \url{https://doc.nette.org/cs/2.4/forms}. Pro formulář taktéž vytvoříme továrničku ve složce \emph{app/factories}, kterou zaregistrujeme v konfiguračním souboru \emph{config.neon}. Díky tomu nám bude formulář dodán pomocí Dependency Injection kdykoli ho budeme potřebovat. 
+	
+	Dále do složky \emph{app/services} vytvoříme korespondující třídu pro manipulaci s daty. Tato třída bude odděděna od abstraktní třídy \verb|AService| a bude implementovat všechny její abstraktní metody. Poslední krok je přidání třídy prezenteru a šablony pro vykreslení formuláře. Prezenter bude odděděn od abstraktní třídy \verb|AFormPresenter|.
 \subsection{Nastavení tabulky zobrazující data}
+	Pro manipulaci s daty nejprve upravíme API, které tabulka využívá. API je soustředěno do samostatného modulu ve složce \emph{app/ApiModule}, v které je složka \emph{presenters} s prezenetery API. Ty jsou následně dostupné přes <adresa-systému>/api. Pro nové tabulky vytvoříme korespondující API prezenter pomocí nové třídy odděděné od třídy \verb|BasePresenter| a implementující interface \verb|IApiPresenter|, tak jak je to znázorněno na obrázku \ref{api_presenters}. 
+	
+	Následně připravíme nastavení pro tabulku. K tomu slouží továrnička \verb|JQTableSetupFactory| a její statická metoda \verb|create|, které v jako první parametr předáme seznam sloupců s jejich označením a datovým typem sloupce. Pokud bude u tabulky využita subtabulka, jako druhý parametr metody poslouží název JSON atributu, který ponese data pro subtabulku. Třetí parametr bude v takovém případě obsahovat informace o subtabulce ve stejném formátu, jakém tomu bylo u tabulky primární.
+	
+	Nyní vytvoříme novou metodu render<NázevTabulky>, kde šabloně do atributu \verb|setup| předáme nastavení serializované do formátu JSON. Dále také do šablony nastavíme odkazy na API, které jsem předtím vytvořili.
 
 \begin{conclusion}
 	%sem napište závěr Vaší práce
@@ -527,6 +537,7 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o architekt
 	\item[JSX] JavaScript Syntax eXtension
 	\item[PDO] PHP Data Objects
 	\item[API] Application interface
+	\item[SQL] Structured Query Language
 \end{description}
 
 
