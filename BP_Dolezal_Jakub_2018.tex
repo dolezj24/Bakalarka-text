@@ -62,13 +62,13 @@
 	MAHALUX s.r.o. je mladá expandující firma zabývající vývojem, výrobou a prodejem elektronických zařízení. Zároveň provozuje internetový obchod, kde nabízí vlastní produkty a distribuje zboží z jiných eshopů. I~přesto, že firma existuje poměrně krátce, již expeduje po celém světě. To přináší velké nároky na evidenci rozličných dat o~adresách, bankovních spojeních a dalších informacích o~zákaznících. Proto se firma MAHALUX s.r.o. rozhodla pro zavedení informačního systému s~webovým frontendem, který přinese potřebné centralizované ukládání dat a pohodlný přístup k~těmto datům. Dalším hlavním účelem systému je zefektivnění procesu vyřizování objednávek.
 	
 	V~práci se zabývám analýzou, návrhem, implementací a testováním webového informačního systému.
-	Úkolem úvodní části práce je sběr funkčních a nefunkčních požadavků zadavatele. Dále je také nutná analýza složitějších případů užití a firemních procesů. Následuje návrh struktury systému, komponetového prototypu a uživatelského rozhraní. Navazovat bude samotná implementace prototypu frontendu v~knihovně ReactJS a vytvoření serverové části aplikace v jazyce PHP s pomocí frameworku Nette. V závěrečné kapitole je popsáno testování aplikace.
+	Úkolem úvodní části práce je sběr funkčních a nefunkčních požadavků zadavatele. Dále je také nutná analýza složitějších případů užití a firemních procesů. Následuje návrh struktury systému, komponentového prototypu a uživatelského rozhraní. Navazovat bude samotná implementace prototypu frontendu v~knihovně ReactJS a vytvoření serverové části aplikace v jazyce PHP s pomocí frameworku Nette. V závěrečné kapitole je popsáno testování aplikace.
 \end{introduction}
 
 \chapter{Cíl práce}
-	Cílem úvodní části práce je analýza požadavků zákazníka, prozkoumání složitějších případů užití a pochopení firemních procesů. Krom toho je potřeba seznámení s existujícími řešeními webových frontendů pro získání přehledu o~best practicies.
+	Cílem úvodní části práce je analýza požadavků zákazníka, prozkoumání složitějších případů užití a pochopení firemních procesů. Kromě toho je potřeba seznámení s existujícími řešeními webových frontendů pro získání přehledu o~best practicies.
 	
-	Cílem praktické části práce je návrh, implementace a otestování webového frontendu tohoto informačního systému. Hlavní důraz bude kladen dynamičnost uživatelského rozhraní. To by mělo uživateli napomáhat k~co nejrychlejšímu a bezchybnému vkládání dat. K~tomu budou využity šablony, které si uživatel nadefinuje společně s~daty a ty následně ze šablony vloží do konkrétního formuláře. Dále by měla být zajištěna přehledná reprezentace větších záznamů a hromadné úpravy. Systém bude komponentový pro zaručení možnosti jednoduchého rozšíření systému.
+	Cílem praktické části práce je návrh, implementace a otestování webového frontendu tohoto informačního systému. Hlavní důraz bude kladen na dynamičnost uživatelského rozhraní. To by mělo uživateli napomáhat k~co nejrychlejšímu a bezchybnému vkládání dat. K~tomu budou využity šablony, které si uživatel nadefinuje společně s~daty a ty následně ze šablony vloží do konkrétního formuláře. Dále by měla být zajištěna přehledná reprezentace větších záznamů a hromadné úpravy. Systém bude komponentový pro zaručení možnosti jednoduchého rozšíření systému.
 	
 \chapter{Analýza}
 
@@ -149,7 +149,7 @@
 	\item[FN9] Vyplnění formuláře šablonou.
 	\begin{itemize}
 		\item Uživatel si nadefinuje šablonu s~konkrétními daty v~konkrétních polích a šablonu uloží. 
-		\item Při další vyplňování téhož formuláře bude moci vybrat uloženou šablonu a ta mu formulář vyplní uloženými daty. 
+		\item Při dalším vyplňování téhož formuláře bude moci vybrat uloženou šablonu a ta mu formulář vyplní uloženými daty. 
 		\item Uživatel bude dále moci data upravit a případně šablonu upravit či uložit novou.
 	\end{itemize}
 	\item[FN10] Správa uživatelů.
@@ -165,7 +165,7 @@
 	\item[FN11] Evidence úprav dat (kdo data upravil a kdy).
 	\begin{itemize}
 		\item Pro každý záznam ve všech tabulkách bude evidováno kdo a kdy řádek vytvořil, upravil a smazal(technika soft delete).
-		\item Informace o tom, kým byla data upravena, bude zaznamenáno z~loginu uživatele.	
+		\item Informace o tom, kým byla data upravena, bude zaznamenána z~loginu uživatele.	
 	\end{itemize}
 	\item[FN12] Vytvořit API pro manipulaci s daty ve všech tabulkách.
 \end{enumerate}
@@ -177,9 +177,9 @@
 	\item[NF3] Dynamicky reagující formuláře.
 	\begin{itemize}
 		\item Určená pole formuláře reagují na změnu v~jiném poli. Například při výběru/zadání hodnoty v~kolonce země se v~návaznosti na to upraví nabídka v~kolonce stát. 
-		\item Pokud je pro dané pole možné vyplnit pouze jednou hodnotu, bude tato hodnota automaticky doplněna.
+		\item Pokud je pro dané pole možné vyplnit pouze jednu hodnotu, bude tato hodnota automaticky doplněna.
 	\end{itemize}
-	\item[NF4] Dynamické doplňování zapisovaného textu(našeptávač).
+	\item[NF4] Dynamické doplňování zapisovaného textu (našeptávač).
 	\begin{itemize}
 		\item Při zapisování údaje do určené kolonky systém automaticky napovídá zbylou část textu.
 		\item Je potřeba, aby našeptávač mohl našeptávat z~více sloupců.
@@ -187,9 +187,9 @@
 	\end{itemize}
 	\item[NF5] Tabulka pro zobrazení záznamů z~databázové tabulky.
 	\begin{itemize}
-		\item Editace řádků v~modálním okně. Zobrazení upravených dat až po odeslání na server a jejich opětovného načtení.
+		\item Editace řádků v~modálním okně. Zobrazení upravených dat až po odeslání na server a jejich opětovném načtení.
 		\item Možnost zobrazit subtabulku pro jednotlivé řádky k~vypsání souvisejích položek.
-		\item Globální filtrování záznamů v~tabulce nad všemi sloupci a textové filtrování na všemi sloupci.
+		\item Globální filtrování záznamů v~tabulce nad všemi sloupci a textové filtrování nad všemi sloupci.
 	\end{itemize}
 \end{enumerate}
 
@@ -200,13 +200,13 @@
 \end{enumerate}
 
 \section{Doménový model}
-	Doménový model\ref{domain_model} popisuje entity a vazby mezi nimi v~doméně internetového obchodu firmy MAHALUX s.r.o. Hlavní pozornost je zaměřena na objednávky a infrastrukturu procesu jejich vyřizování. Objednávka má vždy seznam položek objednaných produktů a jejich množství. Množstvím se rozumí počet kusů nebo číselnou hodnotu nějaké veličiny, například délky či váhy. U~objednávky se dále evidují informace o~zákazníkovi v~závislosti na tom, zda jde o~fyzickou či právnickou osobu. O~fyzické osobě je zaznamenáno jméno a příjmení a o~právnické osobě pak společnosti a daňové ID. Dále se eviduje doručovací adresa a také, pokud je odlišná od doručovací, fakturační adresa.
+	Doménový model\ref{domain_model} popisuje entity a vazby mezi nimi v~doméně internetového obchodu firmy MAHALUX s.r.o. Hlavní pozornost je zaměřena na objednávky a infrastrukturu procesu jejich vyřizování. Objednávka má vždy seznam položek objednaných produktů a jejich množství. Množstvím se rozumí počet kusů nebo číselnou hodnotu nějaké veličiny, například délky či váhy. U~objednávky se dále evidují informace o~zákazníkovi v~závislosti na tom, zda jde o~fyzickou či právnickou osobu. O~fyzické osobě je zaznamenáno jméno a příjmení a o~právnické osobě pak název společnosti a daňové ID. Dále se eviduje doručovací adresa a také, pokud je odlišná od doručovací, fakturační adresa.
 	
 	V~návaznosti na objednávky vznikají balíčky s~objednanými produkty k~odeslání zákazníkovi. O~balíčcích jsou vedeny následující informace: hmotnost v~kilogramech, množství objednaného produktu v~balíčku, doručovací služba, která balíček doručuje, a pokud je k~dispozici, tak také internetová adresa pro sledování balíčku, neboli tracking. Dále platí, že objednávka může být rozdělena do více balíčků a to i v~rámci jednotlivé položky. Proto je nutné zaznamenávat množství konkrétního produktu v~balíčku. Balíčky jsou pravidelně expedovány každý pracovní den ve várce pro jednotlivou doručovací společnost. Aktuálně se jedná pouze o~Českou poštu, s.p. U~těchto expedičních várek je evidováno datum provedení expedice a informace o~tom, zda byla várka vyexpedována.
 	
 	V~případech, kdy není možné objednávku kompletně vyexpedovat ze zásob skladu, vznikají zásobovací dodávky. U~těchto dodávek je opět nutné evidovat seznam položek s~objednaným množstvím produktu, tak jak bylo definováno pro objednávky. Dále se zaznamenávají informace o~dodavateli, datum objednání dodávky, stav dodávky a případně internetová adresa sledování dodávky. Dodavatelé bývají využíváni opakovaně.
 	
-	Na základě přijatých zásobovacích dodávek(naskladnění) a vyexpedovaných objednávek(vyskladění) vznikají pohyby na skladě. Každý skladový pohyb je způsoben jednou z~těchto dvou událostí. Je nutné evidovat množství produktu, znamenající pohyb skladu, stejně jako u~položek objednávek a dodávek. Vyskladnění znamená pohyb skladu se záporným množstvím. Naskladnění je naopak pohyb s~kladným množstvím.
+	Na základě přijatých zásobovacích dodávek(naskladnění) a vyexpedovaných objednávek(vyskladění) vznikají pohyby na skladě. Každý skladový pohyb je způsoben jednou z~těchto dvou událostí. Je nutné evidovat množství produktu, znamenající pohyb skladu, stejně jako u~položek objednávek a dodávek. Vyskladnění znamená skladový pohyb se záporným množstvím. Naskladnění je naopak pohyb s~kladným množstvím.
 	
 	Nezávisle na objednávkách je vedena evidence faktur, a to jak vydaných, tak i těch přijatých. Pro faktury vydané je znovu třeba ukládat seznam fakturovaných položek a jejich množství. Dále faktura obsahuje informace o~zákazníkovi. Opět se jedná o různé údaje podle toho, zda se jde o~fyzickou či právnickou osobu. 
 	
@@ -216,7 +216,7 @@
 \end{figure}
 
 \section{Diagram procesu zpracování objednávky}
-	Tento diagram \ref{order_activity} aktivit popisuje proces zpracování objednávky od jejího přijetí až po její přijetí. Objednávku vytváří zákazník a dále ji odesílá firmě MAHALUX. Ta ji po přijetí zpracovává. Kontroluje se především, zda jsou odjednané produkty na skladě. V~závislosti na tom pak vznikají dodávky. Po kompletaci objednávky následuje její expedice. Ta může nastat i v~případě objednávky, která není kompletně na skladě, ale zákazník si ji přeje odeslat nekompletní. Po vyexpedování je zákazník informován o~předání zásilky dopravci.
+	Tento diagram \ref{order_activity} aktivit popisuje proces zpracování objednávky od jejího přijetí až po její vyřízení. Objednávku vytváří zákazník a dále ji odesílá firmě MAHALUX. Ta ji po přijetí zpracovává. Kontroluje se především, zda jsou odjednané produkty na skladě. V~závislosti na tom pak vznikají dodávky. Po kompletaci objednávky následuje její expedice. Ta může nastat i v~případě objednávky, která není kompletně na skladě, ale zákazník si ji přeje odeslat nekompletní. Po vyexpedování je zákazník informován o~předání zásilky dopravci.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{order_activity.png}
@@ -224,7 +224,7 @@
 \end{figure}
 
 \section{Životní cyklus objednávky}
-	Na obrázku \ref{oredr_cycle} je znázorněn životní cycklus objednávky. Zajímovstí je například to, že pokud si zákazník přeje objednávku odeslat, i když není kompletně na skladu, objednávka se dostene do stavu \uv{Částečně v~expedici}. 
+	Na obrázku \ref{oredr_cycle} je znázorněn životní cyklus objednávky. Zajímavostí je například to, že pokud si zákazník přeje objednávku odeslat, i když není kompletně na skladu, objednávka se dostane do stavu \uv{Částečně v~expedici}. 
 	
 \begin{figure}
 	\includegraphics[width=\textwidth]{order_cycle.png}
@@ -244,17 +244,17 @@
 		\caption{Jednosměrné datové vázání}\label{data_binding}
 	\end{figure}
 
-	Pro definici toho, jak se má jednotlivá komponenta vykreslit, využívá React speciální jazyk JSX. Jde o~syntaktické rozšíření jazyku JavaScript, v~kterém je možné zapisovat HTML tagy. Může připomínát šablonovací systém, ale v~JSX lze zapisovat přímo příkazy JavaSciptu, jejich vložením do složených závorek. Díky JSX lze zapisovat kód pro vykreslování a ostatní logiku uživatelského rozhraní společně a získat tak lepší přehled o~aplikaci.\cite{jsx} 
+	Pro definici toho, jak se má jednotlivá komponenta vykreslit, využívá React speciální jazyk JSX. Jde o~syntaktické rozšíření jazyku JavaScript, v~kterém je možné zapisovat HTML tagy. Může připomínat šablonovací systém, ale v~JSX lze zapisovat přímo příkazy JavaSciptu, jejich vložením do složených závorek. Díky JSX lze zapisovat kód pro vykreslování a ostatní logiku uživatelského rozhraní společně a získat tak lepší přehled o~aplikaci.\cite{jsx} 
 	
 \subsection{Nette Framework}
-	Nette je kompletní framework pro PHP, který výrazně zjednodušuje tvorbu webových aplikací. Jeho autorem je český vývojář David Grudl. Je založen na samostatných knihovnách, které dohromady tvoří celý framework. Jednou z~hlavních předností Nette je vysoké míra zabezpečení za pomoci technologií, které eliminují všechny bezpečnostní mezery. Nette staví na architektuře MVC.\cite{nette}
+	Nette je kompletní framework pro PHP, který výrazně zjednodušuje tvorbu webových aplikací. Jeho autorem je český vývojář David Grudl. Je založen na samostatných knihovnách, které dohromady tvoří celý framework. Jednou z~hlavních předností Nette je vysoká míra zabezpečení za pomoci technologií, které eliminují všechny bezpečnostní mezery. Nette staví na architektuře MVC.\cite{nette}
 	
-	Model-View-Controller je softwarová architektura, která vznikla z~potřeby oddělit u~aplikací s~grafickým rozhraním kód obsluhy (controller) od kódu aplikační logiky (model) a od kódu zobrazujícího data (view). Tím jednak aplikaci zpřehledňuje, usnadňuje budoucí vývoj a umožňuje testování jednotlivých části zvlášť.
+	Model-View-Controller je softwarová architektura, která vznikla z~potřeby oddělit u~aplikací s~grafickým rozhraním kód obsluhy (controller) od kódu aplikační logiky (model) a od kódu zobrazujícího data (view). Tím jednak aplikaci zpřehledňuje, ale také usnadňuje budoucí vývoj a umožňuje testování jednotlivých části zvlášť.
 	
 	\begin{description}
 		\item[Model] je datový a zejména funkční základ celé aplikace. Je v~něm obsažena aplikační logika. Jakákoliv akce uživatele (přihlášení, vložení zboží do košíku, změna hodnoty v~databázi) představuje akci modelu. Model si spravuje svůj vnitřní stav a ven nabízí pevně dané rozhraní. Voláním funkcí tohoto rozhraní můžeme zjišťovat či měnit jeho stav. Model o~existenci view nebo kontroleru neví.
 		\item[View]-- neboli pohled, je vrstva aplikace, která má na starost zobrazení výsledku požadavku. Obvykle používá šablonovací systém a ví, jak se má zobrazit ta která komponenta nebo výsledek získaný z~modelu.
-		\item[Controller]je řadič, který zpracovává požadavky uživatele a na jejich základě pak volá patřičnou aplikační logiku (tj. model) Poté požádá view o~vykreslení dat. Obdobou kontrolerů v~Nette Framework jsou presentery.\cite{nette_mvc}
+		\item[Controller]je řadič, který zpracovává požadavky uživatele a na jejich základě pak volá patřičnou aplikační logiku (tj. model). Poté požádá view o~vykreslení dat. Obdobou kontrolerů v~Nette Framework jsou presentery.\cite{nette_mvc}
 	\end{description}
 
 	Komunikace mezi jednotlivými částmi je znázorněna na obrázku \ref{mvc_arch}.
@@ -265,9 +265,9 @@
 	\end{figure}
 	
 \subsection{Doctrine 2}
-	Doctrine 2 je ORM knihovna pro jazyk PHP. Zajišťuje mapování relační databáze na PHP objekty. Takové objekty se nazývají \uv{Entity}. Doctrine 2 je postavena na návrhovém vzoru Data Mapper, reprezentovaném vůči zbytku aplikace fasádou v~podobě Entity Manageru. Pro definici vlastností jednotlivých entit se elegantně využívají komentářové anotace. Není tedy nutné entity dědit od nějakého společného předka a můžeme si hierarchii dědičností udělat zcela dle svých potřeb. Struktura databáze i veškeré její změny se generují automaticky z~definic entit pomocí nástroje schema-tool. \cite{doctrine2} 
+	Doctrine 2 je ORM knihovna pro jazyk PHP. Zajišťuje mapování relační databáze na PHP objekty. Takové objekty se nazývají \uv{Entity}. Doctrine 2 je postavena na návrhovém vzoru Data Mapper reprezentovaném vůči zbytku aplikace fasádou v~podobě Entity Manageru. Pro definici vlastností jednotlivých entit se elegantně využívají komentářové anotace. Není tedy nutné entity dědit od nějakého společného předka a můžeme si hierarchii dědičností udělat zcela dle svých potřeb. Struktura databáze i veškeré její změny se generují automaticky z~definic entit pomocí nástroje schema-tool. \cite{doctrine2} 
 	
-	Schema-tool nástroj pro manipulaci s~databázovým modelem, používaný z~příkazové řádky. Na základě ORM anotací vytvoří databázové DDL skripty pro zavedení databázového schématu, které mohou být dále odladěny nebo automaticky provedeny.
+	Schema-tool je nástroj pro manipulaci s~databázovým modelem používaný z~příkazové řádky. Na základě ORM anotací vytvoří databázové DDL skripty pro zavedení databázového schématu, které mohou být dále odladěny nebo automaticky provedeny.
 	
 	Doctrine 2 je rozdělena do tří vrstev:
 	\begin{description}
@@ -301,7 +301,7 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 	Návrhový model tříd si klade za cíl správně přiřadit zodpovědnost třídám. Dále také může popisovat použité návrhové vzory a programovací techniky.\cite{si1_pred6} Pro účely navrhovaného systému jsem model tříd rozdělil do dvou částí. V~první části, popisující reactové komponenty na klientské straně aplikace, jde spíše o~popis prototypů JavaScriptových objektů. V~drůhé části jsou poté vyobrazeny třídy pro jazyk PHP.
 	
 \subsection{Klientská strana}
-	Komponenty Reactu jsou vytvářeny děděním od React.Component, to lze pozorovat na obrázku \ref{ui_komponents}. Skládáním komponent jsou vytvářeny jednotlivé webové stránky.
+	Komponenty Reactu jsou vytvářeny děděním od třídy React.Component, to lze pozorovat na obrázku \ref{ui_komponents}. Skládáním komponent jsou vytvářeny jednotlivé webové stránky.
 	
 \begin{figure}
 	\includegraphics[width=\textwidth]{UI_components.png}
@@ -331,19 +331,19 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 	Dostupnost API je navržena přes URL <adresa-systému>/api.
 
 \section{E-R model}
-	E-R model\ref{er_model} popisuje relační databázový model, navržený pro vyvýjený system. Model popisuje entity se všemi vlastnostmi a vazby mezi nimi. Je vytvořen v~programu Skipper, který vygeneruje zdrojový kód zastřešujících PHP datových objektů včetně notací pro ORM knihovnu Doctrine 2. Pomocí schema-tool je ze vzniklých tříd zavedeno databázové schéma. Vzhledem k~jeho rozsáhlosti byl model rozdělen do několika částí.
+	E-R model\ref{er_model} popisuje relační databázový model, navržený pro vyvíjený systém. Model popisuje entity se všemi vlastnostmi a vazby mezi nimi. Je vytvořen v~programu Skipper, který vygeneruje zdrojový kód zastřešujících PHP datových objektů včetně notací pro ORM knihovnu Doctrine 2. Pomocí schema-tool je ze vzniklých tříd zavedeno databázové schéma. Vzhledem k~jeho rozsáhlosti byl model rozdělen do několika částí.
 	
 	První, tmavěji zelená sekce, popisuje evidované informace o~uživateli systému. Každý uživatel(User) může mít více rolí(UserRole) a zároveň každou roli může zaujímat více uživatelů. Jde tedy o~vazbu m:n. Tu realizuje vazební tabulka UserRoleUser. Vzhledem k~tomu, že každou roli může mít každý uživatel pouze jednou, tvoří primární klíč této tabulky dvojice cizích klíčů z~tabulek User a UserRole.
 	
-	Světle fialová oblast nastiňuje strukturu informací o~kontaktních adresách. Rozlišují se kontakty zákazníků, zaměstnanců firmy, firemní kontakty, kontakty dodavatelů a tržních míst. Všechny společné informace jsou vedeny ve společné tabulce Address. Typ kontaktu je rozlišen sloupcem diskriminátoru addressType. Všechny typy kontaktů dále maji vlastní tabulky s~jejich specifickými informacemi. Tyto tabulky jsou vázány ke společné tabulce vazbou 1:1. Tato vazba je zajištěna cizími klíči v~tabulkách potomků, které jsou zároveň i klíči primárními. Dále je zaveden rejstřík zemí včetně jejich států(krajů). Země typicky mají několik států a stát náleží pouze jedné zemi. O~zemích je dále vedeno to, na kterém kontinentě se nacházejí.
+	Světle fialová oblast nastiňuje strukturu informací o~kontaktních adresách. Rozlišují se kontakty zákazníků, zaměstnanců firmy, firemní kontakty, kontakty dodavatelů a tržních míst. Všechny společné informace jsou vedeny ve společné tabulce Address. Typ kontaktu je rozlišen sloupcem diskriminátoru addressType. Všechny typy kontaktů dále mají, vlastní tabulky s~jejich specifickými informacemi. Tyto tabulky jsou vázány ke společné tabulce vazbou 1:1. Tato vazba je zajištěna cizími klíči v~tabulkách potomků, které jsou zároveň i klíči primárními. Dále je zaveden rejstřík zemí včetně jejich států(krajů). Země typicky mají několik států a stát náleží pouze jedné zemi. O~zemích je dále vedeno to, na kterém kontinentě se nacházejí.
 	
 	Tabulky popisují strukturu informací o~fakturách jsou v~bílé části, nacházející se vlevo dole. Evidence přijatých a vydaných faktur je vzájemně oddělena. U~vydaných faktur je důležité ukládat jednotlivé fakturované položky produktů a jejich množství. Fakturováno může být několik položek. Dále je pro každou vydanou fakturu nutné evidovat fakturační adresu zákazníka. K~přijatým fakturám jsou uloženy soubory reprezentující tyto faktury. Platí, že každý takový soubor může být pouze u~jedné evidované faktury. Dále je zaznamenána fakturovaná částka a stav zaplacení faktury. 
 	
-	Pro popis dodávek je použito žluté pole. U~dodávek je opět evidováno jaké produkty obsahuje a v jakém množství. K~dodávkám je pomocí cizího klíče uveden dodavatel, přepravní služba a volitelně i uživatel, který dodávku vytvořil. Přijetím dodávky vždy vzniká pohyb skladu s~kladným množtvním.
+	Pro popis dodávek je použito žluté pole. U~dodávek je opět evidováno, jaké produkty obsahuje a v jakém množství. K~dodávkám je pomocí cizího klíče uveden dodavatel, přepravní služba a volitelně i uživatel, který dodávku vytvořil. Přijetím dodávky vždy vzniká skladový pohyb s~kladným množstvím.
 	
-	V~tmavě růžové sekci je popsán sklad. Pro jednotlivé sklady je pomocí cizího klíče z~tabulky AddressOur evidováno to, na které adrese se sklad nachází. Pro každý sklad jsou dále evidovány skladové pohyby. Ty bývají inicovány již zmíněnými dodávkami nebo expedováním balíčku. Jedná se o~dva výlučné stavy. Nemůže nastat stav, že by skadový pohyb odkazoval na přijatou dodváku a zároveň na expedovaný balíček. Toto bude ošetřeno databázovým omezením Constraint, který toto bude kontrolovat.
+	V~tmavě růžové sekci je popsán sklad. Pro jednotlivé sklady je pomocí cizího klíče z~tabulky AddressOur evidováno to, na které adrese se sklad nachází. Pro každý sklad jsou dále evidovány skladové pohyby. Ty bývají inicovány již zmíněnými dodávkami nebo expedováním balíčku. Jedná se o~dva výlučné stavy. Nemůže nastat stav, že by skladový pohyb odkazoval na přijatou dodávku a zároveň na expedovaný balíček. Toto bude ošetřeno databázovým omezením Constraint, který toto bude kontrolovat.
 	
-	Expedované balíčky jsou znázorněny ve světle zeleném obdélníku. Balíček bývá zařezen do konkrétní expediční várky. V~této várce bývá více balíčků. U~balíčků je také nutné evidovat jejich soubory, typicky to jsou jejich fotografie. Podobně je tomu tak i u~kompletních várek. U~balíčku je také nutné znát doručovací službu. Tato služba bývá použita vícekrát. Zmiňované soubory jsou popsány v~bílé sekci. Soubory budou uloženy v~jejich binární podobě. U~fotografií bude vytvořen a uložen datově menší náhled fotografie. Pro textové dokumenty bude volitelně uložen jejich text získanný optickým čtením.
+	Expedované balíčky jsou znázorněny ve světle zeleném obdélníku. Balíček bývá zařazen do konkrétní expediční várky. V~této várce bývá více balíčků. U~balíčků je také nutné evidovat jejich soubory, typicky to jsou jejich fotografie. Podobně je tomu tak i u~kompletních várek. U~balíčku je také nutné znát doručovací službu. Tato služba bývá použita vícekrát. Zmiňované soubory jsou popsány v~bílé sekci. Soubory budou uloženy v~jejich binární podobě. U~fotografií bude vytvořen a uložen datově menší náhled fotografie. Pro textové dokumenty bude volitelně uložen jejich text získaný optickým čtením.
 
 	Struktura schématu pro objednávky je zobrazena ve světle růžovém poli. Pro každou objednávku jsou evidovány jedntlivé řádky objednávky. Dále platí, že na každém řádku objednávky může být několik produktů v~libovolném množství. U~objednávky je dále nutné zaznamenat odesílací a fakturační adresu zákazníka. Volitelně pak adresu tržního místa a vlastní firemní adresu.
 	
@@ -370,7 +370,7 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 \section{Uživatelské rozhraní}
 
 \subsection{Formulář pro naplánování expedice}
-	Na obrázku \ref{expedice} je navržený formulář pro naplánování expedice definovaný ve funkčním požadavku FN5. Jednotlivé v~řádky tabulky tvoří konkrétní objednávky. Řádky jsou dále rozděleny dle jednotlivých produktů v~objednávce. Textová pole s~plným okrajem a bílým tělem naznačují upravitelné atributy. Pole s~uživatelsky neupravitelným obsahem pak představují obdélníky se světle růžovým tělem a čárkovaným okrajem. V~jednotlivých sloupcích jsou zleva informace o~množství objednaného produktu, množství produktu které zbývá odeslat, množství ke vložení do balíčku, množství produktu na skladě, poznámka a váha zadaného množství produktu. V~posledním sloupci se pak nachází pole pro výběr doručovací služby a tlačítko \textbf{Schedule dispatch}, pomocí kterého dojde vytvoření balíčku se zadaným množstvím produktů v~systému. Tlačítko \textbf{Bulk: Schedule dispatch} poté simuluje stisknutí všech tlačítek \textbf{Schedule dispatch}.
+	Na obrázku \ref{expedice} je navržený formulář pro naplánování expedice definovaný ve funkčním požadavku FN5. Jednotlivé ~řádky tabulky tvoří konkrétní objednávky. Řádky jsou dále rozděleny dle jednotlivých produktů v~objednávce. Textová pole s~plným okrajem a bílým tělem naznačují upravitelné atributy. Pole s~uživatelsky neupravitelným obsahem pak představují obdélníky se světle růžovým tělem a čárkovaným okrajem. V~jednotlivých sloupcích jsou zleva informace o~množství objednaného produktu, množství produktu které zbývá odeslat, množství ke vložení do balíčku, množství produktu na skladě, poznámka a váha zadaného množství produktu. V~posledním sloupci se pak nachází pole pro výběr doručovací služby a tlačítko \textbf{Schedule dispatch}, pomocí kterého dojde k  vytvoření balíčku se zadaným množstvím produktů v~systému. Tlačítko \textbf{Bulk: Schedule dispatch} poté simuluje stisknutí všech tlačítek \textbf{Schedule dispatch}.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{expedition_plan.png}
@@ -378,7 +378,7 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 \end{figure}
 
 \subsection{Formulář pro vytvoření faktury}
-	Formulář pro vytvoření faktury definovaný ve funkčním požadavku FN1 je nastíňen na obrázku \ref{faktura}. V~levé části se nachází seznam objednávek včetně objednaných položek. Položky půjde nezávisle na objednávce vkládat do fakturačních položek pomocí tlačítka \textbf{Billing}. Finální podoba fakturovaných položek bude zobrazena v~tabulce v~pravé dolní části formuláře. Fakturované množství produktů půjde upravit ve sloupci \uv{Qty} nebo položky z~faktury kompletně odstranit červeným tlačítkem \textbf{X}. Informace o~zákazníkovi budou vyplňeny dle první vybrané objednávky nebo půjde zákazníka dohledat přes textové pole s~dymickým doplněním textu.
+	Formulář pro vytvoření faktury definovaný ve funkčním požadavku FN1 je nastíněn na obrázku \ref{faktura}. V~levé části se nachází seznam objednávek včetně objednaných položek. Položky půjde nezávisle na objednávce vkládat do fakturačních položek pomocí tlačítka \textbf{Billing}. Finální podoba fakturovaných položek bude zobrazena v~tabulce v~pravé dolní části formuláře. Fakturované množství produktů půjde upravit ve sloupci \uv{Qty} nebo položky z~faktury kompletně odstranit červeným tlačítkem \textbf{X}. Informace o~zákazníkovi budou vyplněny dle první vybrané objednávky nebo půjde zákazníka dohledat přes textové pole s~dymickým doplněním textu.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{invoice_form.png}
@@ -386,7 +386,7 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 \end{figure}
 
 \subsection{Tabulka}
-	Obrázek \ref{tabulka} zobrazuje navrženou tabulku pro zobrazení hodnot z~databáze. Základem tabulky je jqxDataTable\cite{jqx_dataTable} od jQWidgets. JqxDataTable poskytuje již hotové stránkování, textové řazení podle jednotlivých sloupců, textové pole pro filtrování a možnost zobrazit vloženou tabulku. Díky rozsáhlému API umožňuje vytvoření vlastního způsobu vybírání řádek. Komponenty od jQWidgets mojí mnoho vlastních stylů. V~návrhové ukázce je použit styl \uv{Light}.
+	Obrázek \ref{tabulka} zobrazuje navrženou tabulku pro zobrazení hodnot z~databáze. Základem tabulky je jqxDataTable\cite{jqx_dataTable} od jQWidgets. JqxDataTable poskytuje již hotové stránkování, textové řazení podle jednotlivých sloupců, textové pole pro filtrování a možnost zobrazit vloženou tabulku. Díky rozsáhlému API umožňuje vytvoření vlastního způsobu vybírání řádek. Komponenty od jQWidgets mají mnoho vlastních stylů. V~návrhové ukázce je použit styl \uv{Light}.
 	
 	K~prvkům jqxDataTable jsou doplněna tlačítka pro přidání nového záznamu, smazání záznamu nebo záznamů na základě výběru řádků a tlačítko pro hromadnou editaci řádků.
 
@@ -433,14 +433,14 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 	\end{verbatim}
 	Dále povolíme modul rewrite příkazem \verb|sudo a2enmod rewrite| a restartujeme Apache: \verb|sudo apache2ctl -k restart|.
 \subsection{Stažení aplikace}
-	Aplikaci nainstalujeme do složky /var/www/html. Přesuneme se do ní příkazem \verb|cd /var/www/html|. Samoutnou aplikaci stáhneme pomocí\newline\verb|sudo wget | \url{http://147.251.253.183:1080/dolezj24/mahasys/repository/production/archive.zip}. Stažený archiv rozbalíme příkazem\newline\verb|sudo unzip archive.zip| a vzniklou složku přejmenujeme --\newline\verb|sudo mv mahasys* mahasys|. Do této složky se přesuneme a pomocí\newline\verb|sudo chmod -R a+rw temp log| přidáme práva čtení a zápisu všem uživatelům pro složky temp a log. A~na závěr nainstalujeme všechny balíčky na kterých aplikace závisý příkazem \verb|sudo php composer.phar install|.
+	Aplikaci nainstalujeme do složky /var/www/html. Přesuneme se do ní příkazem \verb|cd /var/www/html|. Samotnou aplikaci stáhneme pomocí\newline\verb|sudo wget | \url{http://147.251.253.183:1080/dolezj24/mahasys/repository/production/archive.zip}. Stažený archiv rozbalíme příkazem\newline\verb|sudo unzip archive.zip| a vzniklou složku přejmenujeme --\newline\verb|sudo mv mahasys* mahasys|. Do této složky se přesuneme a pomocí\newline\verb|sudo chmod -R a+rw temp log| přidáme práva čtení a zápisu všem uživatelům pro složky temp a log. A~na závěr nainstalujeme všechny balíčky, na kterých aplikace závisí příkazem \verb|sudo php composer.phar install|.
 \subsection{Diagram nasazení}
 	Diagram nasazení\ref{deployment_view} popisuje fyzické rozmístění komponent a hardwarových zdrojů systému včetně jejich propojení.\cite{si1_pred7}
 	
 \section{Administrátorská příručka}
 	V~této kapitole jsou popsány postupy pro úpravy aplikace v~návaznosti na změnu databázového modelu.
 \subsection{Změna modelu v~nástroji Skipper}
-	Úprava modelu provedeme pomocí formulářů v~nástroji Skipper. Pro nové entity je vhodné nastavit jméno vygenerovaného souboru s~definicí. Tvar jména bude typicky \uv{<jméno entity>.php}. Do nové entity je také vhodné vložit atribut primárního klíče nazývaný \uv{id}, ačkoliv ve vygenerovaném souboru entity bude nahrazen použitím identifikačního traitu. Důležité je to především u~entit, kde primární klíč bude sloužit jako cizí klíč v~jiné tabulce. Díky tomu budou správně vygenerovány vazební vlasnostni tříd.
+	Úpravu modelu provedeme pomocí formulářů v~nástroji Skipper. Pro nové entity je vhodné nastavit jméno vygenerovaného souboru s~definicí. Tvar jména bude typicky \uv{<jméno entity>.php}. Do nové entity je také vhodné vložit atribut primárního klíče nazývaný \uv{id}, ačkoliv ve vygenerovaném souboru entity bude nahrazen použitím identifikačního traitu. Důležité je to především u~entit, kde primární klíč bude sloužit jako cizí klíč v~jiné tabulce. Díky tomu budou správně vygenerovány vazební vlastnosti tříd.
 \subsection{Vytvoření datového typu enumerate}
 	Pokud potřebujeme použít výčtový datový typ, je nutné vytvořit vlastní datový typ, protože Doctrine 2 enumerate nepodporuje. Výčtový typ vytvoříme pomocí PHP třídy, kterou oddědíme od třídy \verb|MahaSys\Entity\EnumType|. Dále už jen nastavíme jméno datového typu a pole s~hodnotami výčtu. Výsledná třída může vypadat následovně.
 	\begin{verbatim}
@@ -460,17 +460,17 @@ class EnumVisibility extends Entity\EnumType
 	A~také v~souboru \emph{/db-managment-proj/bootstrap.php} přidáním řádky:\newline\verb|Type::addType('enum_visibility','MahaSys\Entity\EnumVisibility');|
 Pro možnost nastavení nově vytvořeného datového typu pro sloupec entity v~nástroji Skipper vložíme řádek \verb|<data-type name="enum_visibility"/>| do tagu \verb|<data-types>| v~souboru \emph{MahaSys\_Doctrine2.skipper.cfg.xml}, kde je uloženo přídavné nastavení shématu pro soubor \emph{MahaSys.skipper}.
 \subsection{Zavedení úprav schématu}
-	Po vygenerování tříd pomocí programu Skipper zaneseme změněné třídy do složek \emph{db-managment-proj/src/MahaSys/Entity} a \emph{app/Entity}. Do upravených tříd přidáme metody get a set a zároveň nahradíme atribut id za použití identifikačního traitu příkezem \verb|use \MahaSys\Entity\BaseEntityTrait;|. Nyní pomocí příkazu\newline\verb|.\doctrine.bat orm:schema-tool:update --force --dump-sql|\newline vygenerujeme příslušné SQL příkazy. Ve těchto příkazech nahradíme názvy tabulek a sloupců z~tvarů lower-CamelCase za zápisy s~podtržítky. Výsledné příkazy spustíme v~databázi.
+	Po vygenerování tříd pomocí programu Skipper zaneseme změněné třídy do složek \emph{db-managment-proj/src/MahaSys/Entity} a \emph{app/Entity}. Do upravených tříd přidáme metody get a set a zároveň nahradíme atribut id za použití identifikačního traitu příkazem \verb|use \MahaSys\Entity\BaseEntityTrait;|. Nyní pomocí příkazu\newline\verb|.\doctrine.bat orm:schema-tool:update --force --dump-sql|\newline vygenerujeme příslušné SQL příkazy. Ve těchto příkazech nahradíme názvy tabulek a sloupců z~tvarů lower-CamelCase za zápisy s~podtržítky. Výsledné příkazy spustíme v~databázi.
 \subsection{Vytvoření formuláře}
 	Formuláře se vkládají do složky \emph{app/components}. Využívají Nette formuláře, kompletní popis tvorby formuláře je k~dispozici na \url{https://doc.nette.org/cs/2.4/forms}. Pro formulář taktéž vytvoříme továrničku ve složce \emph{app/factories}, kterou zaregistrujeme v~konfiguračním souboru \emph{config.neon}. Díky tomu nám bude formulář dodán pomocí Dependency Injection kdykoli ho budeme potřebovat. 
 
 	Dále do složky \emph{app/services} vytvoříme korespondující třídu pro manipulaci s~daty. Tato třída bude odděděna od abstraktní třídy \verb|AService| a bude implementovat všechny její abstraktní metody. Poslední krok je přidání třídy prezenteru a šablony pro vykreslení formuláře. Prezenter bude odděděn od abstraktní třídy \verb|AFormPresenter|.
 \subsection{Nastavení tabulky zobrazující data}
-	Pro manipulaci s~daty nejprve upravíme API, které tabulka využívá. API je soustředěno do samostatného modulu ve složce \emph{app/ApiModule}, v~které je složka \emph{presenters} s~prezenetery API. Ty jsou následně dostupné přes <adresa-systému>/api. Pro nové tabulky vytvoříme korespondující API prezenter pomocí nové třídy odděděné od třídy \verb|BasePresenter| a implementující interface \verb|IApiPresenter|, tak jak je to znázorněno na obrázku \ref{api_presenters}. 
+	Pro manipulaci s~daty nejprve upravíme API, které tabulka využívá. API je soustředěno do samostatného modulu ve složce \emph{app/ApiModule}, v~které je složka \emph{presenters} s~prezenetery API. Ty jsou následně dostupné přes <adresa-systému>/api. Pro nové tabulky vytvoříme korespondující API prezenter pomocí nové třídy odděděné od třídy \verb|BasePresenter| a implementující interface \verb|IApiPresenter| tak, jak je to znázorněno na obrázku \ref{api_presenters}. 
 
-	Následně připravíme nastavení pro tabulku. K~tomu slouží továrnička \verb|JQTableSetupFactory| a její statická metoda \verb|create|, které v~jako první parametr předáme seznam sloupců s~jejich označením a datovým typem sloupce. Pokud bude u~tabulky využita subtabulka, jako druhý parametr metody poslouží název JSON atributu, který ponese data pro subtabulku. Třetí parametr bude v~takovém případě obsahovat informace o~subtabulce ve stejném formátu, jakém tomu bylo u~tabulky primární.
+	Následně připravíme nastavení pro tabulku. K~tomu slouží továrnička \verb|JQTableSetupFactory| a její statická metoda \verb|create|, které ~jako první parametr předáme seznam sloupců s~jejich označením a datovým typem sloupce. Pokud bude u~tabulky využita subtabulka, jako druhý parametr metody poslouží název JSON atributu, který ponese data pro subtabulku. Třetí parametr bude v~takovém případě obsahovat informace o~subtabulce ve stejném formátu, v jakém tomu bylo u~tabulky primární.
 
-	Nyní vytvoříme novou metodu render<NázevTabulky>, kde šabloně do atributu \verb|setup| předáme nastavení serializované do formátu JSON. Dále také do šablony nastavíme odkazy na API, které jsem předtím vytvořili.
+	Nyní vytvoříme novou metodu render<NázevTabulky>, kde šabloně do atributu \verb|setup| předáme nastavení serializované do formátu JSON. Dále také do šablony nastavíme odkazy na API, které jsme předtím vytvořili.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{Deployment_view.png}
@@ -480,18 +480,18 @@ Pro možnost nastavení nově vytvořeného datového typu pro sloupec entity v~
 \section{Uživatelská příručka}
 
 \subsection{Tabulka}
-	Tabulka\ref{tabulka} poskytuje možnosti pro manipulaci, procházení a vyhladávání tabulovaných dat. Jde o~následující funkce.
+	Tabulka\ref{tabulka} poskytuje možnosti pro manipulaci, procházení a vyhledávání tabulovaných dat. Jde o~následující funkce.
 	\begin{description}
-		\item[Výběr 1 řádky] je uskutečněn kliknutím na požadovanou řádku, zároveň se stisknutím klávesy Ctrl. Opětovným kliknutím tu samou řádku při zmáčkuté klávese Ctrl dojde ke zrušení výběru. Opakováním postupu lze vybrat více řádek.
-		\item[Výběr více řádků] je docílen dvěma kroky. Najprve označíme nebo odznačíme první krajní řádek výběru, tak jak bylo popsáno v~předchozím bodě. Poté klikneme, zároveň se stlačenou klávesou Shift, na druhou krajní řádku výběru. Tím dojde výběru všech řádek mezi krajními včetně krajních.
+		\item[Výběr 1 řádky] je uskutečněn kliknutím na požadovanou řádku zároveň se stisknutím klávesy Ctrl. Opětovným kliknutím na tu samou řádku při zmáčkuté klávese Ctrl dojde ke zrušení výběru. Opakováním postupu lze vybrat více řádek.
+		\item[Výběr více řádků] je docílen dvěma kroky. Nejprve označíme nebo odznačíme první krajní řádek výběru, tak jak bylo popsáno v~předchozím bodě. Poté klikneme zároveň se stlačenou klávesou Shift na druhou krajní řádku výběru. Tím dojde k výběru všech řádek mezi krajními, včetně krajních.
 		\item[Manipulace s~daty] -- úprava dat probíhá ve formulářích v~rámci modálního okna tabulky. Úpravy dat jsou potvrzené stisknutím tlačítka Save v~modálním. Zrušení změn pak tlačítkem Cancel. K~dispozici jsou tyto operace.
 			\begin{description}
 				\item[Nový záznam] -- stisknutím tlačítka \textbf{New} bude otevřen nevyplněný formulář pro zadání nového záznamu.
-				\item[Editace záznamu] -- klikntím na řádku s~požadovaným záznamem a následnou úpravou dat ve formuláři modálního okna.
+				\item[Editace záznamu] -- kliknutím na řádku s~požadovaným záznamem a následnou úpravou dat ve formuláři modálního okna.
 				\item[Smazání záznamu(ů)] -- označením jednoho nebo více záznamů a následným stisknutím tlačítka \textbf{Delete}.
 				\item[Hromadná editace] -- výběrem několika řádků a následným stisknutím tlačítka \textbf{Edit as one} dojde k~otevření formuláře pro zadání společných hodnot pro každý vybraný řádek.
 			\end{description}
-		\item[Filtování] -- vložením hledaného výrazu do textového vstupu v~hlavičce tabulky a jeho potvrzení stisknutím klávesy Enter nebo kliknutím na tlačítko s~lupou. Výraz je vyhledán nad všemi sloupci.
+		\item[Filtrování] -- vložením hledaného výrazu do textového vstupu v~hlavičce tabulky a jeho potvrzení stisknutím klávesy Enter nebo kliknutím na tlačítko s~lupou. Výraz je vyhledán nad všemi sloupci.
 		\item[Řazení] -- kliknutím na hlavičku sloupce budou záznamy seřazeny vzestupně dle hodnot v~daném sloupci. Opětovným stiskem se záznamy seřadí sestupně a třetím kliknutím bude řazení zrušeno.
 		\item[Stránkování] -- pro procházení stránek se záznamy jsou určena tlačítka v~pravém dolním rohu tabulky. Kromě toho lze zvolit množství zobrazených záznamů na jedné stránce výběrem hodnoty v~sousedním select boxu.
 		\item[Subtabulka] -- pro tabulky s~daty, které zahrnují i nějaká pomocná data, je možné zobrazit subtabulku kliknutím na malý trohúhelník na levém kraji řádky. Opětovným stisknutím tohoto trojúhelníku dojde ke skrytí subtabulky.
@@ -502,8 +502,8 @@ Pro možnost nastavení nově vytvořeného datového typu pro sloupec entity v~
 \section{Testování}
 	Testování aplikace primárně zajišťují jednotkové testy. Na úrovni jednotkových testů je také kontrolována správnost úprav dat, které aplikace zapisuje do databáze. Na aplikaci bylo také provedeno uživatelské testování použitelnosti, v~rámci kterého byly provedeny následující testovací scénáře.
 	\begin{enumerate}
-		\item Systém přijal objednávku na několik produktů. Zákazník v~objednávce požaduje odeslání objednávky, i když nebude kompletně skladem. Naplánujte expedici objednávky se zbožím, které je skladem. %Po přijetí tří objednávek expeditér připraví balíčky s požadovanými produkty. První objednávka je kompletně na skladě a bude vyřízena jedním balíčkem. Druhá objednávka je taktéž kompletně na skladě, ale expeditér produkty rozdělý do dvou balíčků. Třetí objednávka je pouze částečně na skladě, zákazník však požaduje odeslání objednávky, i přestože není kompletní. Expeditér tedy vytvoří balíček s produkty, které jsou na skladě.
-		\item Po naplánování expedice objednávky jste zjistili, že rozložení produktů do dvou balíčků nebylo vhodné(zboží se do balíčků nevejde). Upravte expedici objednávky rozdělením produktů do tří balíčků.
+		\item Systém přijal objednávku na několik produktů. Zákazník v~objednávce požaduje odeslání objednávky, i když nebude kompletně skladem. Naplánujte expedici objednávky se zbožím, které je skladem. %Po přijetí tří objednávek expeditér připraví balíčky s požadovanými produkty. První objednávka je kompletně na skladě a bude vyřízena jedním balíčkem. Druhá objednávka je taktéž kompletně na skladě, ale expeditér produkty rozdělí do dvou balíčků. Třetí objednávka je pouze částečně na skladě, zákazník však požaduje odeslání objednávky, i přesto, že není kompletní. Expeditér tedy vytvoří balíček s produkty, které jsou na skladě.
+		\item Po naplánování expedice objednávky jste zjistili, že rozložení produktů do dvou balíčků nebylo vhodné (zboží se do balíčků nevejde). Upravte expedici objednávky rozdělením produktů do tří balíčků.
 		\item Do systému byly přijaty dvě samostatné objednávky od jednoho zákazníka. Zákazník u~druhé objednávky požaduje společné vyfakturování obou objednávek. Vytvořte fakturu na základě těchto dvou objednávek.
 	\end{enumerate}
 
@@ -513,11 +513,11 @@ Pro možnost nastavení nově vytvořeného datového typu pro sloupec entity v~
 	%sem napište závěr Vaší práce
 	%shrnutí míry uspěšnosti realizace cíle a jak jsme toho dosáhli
 	%výhled do budoucna - možné rozšíření výsledku práce
-	Cílem práce bylo nahrvnou, implementovat a otestovat webový frontend informačního systému pro firmu MAHALUX s.r.o. na základě získaných funkčních a nefunkčních požadavků. Důraz byl kladen na použitelnost aplikace, tak aby nepomáhala rychle a bezchybně zadávat data do databáze.
+	Cílem práce bylo navrhnout, implementovat a otestovat webový frontend informačního systému pro firmu MAHALUX s.r.o. na základě získaných funkčních a nefunkčních požadavků. Důraz byl kladen na použitelnost aplikace tak, aby napomáhala rychle a bezchybně zadávat data do databáze.
 	
-	U~vytvořenéhp prototypu se podařilo zajistit základní funkčnost. Aplikace zvládá obsluhu procesu vyřízení objednávky, včetně plánování expedice a fakturování objednávek. Je možné zobrazovat veškerá data z~databáze, pomocí implementované tabulky, a dále je upravovat, mazat či přidávat nové záznamy. Pro vkládání a úpravy dat byly použity Nette formuláře. Zároveň se podařilo připravit API pro manipulaci se všemi tabulkami. Celá aplikace je postavena na návrhovém vzoru MVC, který je implementován spoluprací Nette prezenterů, Latté šablon a knihovny Doctrine 2. Nepodařilo realizovat některé podpůrné prvky aplikace jako dynamické doplňování textu nebo vyplňování dat ze šablon. Do budoucna by měly být tyto funkce doplněny. 
+	U~vytvořeného prototypu se podařilo zajistit základní funkčnost. Aplikace zvládá obsluhu procesu vyřízení objednávky, včetně plánování expedice a fakturování objednávek. Je možné zobrazovat veškerá data z~databáze pomocí implementované tabulky, a dále je upravovat, mazat či přidávat nové záznamy. Pro vkládání a úpravy dat byly použity Nette formuláře. Zároveň se podařilo připravit API pro manipulaci se všemi tabulkami. Celá aplikace je postavena na návrhovém vzoru MVC, který je implementován spoluprací Nette prezenterů, Latté šablon a knihovny Doctrine 2. Nepodařilo se realizovat některé podpůrné prvky aplikace, jako je dynamické doplňování textu nebo vyplňování dat ze šablon. Do budoucna by měly být tyto funkce doplněny. 
 	
-	Aplikace je taktéž velice snadno rozšiřitelná a dobře konfigurovatelná. Díky tomu je možné provádět i poměrně velké změny v~databázovém modelu a v~návaznosti na to aplikaci jednoduše upravit. Krom toho by bylo vhodné vytvořit proces Continous Deployment pro automatizované nasazování nových verzí systému včetně jeho testování.
+	Aplikace je taktéž velice snadno rozšiřitelná a dobře konfigurovatelná. Díky tomu je možné provádět i poměrně velké změny v~databázovém modelu a v~návaznosti na to aplikaci jednoduše upravit. Kromě toho by bylo vhodné vytvořit proces Continous Deployment pro automatizované nasazování nových verzí systému včetně jeho testování.
 \end{conclusion}
 
 \bibliographystyle{csn690}
