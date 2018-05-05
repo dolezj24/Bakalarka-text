@@ -71,7 +71,7 @@
 \chapter{Cíl práce}
 	Cílem rešeršní části práce je analýza požadavků zákazníka a analýza složitějších případů užití. Dále prozkoumání existujících řešení webových frontendů pro získání přehledu o best practicies. Mimo jiné se zaměřím na možnosti continuous integration a continuous deployment a jejich využití pro tento projekt.
 	
-	Cílem praktické části práce je návrh, implementace a otestování webového frontendu tohoto informačního systému. Hlavní důraz bude kladen dynamičnost uživatelského rozhraní. To by mělo uživateli napomáhat k co nejrychlejšímu a pokud možno bezchybnému vkládání dat. K tomu budou využity šablony, které si uživatel nadefinuje společně s daty a ty následně ze šablony vloží do konkrétního formuláře. Dále by měla být zajištěna přehledná reprezentace větších záznamů a hromadné úpravy. Systém bude komponentový pro zaručení možnosti jednoduchého rozšíření systému.
+	Cílem praktické části práce je návrh, implementace a otestování webového frontendu tohoto informačního systému. Hlavní důraz bude kladen dynamičnost uživatelského rozhraní. To by mělo uživateli napomáhat k co nejrychlejšímu a bezchybnému vkládání dat. K tomu budou využity šablony, které si uživatel nadefinuje společně s daty a ty následně ze šablony vloží do konkrétního formuláře. Dále by měla být zajištěna přehledná reprezentace větších záznamů a hromadné úpravy. Systém bude komponentový pro zaručení možnosti jednoduchého rozšíření systému.
 	
 \chapter{Analýza}
 
@@ -149,13 +149,13 @@
 		\item Pokud jsou původní hodnoty stejné, zobrazí se k úpravě stejně jako by se editoval jeden záznam. 
 		\item Pokud jsou původní hodnoty rozdílné, namísto pole k editaci se zobrazí tlačítko pro výběr jedné společné hodnoty (ideálně histogram), kterou lze potom opět editovat jako jednu hodnotu. Pokud se hodnota neupraví, zůstávají původní hodnoty.
 	\end{itemize}
-	\item[FN9] Vyplňování formuláře šablonou.
+	\item[FN9] Vyplnění formuláře šablonou.
 	\begin{itemize}
 		\item Uživatel si nadefinuje šablonu s konkrétními daty v konkrétních polích a šablonu uloží. 
 		\item Při další vyplňování téhož formuláře bude moci vybrat uloženou šablonu a ta mu formulář vyplní uloženými daty. 
 		\item Uživatel bude dále moci data upravit a případně šablonu upravit či uložit novou.
 	\end{itemize}
-	\item[FN10] Management uživatelů.
+	\item[FN10] Správa uživatelů.
 	\begin{itemize}
 		\item O každém uživateli evidovat loginID, username, skutečné jméno, heslo.
 		\item Každý uživatel má nějaké oprávnění. Oprávnění mohou být admin, expeditér.
@@ -191,7 +191,7 @@
 	\item[NF5] Tabulka pro zobrazení záznamů z databázové tabulky.
 	\begin{itemize}
 		\item Editace řádků v modálním okně. Zobrazení upravených dat až po odeslání na server a jejich opětovného načtení.
-		\item Možnost zobrazit subtabulku pro jednotlivé řádky pro zobrazení souvisejích položek.
+		\item Možnost zobrazit subtabulku pro jednotlivé řádky k vypsání souvisejích položek.
 		\item Globální filtrování záznamů v tabulce nad všemi sloupci a textové filtrování na všemi sloupci.
 	\end{itemize}
 \end{enumerate}
@@ -439,6 +439,41 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o architekt
 	Aplikaci nainstalujeme do složky \uv{/var/www/html}. Přesuneme se do ní příkazem \verb|cd /var/www/html|. Samoutnou aplikaci stáhneme pomocí\newline\verb|sudo wget | \url{http://147.251.253.183:1080/dolezj24/mahasys/repository/production/archive.zip}. Stažený archiv rozbalíme příkazem\newline\verb|sudo unzip archive.zip| a vzniklou složku přejmenujeme\newline\verb|sudo mv mahasys* mahasys|. Do této složky se přesuneme a pomocí\newline\verb|sudo chmod -R a+rw temp log| přidáme práva čtení a zápisu všem uživatelům pro složky temp a log. A na závěr nainstalujeme všechny balíčky na kterých aplikace závisý příkazem \verb|sudo php composer.phar install|.
 \subsection{Diagram nasazení}
 	Diagram nasazení\ref{deployment_view} popisuje fyzické rozmístění komponent a hardwarových zdrojů systému včetně jejich propojení.\cite{si1_pred7}
+	
+\section{Administrátorská příručka}
+	V této kapitole jsou popsány postupy pro úpravy aplikace v návaznosti na změnu databázového modelu.
+\subsection{Změna modelu v nástroji Skipper}
+	Úprava modelu provedeme pomocí formulářů v nástroji Skipper. Pro nové entity je vhodné nastavit jméno vygenerovaného souboru s definicí. Tvar jména bude typicky \uv{<jméno entity>.php}. Do nové entity je také vhodné vložit atribut primárního klíče nazývaný \uv{id}, ačkoliv ve vygenerovaném souboru entity bude nahrazen použitím identifikačního traitu. Důležité je to především u entit, kde primární klíč bude sloužit jako cizí klíč v jiné tabulce. Díky tomu budou správně vygenerovány vazební vlasnostni tříd.
+\subsection{Vytvoření datového typu enumerate}
+	Pokud potřebujeme použít datový typ enumerate, je nutné vytvořit vlastní datový typ, protože Doctrine 2 enumerate nepodporuje. Následně je nezbytné nový datový typ Doctrine předat. Výčtový typ vytvoříme pomocí PHP třídy, kterou oddědíme od třídy \verb|MahaSys\Entity\EnumType|. Dále už jen nastavíme jméno datového typu a pole s hodnotami výčtu. Výsledná třída může vypadat následovně.
+	\begin{verbatim}
+	namespace MahaSys\Entity;
+	class EnumVisibility extends Entity\EnumType
+	{
+	protected $name = 'enum_visibility';
+	protected $values = array('visible', 'invisible');
+	}
+	\end{verbatim}
+	Dále nově vzniklý datový typ zaregistrujeme v souboru \emph{config.neon}.
+	\begin{verbatim}
+	doctrine:
+	types: 
+	enum_visibility: MahaSys\Entity\EnumVisibility
+	\end{verbatim}
+	A také v souboru \emph{/db-managment-proj/bootstrap.php} přidáním řádky:\newline\verb|Type::addType('enum_visibility','MahaSys\Entity\EnumVisibility');|
+Pro možnost nastavení nově vytvořeného datového typu pro sloupec entity v nástroji Skipper vložíme řádek \verb|<data-type name="enum_visibility"/>| do tagu \verb|<data-types>| v souboru \emph{MahaSys\_Doctrine2.skipper.cfg.xml}, kde je uloženo přídavné nastavení shématu pro soubor \emph{MahaSys.skipper}.
+\subsection{Zavedení úprav schématu}
+	Po vygenerování tříd pomocí programu Skipper zaneseme změněné třídy do složek \emph{db-managment-proj/src/MahaSys/Entity} a \emph{app/Entity}. Do upravených tříd přidáme metody get a set a zároveň nahradíme atribut id za použití identifikačního traitu příkezem \verb|use \MahaSys\Entity\BaseEntityTrait;|. Nyní pomocí příkazu\newline\verb|.\doctrine.bat orm:schema-tool:update --force --dump-sql|\newline vygenerujeme příslušné SQL příkazy. Ve těchto příkazech nahradíme názvy tabulek a sloupců z tvarů lower-CamelCase za zápisy s podtržítky. Výsledné příkazy spustíme v databázi.
+\subsection{Vytvoření formuláře}
+	Formuláře se vkládají do složky \emph{app/components}. Využívají Nette formuláře, kompletní popis tvorby formuláře je k dispozici na \url{https://doc.nette.org/cs/2.4/forms}. Pro formulář taktéž vytvoříme továrničku ve složce \emph{app/factories}, kterou zaregistrujeme v konfiguračním souboru \emph{config.neon}. Díky tomu nám bude formulář dodán pomocí Dependency Injection kdykoli ho budeme potřebovat. 
+
+	Dále do složky \emph{app/services} vytvoříme korespondující třídu pro manipulaci s daty. Tato třída bude odděděna od abstraktní třídy \verb|AService| a bude implementovat všechny její abstraktní metody. Poslední krok je přidání třídy prezenteru a šablony pro vykreslení formuláře. Prezenter bude odděděn od abstraktní třídy \verb|AFormPresenter|.
+\subsection{Nastavení tabulky zobrazující data}
+	Pro manipulaci s daty nejprve upravíme API, které tabulka využívá. API je soustředěno do samostatného modulu ve složce \emph{app/ApiModule}, v které je složka \emph{presenters} s prezenetery API. Ty jsou následně dostupné přes <adresa-systému>/api. Pro nové tabulky vytvoříme korespondující API prezenter pomocí nové třídy odděděné od třídy \verb|BasePresenter| a implementující interface \verb|IApiPresenter|, tak jak je to znázorněno na obrázku \ref{api_presenters}. 
+
+	Následně připravíme nastavení pro tabulku. K tomu slouží továrnička \verb|JQTableSetupFactory| a její statická metoda \verb|create|, které v jako první parametr předáme seznam sloupců s jejich označením a datovým typem sloupce. Pokud bude u tabulky využita subtabulka, jako druhý parametr metody poslouží název JSON atributu, který ponese data pro subtabulku. Třetí parametr bude v takovém případě obsahovat informace o subtabulce ve stejném formátu, jakém tomu bylo u tabulky primární.
+
+	Nyní vytvoříme novou metodu render<NázevTabulky>, kde šabloně do atributu \verb|setup| předáme nastavení serializované do formátu JSON. Dále také do šablony nastavíme odkazy na API, které jsem předtím vytvořili.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{Deployment_view.png}
@@ -465,58 +500,27 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o architekt
 		\item[Subtabulka] -- pro tabulky s daty, které zahrnují i nějaká pomocná data, je možné zobrazit subtabulku kliknutím na malý trohúhelník na levém kraji řádky. Opětovným stisknutím tohoto trojúhelníku dojde ke skrytí subtabulky.
 	\end{description}
 
-\chapter{Testování a údržba}
+\chapter{Testování}
 
 \section{Testování}
 	Testování aplikace primárně zajišťují jednotkové testy. Na úrovni jednotkových testů je také kontrolována správnost úprav dat, které aplikace zapisuje do databáze. Na aplikaci bylo také provedeno uživatelské testování použitelnosti, v rámci kterého byly provedeny následující testovací scénáře.
 	\begin{enumerate}
-		\item Po přijetí tří objednávek expeditér připraví balíčky s požadovanými produkty. První objednávka je kompletně na skladě a bude vyřízena jedním balíčkem. Druhá objednávka je taktéž kompletně na skladě, ale expeditér produkty rozdělý do dvou balíčků. Třetí objednávka je pouze částečně na skladě, zákazník však požaduje odeslání objednávky, i přestože není kompletní. Expeditér tedy vytvoří balíček s produkty, které jsou na skladě.
-		\item Po naplánování rozložení produktů do balíčků expeditér zjistí, že rozdělení nebylo vhodné. Expeditér upraví množství produktů v jednotlivých balíčcích.
-		\item Zákazník provede dvě samostatné objednávky. Dále požaduje aby obě objednávky byly vyfakturovány společně. Uživatel vytvoří fakturu na základě těchto dvou objednávek.
+		\item Systém přijal objednávku na několik produktů. Zákazník v objednávce požaduje odeslání objednávky, i když nebude kompletně skladem. Naplánujte expedici objednávky se zbožím, které je skladem. %Po přijetí tří objednávek expeditér připraví balíčky s požadovanými produkty. První objednávka je kompletně na skladě a bude vyřízena jedním balíčkem. Druhá objednávka je taktéž kompletně na skladě, ale expeditér produkty rozdělý do dvou balíčků. Třetí objednávka je pouze částečně na skladě, zákazník však požaduje odeslání objednávky, i přestože není kompletní. Expeditér tedy vytvoří balíček s produkty, které jsou na skladě.
+		\item Po naplánování expedice objednávky jste zjistili, že rozložení produktů do dvou balíčků nebylo vhodné(zboží se do balíčků nevejde). Upravte expedici objednávky rozdělením produktů do tří balíčků.
+		\item Do systému byly přijaty dvě samostatné objednávky od jednoho zákazníka. Zákazník u druhé objednávky požaduje společné vyfakturování obou objednávek. Vytvořte fakturu na základě těchto dvou objednávek.
 	\end{enumerate}
 
-\section{Údržba}
-	V této kapitole jsou popsány postupy pro úpravy aplikace v návaznosti na změnu databázového modelu.
-\subsection{Změna modelu v nástroji Skipper}
-	Úprava modelu provedeme pomocí formulářů v nástroji Skipper. Pro nové entity je vhodné nastavit jméno vygenerovaného souboru s definicí. Tvar jména bude typicky \uv{<jméno entity>.php}. Do nové entity je také vhodné vložit atribut primárního klíče nazývaný \uv{id}, ačkoliv ve vygenerovaném souboru entity bude nahrazen použitím identifikačního traitu. Důležité je to především u entit, kde primární klíč bude sloužit jako cizí klíč v jiné tabulce. Díky tomu budou správně vygenerovány vazební vlasnostni tříd.
-\subsection{Vytvoření datového typu enumerate}
-	Pokud potřebujeme použít datový typ enumerate, je nutné vytvořit vlastní datový typ, protože Doctrine 2 enumerate nepodporuje. Následně je nezbytné nový datový typ Doctrine předat. Výčtový typ vytvoříme pomocí PHP třídy, kterou oddědíme od třídy \verb|MahaSys\Entity\EnumType|. Dále už jen nastavíme jméno datového typu a pole s hodnotami výčtu. Výsledná třída může vypadat následovně.
-	\begin{verbatim}
-		namespace MahaSys\Entity;
-		class EnumVisibility extends Entity\EnumType
-		{
-		     protected $name = 'enum_visibility';
-		     protected $values = array('visible', 'invisible');
-		}
-	\end{verbatim}
-	Dále nově vzniklý datový typ zaregistrujeme v souboru \emph{config.neon}.
-	\begin{verbatim}
-		doctrine:
-			types: 
-				enum_visibility: MahaSys\Entity\EnumVisibility
-	\end{verbatim}
-	A také v souboru \emph{/db-managment-proj/bootstrap.php} přidáním řádky:\newline\verb|Type::addType('enum_visibility','MahaSys\Entity\EnumVisibility');|
-	Pro možnost nastavení nově vytvořeného datového typu pro sloupec entity v nástroji Skipper vložíme řádek \verb|<data-type name="enum_visibility"/>| do tagu \verb|<data-types>| v souboru \emph{MahaSys\_Doctrine2.skipper.cfg.xml}, kde je uloženo přídavné nastavení shématu pro soubor \emph{MahaSys.skipper}.
-\subsection{Zavedení úprav schématu}
-	Po vygenerování tříd pomocí programu Skipper zaneseme změněné třídy do složek \emph{db-managment-proj/src/MahaSys/Entity} a \emph{app/Entity}. Do upravených tříd přidáme metody get a set a zároveň nahradíme atribut id za použití identifikačního traitu příkezem \verb|use \MahaSys\Entity\BaseEntityTrait;|. Nyní pomocí příkazu\newline\verb|.\doctrine.bat orm:schema-tool:update --force --dump-sql|\newline vygenerujeme příslušné SQL příkazy. Ve těchto příkazech nahradíme názvy tabulek a sloupců z tvarů lower-CamelCase za zápisy s podtržítky. Výsledné příkazy spustíme v databázi.
-\subsection{Vytvoření formuláře}
-	Formuláře se vkládají do složky \emph{app/components}. Využívají Nette formuláře, kompletní popis tvorby formuláře je k dispozici na \url{https://doc.nette.org/cs/2.4/forms}. Pro formulář taktéž vytvoříme továrničku ve složce \emph{app/factories}, kterou zaregistrujeme v konfiguračním souboru \emph{config.neon}. Díky tomu nám bude formulář dodán pomocí Dependency Injection kdykoli ho budeme potřebovat. 
-	
-	Dále do složky \emph{app/services} vytvoříme korespondující třídu pro manipulaci s daty. Tato třída bude odděděna od abstraktní třídy \verb|AService| a bude implementovat všechny její abstraktní metody. Poslední krok je přidání třídy prezenteru a šablony pro vykreslení formuláře. Prezenter bude odděděn od abstraktní třídy \verb|AFormPresenter|.
-\subsection{Nastavení tabulky zobrazující data}
-	Pro manipulaci s daty nejprve upravíme API, které tabulka využívá. API je soustředěno do samostatného modulu ve složce \emph{app/ApiModule}, v které je složka \emph{presenters} s prezenetery API. Ty jsou následně dostupné přes <adresa-systému>/api. Pro nové tabulky vytvoříme korespondující API prezenter pomocí nové třídy odděděné od třídy \verb|BasePresenter| a implementující interface \verb|IApiPresenter|, tak jak je to znázorněno na obrázku \ref{api_presenters}. 
-	
-	Následně připravíme nastavení pro tabulku. K tomu slouží továrnička \verb|JQTableSetupFactory| a její statická metoda \verb|create|, které v jako první parametr předáme seznam sloupců s jejich označením a datovým typem sloupce. Pokud bude u tabulky využita subtabulka, jako druhý parametr metody poslouží název JSON atributu, který ponese data pro subtabulku. Třetí parametr bude v takovém případě obsahovat informace o subtabulce ve stejném formátu, jakém tomu bylo u tabulky primární.
-	
-	Nyní vytvoříme novou metodu render<NázevTabulky>, kde šabloně do atributu \verb|setup| předáme nastavení serializované do formátu JSON. Dále také do šablony nastavíme odkazy na API, které jsem předtím vytvořili.
+
 
 \begin{conclusion}
 	%sem napište závěr Vaší práce
 	%shrnutí míry uspěšnosti realizace cíle a jak jsme toho dosáhli
 	%výhled do budoucna - možné rozšíření výsledku práce
-	Cílem práce byl návrh, implementace a otestování webového frontendu informačního systému.
+	Cílem práce bylo nahrvnou, implementovat a otestovat webový frontend informačního systému pro firmu MAHALUX s.r.o. na základě získaných funkčních a nefunkčních požadavků. Důraz byl kladen na použitelnost aplikace, tak aby nepomáhala rychle a bezchybně zadávat data do databáze.
 	
-	Aplikace byla nasazena. Splňuje požadavky zadané zadavatelem. Napomáhá rychle a bezchybně evidovat data. Je napojena na interní databázi kde ukládá zadávaná data.
+	U vytvořenéhp prototypu se podařilo zajistit základní funkčnost. Aplikace zvládá obsluhu procesu vyřízení objednávky, včetně plánování expedice a fakturování objednávek. Je možné zobrazovat veškerá data z databáze, pomocí implementované tabulky, a dále je upravovat, mazat či přidávat nové záznamy. Pro vkládání a úpravy dat byly použity Nette formuláře. Zároveň se podařilo připravit API pro manipulaci se všemi tabulkami. Celá aplikace je postavena na návrhovém vzoru MVC, který je implementován spoluprací Nette prezenterů, Latté šablon a knihovny Doctrine 2. Nepodařilo realizovat některé podpůrné prvky aplikace jako našeptávač nebo vyplňování dat ze šablon.
+	
+	
 \end{conclusion}
 
 \bibliographystyle{csn690}
