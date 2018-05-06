@@ -38,14 +38,19 @@
 \authorWithDegrees{Jakub Doležal} %jméno autora včetně současných akademických titulů
 \author{Jakub Doležal} %jméno autora bez akademických titulů
 \supervisor{Ing. Jiří Chludil}
-\acknowledgements{Doplňte, máte-li komu a za co děkovat. V~opačném případě úplně odstraňte tento příkaz.}
+\acknowledgements{Chtěl bych poděkovat mojí rodině za podporu v době studií a při tvorbě této práce. Dále bych rád poděkoval mému vedoucímu Ing. Jiřímu Chludilovi za jeho příkladné přátelské vedení. A v neposlední řadě chci poděkovat Bc. Michaeli Voříškovi z firmy MAHALUX s.r.o. za jeho rady a vztřícnost.}
 \abstractCS{Cílem této bakalářské práce je návrh, implementace a otestování webového frontendu informačního systému pro firmu MAHALUX s.r.o. Hlavním účelem aplikace je zefektivnění a centralizování evidence provozních dat firmy.
 	
-	Na základě sběru požadavků a analýzy firemních procesů je navržen informační systém s webovým frontendem, který je implementovaný pomocí frameworku ReactJS v~jazyce JavaScript. Serverová část aplikace je realizována ve skriptovacím jazyce PHP s~využitím frameworku Nette. Aplikace byla podrobena uživatelskému testování použitelnosti.
+	Na základě sběru požadavků a analýzy firemních procesů je navržen informační systém s~webovým frontendem, který je implementovaný pomocí frameworku ReactJS v~jazyce JavaScript. Serverová část aplikace je realizována ve skriptovacím jazyce PHP s~využitím frameworku Nette. Aplikace byla podrobena uživatelskému testování použitelnosti.
 	
-	Výsledkem práce je informační systém spustilný v běžném webovém prohlížeči. 
+	Výsledkem práce je informační systém spustilný v~běžném webovém prohlížeči. 
 }
-\abstractEN{Sem doplňte ekvivalent abstraktu Vaší práce v~angličtině.}
+\abstractEN{The object of this bachelor thesis is to design, implement and test web frontend of information system for MAHALUX s.r.o. company. Application's main purpose is to make data storing more efficient and centralized.
+
+Design of the web frontend is given by the system specification requirments from contracting company. It is implemented with usege of ReactJS framework in JavaScript language. Server-side application is made with PHP language and Nette framework. Usability testing was done on the application.
+
+The outcome is the information system which you can run in every common web browser.
+}
 \placeForDeclarationOfAuthenticity{V~Praze}
 \declarationOfAuthenticityOption{4} %volba Prohlášení (číslo 1-6)
 \keywordsCS{webový frontend, informační systém, návrh, implementace, testování, hromadné zadávání dat, ReactJS, PHP, Nette framework}
@@ -59,14 +64,14 @@
 % \newacronym{FIT}{FIT}{Fakulta informa{\v c}n{\' i}ch technologi{\' i}}
 
 \begin{introduction}
-	MAHALUX s.r.o. je mladá expandující firma zabývající vývojem, výrobou a prodejem elektronických zařízení. Zároveň provozuje internetový obchod, kde nabízí vlastní produkty a distribuje zboží z jiných eshopů. I~přesto, že firma existuje poměrně krátce, již expeduje po celém světě. To přináší velké nároky na evidenci rozličných dat o~adresách, bankovních spojeních a dalších informacích o~zákaznících. Proto se firma MAHALUX s.r.o. rozhodla pro zavedení informačního systému s~webovým frontendem, který přinese potřebné centralizované ukládání dat a pohodlný přístup k~těmto datům. Dalším hlavním účelem systému je zefektivnění procesu vyřizování objednávek.
+	MAHALUX s.r.o. je mladá expandující firma zabývající vývojem, výrobou a prodejem elektronických zařízení. Zároveň provozuje internetový obchod, kde nabízí vlastní produkty a distribuje zboží z~jiných eshopů. I~přesto, že firma existuje poměrně krátce, již expeduje po celém světě. To přináší velké nároky na evidenci rozličných dat o~adresách, bankovních spojeních a dalších informacích o~zákaznících. Proto se firma MAHALUX s.r.o. rozhodla pro zavedení informačního systému s~webovým frontendem, který přinese potřebné centralizované ukládání dat a pohodlný přístup k~těmto datům. Dalším hlavním účelem systému je zefektivnění procesu vyřizování objednávek.
 	
 	V~práci se zabývám analýzou, návrhem, implementací a testováním webového informačního systému.
-	Úkolem úvodní části práce je sběr funkčních a nefunkčních požadavků zadavatele. Dále je také nutná analýza složitějších případů užití a firemních procesů. Následuje návrh struktury systému, komponentového prototypu a uživatelského rozhraní. Navazovat bude samotná implementace prototypu frontendu v~knihovně ReactJS a vytvoření serverové části aplikace v jazyce PHP s pomocí frameworku Nette. V závěrečné kapitole je popsáno testování aplikace.
+	Úkolem úvodní části práce je sběr funkčních a nefunkčních požadavků zadavatele. Dále je také nutná analýza složitějších případů užití a firemních procesů. Následuje návrh struktury systému, komponentového prototypu a uživatelského rozhraní. Navazovat bude samotná implementace prototypu frontendu v~knihovně ReactJS a vytvoření serverové části aplikace v~jazyce PHP s~pomocí frameworku Nette. V~závěrečné kapitole je popsáno testování aplikace.
 \end{introduction}
 
 \chapter{Cíl práce}
-	Cílem úvodní části práce je analýza požadavků zákazníka, prozkoumání složitějších případů užití a pochopení firemních procesů. Kromě toho je potřeba seznámení s existujícími řešeními webových frontendů pro získání přehledu o~best practicies.
+	Cílem úvodní části práce je analýza požadavků zákazníka, prozkoumání složitějších případů užití a pochopení firemních procesů. Kromě toho je potřeba seznámení s~existujícími řešeními webových frontendů pro získání přehledu o~best practicies.
 	
 	Cílem praktické části práce je návrh, implementace a otestování webového frontendu tohoto informačního systému. Hlavní důraz bude kladen na dynamičnost uživatelského rozhraní. To by mělo uživateli napomáhat k~co nejrychlejšímu a bezchybnému vkládání dat. K~tomu budou využity šablony, které si uživatel nadefinuje společně s~daty a ty následně ze šablony vloží do konkrétního formuláře. Dále by měla být zajištěna přehledná reprezentace větších záznamů a hromadné úpravy. Systém bude komponentový pro zaručení možnosti jednoduchého rozšíření systému.
 	
@@ -97,7 +102,7 @@
 			\item tisk faktury.
 		\end{itemize}
 	\end{itemize}	
-	\item[FN2] Evidence nabízených produktů a s tím spojené
+	\item[FN2] Evidence nabízených produktů a s~tím spojené
 	 	vyhledání, přidání, úprava a smazání nabízeného produktu.
 	\newpage
 	\item[FN3] Agenda firemního skladu.
@@ -160,14 +165,14 @@
 		\item Upravení uživatele.
 		\item Deaktivace uživatele.
 		\item Přehled uživatelů.
-		\item Administrátor bude moci vygenerovat uživateli nové heslo v případě zapomenutí hesla.
+		\item Administrátor bude moci vygenerovat uživateli nové heslo v~případě zapomenutí hesla.
 	\end{itemize}
 	\item[FN11] Evidence úprav dat (kdo data upravil a kdy).
 	\begin{itemize}
 		\item Pro každý záznam ve všech tabulkách bude evidováno kdo a kdy řádek vytvořil, upravil a smazal(technika soft delete).
-		\item Informace o tom, kým byla data upravena, bude zaznamenána z~loginu uživatele.	
+		\item Informace o~tom, kým byla data upravena, bude zaznamenána z~loginu uživatele.	
 	\end{itemize}
-	\item[FN12] Vytvořit API pro manipulaci s daty ve všech tabulkách.
+	\item[FN12] Vytvořit API pro manipulaci s~daty ve všech tabulkách.
 \end{enumerate}
 
 \subsection{Nefunkční požadavky}
@@ -208,7 +213,7 @@
 	
 	Na základě přijatých zásobovacích dodávek(naskladnění) a vyexpedovaných objednávek(vyskladění) vznikají pohyby na skladě. Každý skladový pohyb je způsoben jednou z~těchto dvou událostí. Je nutné evidovat množství produktu, znamenající pohyb skladu, stejně jako u~položek objednávek a dodávek. Vyskladnění znamená skladový pohyb se záporným množstvím. Naskladnění je naopak pohyb s~kladným množstvím.
 	
-	Nezávisle na objednávkách je vedena evidence faktur, a to jak vydaných, tak i těch přijatých. Pro faktury vydané je znovu třeba ukládat seznam fakturovaných položek a jejich množství. Dále faktura obsahuje informace o~zákazníkovi. Opět se jedná o různé údaje podle toho, zda se jde o~fyzickou či právnickou osobu. 
+	Nezávisle na objednávkách je vedena evidence faktur, a to jak vydaných, tak i těch přijatých. Pro faktury vydané je znovu třeba ukládat seznam fakturovaných položek a jejich množství. Dále faktura obsahuje informace o~zákazníkovi. Opět se jedná o~různé údaje podle toho, zda se jde o~fyzickou či právnickou osobu. 
 	
 \begin{figure}
 	\includegraphics[height=\textwidth, angle=90]{domain_model.png}
@@ -289,7 +294,7 @@
 	je nástroj pro modelování E-R schémat zaměřený na programovací jazyk PHP. Umožňuje generovat zdrojový kód modelu s~ohledem na použitý MVC framework a také dle zvolené ORM knihovny. Tím například u~Doctrine 2 nepřímo zajistí i databázové schéma. To je vygenerováno pomocí schema-tool. Skipper podporuje ORM knihovny Doctrine, Doctrine 2, Propel a CakePHP.\cite{skipper_features}
 \end{description}
 
-	Skipper je bezesporu lépe připravený na ORM. Generování notace pro Doctrine 2 zvládá bezchybně. Enterprise Architect ORM neřeší. Na druhou stranu lze v~Enterprise Architectu generování kódu doupravit pomocí šablon a plně nakonfigurovat. To může být velmi užitečné, například při použití traitu společného pro všechny třídy reprezentující databázové entity. Programový kód pro použití traitu se jednoduše vloží do šablony. Skipper toto neumožňuje a přidání je nutné dělat ručně. Nicméně vyladění šablon v nástroji Entreprise Architect pro generování zdrojového kódu včetně notace pro Doctrine 2 by bylo poměrně obtížné a s~nejistým výsledkem. Proto jsem se rozhodl pro využití Skipperu i přes jeho slabší konfigurovatelnost.	
+	Skipper je bezesporu lépe připravený na ORM. Generování notace pro Doctrine 2 zvládá bezchybně. Enterprise Architect ORM neřeší. Na druhou stranu lze v~Enterprise Architectu generování kódu doupravit pomocí šablon a plně nakonfigurovat. To může být velmi užitečné, například při použití traitu společného pro všechny třídy reprezentující databázové entity. Programový kód pro použití traitu se jednoduše vloží do šablony. Skipper toto neumožňuje a přidání je nutné dělat ručně. Nicméně vyladění šablon v~nástroji Entreprise Architect pro generování zdrojového kódu včetně notace pro Doctrine 2 by bylo poměrně obtížné a s~nejistým výsledkem. Proto jsem se rozhodl pro využití Skipperu i přes jeho slabší konfigurovatelnost.	
 
 
 \chapter{Návrh}
@@ -339,7 +344,7 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 	
 	Tabulky popisují strukturu informací o~fakturách jsou v~bílé části, nacházející se vlevo dole. Evidence přijatých a vydaných faktur je vzájemně oddělena. U~vydaných faktur je důležité ukládat jednotlivé fakturované položky produktů a jejich množství. Fakturováno může být několik položek. Dále je pro každou vydanou fakturu nutné evidovat fakturační adresu zákazníka. K~přijatým fakturám jsou uloženy soubory reprezentující tyto faktury. Platí, že každý takový soubor může být pouze u~jedné evidované faktury. Dále je zaznamenána fakturovaná částka a stav zaplacení faktury. 
 	
-	Pro popis dodávek je použito žluté pole. U~dodávek je opět evidováno, jaké produkty obsahuje a v jakém množství. K~dodávkám je pomocí cizího klíče uveden dodavatel, přepravní služba a volitelně i uživatel, který dodávku vytvořil. Přijetím dodávky vždy vzniká skladový pohyb s~kladným množstvím.
+	Pro popis dodávek je použito žluté pole. U~dodávek je opět evidováno, jaké produkty obsahuje a v~jakém množství. K~dodávkám je pomocí cizího klíče uveden dodavatel, přepravní služba a volitelně i uživatel, který dodávku vytvořil. Přijetím dodávky vždy vzniká skladový pohyb s~kladným množstvím.
 	
 	V~tmavě růžové sekci je popsán sklad. Pro jednotlivé sklady je pomocí cizího klíče z~tabulky AddressOur evidováno to, na které adrese se sklad nachází. Pro každý sklad jsou dále evidovány skladové pohyby. Ty bývají inicovány již zmíněnými dodávkami nebo expedováním balíčku. Jedná se o~dva výlučné stavy. Nemůže nastat stav, že by skladový pohyb odkazoval na přijatou dodávku a zároveň na expedovaný balíček. Toto bude ošetřeno databázovým omezením Constraint, který toto bude kontrolovat.
 	
@@ -370,7 +375,7 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 \section{Uživatelské rozhraní}
 
 \subsection{Formulář pro naplánování expedice}
-	Na obrázku \ref{expedice} je navržený formulář pro naplánování expedice definovaný ve funkčním požadavku FN5. Jednotlivé ~řádky tabulky tvoří konkrétní objednávky. Řádky jsou dále rozděleny dle jednotlivých produktů v~objednávce. Textová pole s~plným okrajem a bílým tělem naznačují upravitelné atributy. Pole s~uživatelsky neupravitelným obsahem pak představují obdélníky se světle růžovým tělem a čárkovaným okrajem. V~jednotlivých sloupcích jsou zleva informace o~množství objednaného produktu, množství produktu které zbývá odeslat, množství ke vložení do balíčku, množství produktu na skladě, poznámka a váha zadaného množství produktu. V~posledním sloupci se pak nachází pole pro výběr doručovací služby a tlačítko \textbf{Schedule dispatch}, pomocí kterého dojde k  vytvoření balíčku se zadaným množstvím produktů v~systému. Tlačítko \textbf{Bulk: Schedule dispatch} poté simuluje stisknutí všech tlačítek \textbf{Schedule dispatch}.
+	Na obrázku \ref{expedice} je navržený formulář pro naplánování expedice definovaný ve funkčním požadavku FN5. Jednotlivé ~řádky tabulky tvoří konkrétní objednávky. Řádky jsou dále rozděleny dle jednotlivých produktů v~objednávce. Textová pole s~plným okrajem a bílým tělem naznačují upravitelné atributy. Pole s~uživatelsky neupravitelným obsahem pak představují obdélníky se světle růžovým tělem a čárkovaným okrajem. V~jednotlivých sloupcích jsou zleva informace o~množství objednaného produktu, množství produktu které zbývá odeslat, množství ke vložení do balíčku, množství produktu na skladě, poznámka a váha zadaného množství produktu. V~posledním sloupci se pak nachází pole pro výběr doručovací služby a tlačítko \textbf{Schedule dispatch}, pomocí kterého dojde k~vytvoření balíčku se zadaným množstvím produktů v~systému. Tlačítko \textbf{Bulk: Schedule dispatch} poté simuluje stisknutí všech tlačítek \textbf{Schedule dispatch}.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{expedition_plan.png}
@@ -399,7 +404,7 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 \chapter{Realizace}
 
 \section{Instalační příručka}
-	V~této kapitole je popsána instalace aplikace na Linuxové distribuci Debian 9.
+	V~této kapitole je popsána instalace aplikace na Linuxové distribuci Debian~9.
 \subsection{Instalace systému}
 	Jako první provedeme instalaci Debianu 9 na náš stroj. Instalační obrazy jsou dostupné na stránce \url{https://www.debian.org/distrib/}. Obraz Debianu zahrnuje i webový server Apache2, jeho instalaci zajistíme zaškrtnutím volby \uv{web server} u~výběru komponent systému. Při zavádění systému taktéž vytvoříme uživatele \uv{mahasys}.
 \subsection{Nastavení uživatele}
@@ -468,7 +473,7 @@ Pro možnost nastavení nově vytvořeného datového typu pro sloupec entity v~
 \subsection{Nastavení tabulky zobrazující data}
 	Pro manipulaci s~daty nejprve upravíme API, které tabulka využívá. API je soustředěno do samostatného modulu ve složce \emph{app/ApiModule}, v~které je složka \emph{presenters} s~prezenetery API. Ty jsou následně dostupné přes <adresa-systému>/api. Pro nové tabulky vytvoříme korespondující API prezenter pomocí nové třídy odděděné od třídy \verb|BasePresenter| a implementující interface \verb|IApiPresenter| tak, jak je to znázorněno na obrázku \ref{api_presenters}. 
 
-	Následně připravíme nastavení pro tabulku. K~tomu slouží továrnička \verb|JQTableSetupFactory| a její statická metoda \verb|create|, které ~jako první parametr předáme seznam sloupců s~jejich označením a datovým typem sloupce. Pokud bude u~tabulky využita subtabulka, jako druhý parametr metody poslouží název JSON atributu, který ponese data pro subtabulku. Třetí parametr bude v~takovém případě obsahovat informace o~subtabulce ve stejném formátu, v jakém tomu bylo u~tabulky primární.
+	Následně připravíme nastavení pro tabulku. K~tomu slouží továrnička \verb|JQTableSetupFactory| a její statická metoda \verb|create|, které ~jako první parametr předáme seznam sloupců s~jejich označením a datovým typem sloupce. Pokud bude u~tabulky využita subtabulka, jako druhý parametr metody poslouží název JSON atributu, který ponese data pro subtabulku. Třetí parametr bude v~takovém případě obsahovat informace o~subtabulce ve stejném formátu, v~jakém tomu bylo u~tabulky primární.
 
 	Nyní vytvoříme novou metodu render<NázevTabulky>, kde šabloně do atributu \verb|setup| předáme nastavení serializované do formátu JSON. Dále také do šablony nastavíme odkazy na API, které jsme předtím vytvořili.
 
@@ -483,7 +488,7 @@ Pro možnost nastavení nově vytvořeného datového typu pro sloupec entity v~
 	Tabulka\ref{tabulka} poskytuje možnosti pro manipulaci, procházení a vyhledávání tabulovaných dat. Jde o~následující funkce.
 	\begin{description}
 		\item[Výběr 1 řádky] je uskutečněn kliknutím na požadovanou řádku zároveň se stisknutím klávesy Ctrl. Opětovným kliknutím na tu samou řádku při zmáčkuté klávese Ctrl dojde ke zrušení výběru. Opakováním postupu lze vybrat více řádek.
-		\item[Výběr více řádků] je docílen dvěma kroky. Nejprve označíme nebo odznačíme první krajní řádek výběru, tak jak bylo popsáno v~předchozím bodě. Poté klikneme zároveň se stlačenou klávesou Shift na druhou krajní řádku výběru. Tím dojde k výběru všech řádek mezi krajními, včetně krajních.
+		\item[Výběr více řádků] je docílen dvěma kroky. Nejprve označíme nebo odznačíme první krajní řádek výběru, tak jak bylo popsáno v~předchozím bodě. Poté klikneme zároveň se stlačenou klávesou Shift na druhou krajní řádku výběru. Tím dojde k~výběru všech řádek mezi krajními, včetně krajních.
 		\item[Manipulace s~daty] -- úprava dat probíhá ve formulářích v~rámci modálního okna tabulky. Úpravy dat jsou potvrzené stisknutím tlačítka Save v~modálním. Zrušení změn pak tlačítkem Cancel. K~dispozici jsou tyto operace.
 			\begin{description}
 				\item[Nový záznam] -- stisknutím tlačítka \textbf{New} bude otevřen nevyplněný formulář pro zadání nového záznamu.
