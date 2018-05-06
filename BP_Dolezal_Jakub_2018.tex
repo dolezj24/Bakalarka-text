@@ -216,15 +216,15 @@ The outcome is the information system which you can run in every common web brow
 	Nezávisle na objednávkách je vedena evidence faktur, a to jak vydaných, tak i těch přijatých. Pro faktury vydané je znovu třeba ukládat seznam fakturovaných položek a jejich množství. Dále faktura obsahuje informace o~zákazníkovi. Opět se jedná o~různé údaje podle toho, zda se jde o~fyzickou či právnickou osobu. 
 	
 \begin{figure}
-	\includegraphics[height=\textwidth, angle=90]{domain_model.png}
+	\includegraphics[height=\textwidth, angle=90]{domain_model.eps}
 	\caption{Doménový model}\label{domain_model}
 \end{figure}
 
 \section{Diagram procesu zpracování objednávky}
-	Tento diagram \ref{order_activity} aktivit popisuje proces zpracování objednávky od jejího přijetí až po její vyřízení. Objednávku vytváří zákazník a dále ji odesílá firmě MAHALUX. Ta ji po přijetí zpracovává. Kontroluje se především, zda jsou odjednané produkty na skladě. V~závislosti na tom pak vznikají dodávky. Po kompletaci objednávky následuje její expedice. Ta může nastat i v~případě objednávky, která není kompletně na skladě, ale zákazník si ji přeje odeslat nekompletní. Po vyexpedování je zákazník informován o~předání zásilky dopravci.
+	Tento diagram \ref{order_activity} aktivit popisuje proces zpracování objednávky od jejího vytvoření až po doručení zákazníkovi. Objednávku vytváří zákazník a dále ji odesílá firmě MAHALUX. Ta ji po přijetí zpracovává. Kontroluje se především, zda jsou odjednané produkty na skladě. V~závislosti na tom pak vznikají dodávky. Po kompletaci objednávky následuje její expedice. Ta může nastat i v~případě objednávky, která není kompletně na skladě, ale zákazník si ji přeje odeslat nekompletní. Po vyexpedování je zákazník informován o~předání zásilky dopravci.
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{order_activity.png}
+	\includegraphics[width=\textwidth]{order_activity.eps}
 	\caption{Diagram procesu zpracování objednávky}\label{order_activity}
 \end{figure}
 
@@ -232,7 +232,7 @@ The outcome is the information system which you can run in every common web brow
 	Na obrázku \ref{oredr_cycle} je znázorněn životní cyklus objednávky. Zajímavostí je například to, že pokud si zákazník přeje objednávku odeslat, i když není kompletně na skladu, objednávka se dostane do stavu \uv{Částečně v~expedici}. 
 	
 \begin{figure}
-	\includegraphics[width=\textwidth]{order_cycle.png}
+	\includegraphics[width=\textwidth]{order_cycle.eps}
 	\caption{Životní cyklus objednávky}\label{oredr_cycle}
 \end{figure}
 
@@ -265,7 +265,7 @@ The outcome is the information system which you can run in every common web brow
 	Komunikace mezi jednotlivými částmi je znázorněna na obrázku \ref{mvc_arch}.
 
 	\begin{figure}
-		\includegraphics[width=\textwidth]{mvc.png}
+		\includegraphics[width=\textwidth]{mvc.eps}
 		\caption{Architektura MVC}\label{mvc_arch}
 	\end{figure}
 	
@@ -309,7 +309,7 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 	Komponenty Reactu jsou vytvářeny děděním od třídy React.Component, to lze pozorovat na obrázku \ref{ui_komponents}. Skládáním komponent jsou vytvářeny jednotlivé webové stránky.
 	
 \begin{figure}
-	\includegraphics[width=\textwidth]{UI_components.png}
+	\includegraphics[width=\textwidth]{UI_components.eps}
 	\caption{Komponenty uživatelského rozhraní}\label{ui_komponents}
 \end{figure}
 
@@ -317,20 +317,20 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 	Na serverové straně jsou využity knihovny frameworku Nette, a to především presentery a formuláře. Od samotné aplikace je pak oddělen modul API. Vše je znázorněno na obrázku \ref{server_side}.
 	
 \begin{figure}
-	\includegraphics[width=\textwidth]{server_side.png}
+	\includegraphics[width=\textwidth]{server_side.eps}
 	\caption{Balíčky serverové strany}\label{server_side}
 \end{figure}
 
 	Z~aplikace je nejzajímavější struktura presenterů, která je vyobrazena na snímku \ref{server_side_presenters}. Lze zde pozorovat architekturu MVP, kde model zastupují třídy *Service, view reprezentují šablony Latté a presentery představují samotné třídy *Presenter, které jsou odděděny od Nette Preseneteru.
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{server_side_presenters.png}
+	\includegraphics[width=\textwidth]{server_side_presenters.eps}
 	\caption{Presentery aplikace}\label{server_side_presenters}
 \end{figure}	
 	
 	Podobně vypadá model presenterů API. Ačkoli zde ze zjevného důvodu chybí šablony pro vykreslování. Struktura prezenterů API je zachycena na diagramu \ref{api_presenters}.
 \begin{figure}
-	\includegraphics[width=\textwidth]{api_presenters.png}
+	\includegraphics[width=\textwidth]{api_presenters.eps}
 	\caption{Presentery API}\label{api_presenters}
 \end{figure}
 	Dostupnost API je navržena přes URL <adresa-systému>/api.
@@ -378,7 +378,7 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 	Na obrázku \ref{expedice} je navržený formulář pro naplánování expedice definovaný ve funkčním požadavku FN5. Jednotlivé ~řádky tabulky tvoří konkrétní objednávky. Řádky jsou dále rozděleny dle jednotlivých produktů v~objednávce. Textová pole s~plným okrajem a bílým tělem naznačují upravitelné atributy. Pole s~uživatelsky neupravitelným obsahem pak představují obdélníky se světle růžovým tělem a čárkovaným okrajem. V~jednotlivých sloupcích jsou zleva informace o~množství objednaného produktu, množství produktu které zbývá odeslat, množství ke vložení do balíčku, množství produktu na skladě, poznámka a váha zadaného množství produktu. V~posledním sloupci se pak nachází pole pro výběr doručovací služby a tlačítko \textbf{Schedule dispatch}, pomocí kterého dojde k~vytvoření balíčku se zadaným množstvím produktů v~systému. Tlačítko \textbf{Bulk: Schedule dispatch} poté simuluje stisknutí všech tlačítek \textbf{Schedule dispatch}.
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{expedition_plan.png}
+	\includegraphics[width=\textwidth]{expedition_plan.eps}
 	\caption{Formulář pro naplánování expedice}\label{expedice}
 \end{figure}
 
@@ -386,7 +386,7 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 	Formulář pro vytvoření faktury definovaný ve funkčním požadavku FN1 je nastíněn na obrázku \ref{faktura}. V~levé části se nachází seznam objednávek včetně objednaných položek. Položky půjde nezávisle na objednávce vkládat do fakturačních položek pomocí tlačítka \textbf{Billing}. Finální podoba fakturovaných položek bude zobrazena v~tabulce v~pravé dolní části formuláře. Fakturované množství produktů půjde upravit ve sloupci \uv{Qty} nebo položky z~faktury kompletně odstranit červeným tlačítkem \textbf{X}. Informace o~zákazníkovi budou vyplněny dle první vybrané objednávky nebo půjde zákazníka dohledat přes textové pole s~dymickým doplněním textu.
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{invoice_form.png}
+	\includegraphics[width=\textwidth]{invoice_form.eps}
 	\caption{Formulář pro vytvoření faktury}\label{faktura}
 \end{figure}
 
@@ -441,6 +441,11 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 	Aplikaci nainstalujeme do složky /var/www/html. Přesuneme se do ní příkazem \verb|cd /var/www/html|. Samotnou aplikaci stáhneme pomocí\newline\verb|sudo wget | \url{http://147.251.253.183:1080/dolezj24/mahasys/repository/production/archive.zip}. Stažený archiv rozbalíme příkazem\newline\verb|sudo unzip archive.zip| a vzniklou složku přejmenujeme --\newline\verb|sudo mv mahasys* mahasys|. Do této složky se přesuneme a pomocí\newline\verb|sudo chmod -R a+rw temp log| přidáme práva čtení a zápisu všem uživatelům pro složky temp a log. A~na závěr nainstalujeme všechny balíčky, na kterých aplikace závisí příkazem \verb|sudo php composer.phar install|.
 \subsection{Diagram nasazení}
 	Diagram nasazení\ref{deployment_view} popisuje fyzické rozmístění komponent a hardwarových zdrojů systému včetně jejich propojení.\cite{si1_pred7}
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{Deployment_view.eps}
+	\caption{Diagram nasazení}\label{deployment_view}
+\end{figure}
 	
 \section{Administrátorská příručka}
 	V~této kapitole jsou popsány postupy pro úpravy aplikace v~návaznosti na změnu databázového modelu.
@@ -477,10 +482,7 @@ Pro možnost nastavení nově vytvořeného datového typu pro sloupec entity v~
 
 	Nyní vytvoříme novou metodu render<NázevTabulky>, kde šabloně do atributu \verb|setup| předáme nastavení serializované do formátu JSON. Dále také do šablony nastavíme odkazy na API, které jsme předtím vytvořili.
 
-\begin{figure}
-	\includegraphics[width=\textwidth]{Deployment_view.png}
-	\caption{Diagram nasazení}\label{deployment_view}
-\end{figure}
+
 
 \section{Uživatelská příručka}
 
@@ -525,8 +527,12 @@ Pro možnost nastavení nově vytvořeného datového typu pro sloupec entity v~
 	Aplikace je taktéž velice snadno rozšiřitelná a dobře konfigurovatelná. Díky tomu je možné provádět i poměrně velké změny v~databázovém modelu a v~návaznosti na to aplikaci jednoduše upravit. Kromě toho by bylo vhodné vytvořit proces Continous Deployment pro automatizované nasazování nových verzí systému včetně jeho testování.
 \end{conclusion}
 
+\interlinepenalty=10000
+
 \bibliographystyle{csn690}
 \bibliography{mybibliographyfile}
+
+\interlinepenalty=0
 
 \appendix
 
