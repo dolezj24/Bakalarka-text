@@ -38,7 +38,7 @@
 \authorWithDegrees{Jakub Doležal} %jméno autora včetně současných akademických titulů
 \author{Jakub Doležal} %jméno autora bez akademických titulů
 \supervisor{Ing. Jiří Chludil}
-\acknowledgements{Chtěl bych poděkovat mojí rodině za podporu v~době studií a při tvorbě této práce. Dále bych rád poděkoval mému vedoucímu Ing. Jiřímu Chludilovi za jeho příkladné přátelské vedení. A~v~neposlední řadě chci poděkovat Bc. Michaeli Voříškovi z~firmy MAHALUX s.r.o. za jeho rady a vztřícnost.}
+\acknowledgements{Chtěl bych poděkovat mojí rodině za podporu v~době studií a při tvorbě této práce. Dále bych rád poděkoval mému vedoucímu Ing.~Jiřímu Chludilovi za jeho příkladné přátelské vedení. A~v~neposlední řadě chci poděkovat Bc.~Michaeli Voříškovi z~firmy MAHALUX s.r.o. za jeho rady a vztřícnost.}
 \abstractCS{Cílem této bakalářské práce je návrh, implementace a otestování webového frontendu informačního systému pro firmu MAHALUX s.r.o. Hlavním účelem aplikace je zefektivnění a centralizování evidence provozních dat firmy.
 	
 	Na základě sběru požadavků a analýzy firemních procesů je navržen informační systém s~webovým frontendem, který je implementovaný pomocí frameworku ReactJS v~jazyce JavaScript. Serverová část aplikace je realizována ve skriptovacím jazyce PHP s~využitím frameworku Nette. Aplikace byla podrobena uživatelskému testování použitelnosti.
@@ -64,7 +64,7 @@ The outcome is the information system which you can run in every common web brow
 % \newacronym{FIT}{FIT}{Fakulta informa{\v c}n{\' i}ch technologi{\' i}}
 
 \begin{introduction}
-	MAHALUX s.r.o. je mladá expandující firma zabývající vývojem, výrobou a prodejem elektronických zařízení. Zároveň provozuje internetový obchod, kde nabízí vlastní produkty a distribuje zboží z~jiných eshopů. I~přesto, že firma existuje poměrně krátce, již expeduje po celém světě. To přináší velké nároky na evidenci rozličných dat o~adresách, bankovních spojeních a dalších informacích o~zákaznících. Proto se firma MAHALUX s.r.o. rozhodla pro zavedení informačního systému s~webovým frontendem, který přinese potřebné centralizované ukládání dat a pohodlný přístup k~těmto datům. Dalším hlavním účelem systému je zefektivnění procesu vyřizování objednávek.
+	MAHALUX s.r.o. je mladá expandující firma zabývající vývojem, výrobou a prodejem elektronických zařízení. Typické zařízení obsahuje desítky až stovky různých komponent dodávaných z~různých částí světa. To přináší velké nároky na evidenci rozličných dat o~adresách, bankovních spojeních a dalších informacích. Proto se firma MAHALUX s.r.o. rozhodla pro zavedení informačního systému s~webovým frontendem, který přinese potřebné centralizované ukládání dat a pohodlný přístup k~těmto datům. Dalším hlavním účelem systému je zefektivnění procesu vyřizování objednávek.
 	
 	V~práci se zabývám analýzou, návrhem, implementací a testováním webového informačního systému.
 	Úkolem úvodní části práce je sběr funkčních a nefunkčních požadavků zadavatele. Dále je také nutná analýza složitějších případů užití a firemních procesů. Následuje návrh struktury systému, komponentového prototypu a uživatelského rozhraní. Navazovat bude samotná implementace prototypu frontendu v~knihovně ReactJS a vytvoření serverové části aplikace v~jazyce PHP s~pomocí frameworku Nette. V~závěrečné kapitole je popsáno testování aplikace.
@@ -276,7 +276,7 @@ The outcome is the information system which you can run in every common web brow
 	
 	Doctrine 2 je rozdělena do tří vrstev:
 	\begin{description}
-		\item[Common] Definuje základní obecná rozhraní, třídy a knihovny. Například nástroje pro práci s~kolekcemi, anotacemi, cachováním, událostmi apod. Ty jsou pak využívány oběma vyššími vrstvami. Common je sám o~sobě na zbylých vrstvách nezávislý, takže je ho teoreticky možné používat i samostatně. Všechno, co sem patří, je definováno v~namespace \verb|Doctrine\Common|.
+		\item[Common] Definuje základní obecná rozhraní, třídy a knihovny. Například nástroje pro práci s~kolekcemi, anotacemi, cachováním, událostmi apod. Ty jsou pak využívány oběma vyššími vrstvami. Common je sám o~sobě na zbylých vrstvách nezávislý, takže je ho teoreticky možné používat i samostatně. Vše, co sem patří, je definováno v~namespace \verb|Doctrine\Common|.
 		\item[DBAL (DataBase Abstraction Layer)] Abstrahuje zbytek aplikace od konkrétního typu databáze. Primárně rozšiřuje standardní PDO, ale umí pracovat i s~jinými databázovými drivery. DBAL je závislý na Common, ale může být opět teoreticky používán i samostatně bez poslední ORM vrstvy. Vše, co je jeho součástí, se nachází v~namespace \verb|Doctrine\DBAL|.
 		\item[ORM (Object-Relational Mapping)] je nejvyšší vrstva, která zajišťuje mapování aplikačních objektů na relační databázi, jejich persistování a načítání. ORM je závislá na DBAL i Common. Namespace této vrstvy je \verb|Doctrine\ORM|.\cite{doctrine2}
 	\end{description}
@@ -368,7 +368,7 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 	Pro všechny vazby ve schématu je voleno výchozí nastavení pro operace delete a update a to akce restrict, která nepovoluje operace update a delete pro záznamy v~rodičovské tabulce mající potomky v~podřízené tabulce.
 	
 \begin{figure}
-	\includegraphics[width=500pt, height=\textwidth, angle=90]{mahasys_ermodel.pdf}
+	\includegraphics[width=500pt, height=\textwidth, angle=270]{mahasys_ermodel.png}
 	\caption{E-R model}\label{er_model}
 \end{figure}
 
@@ -408,14 +408,14 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 \section{Instalační příručka}
 	V~této kapitole je popsána instalace aplikace na Linuxové distribuci Debian~9.
 \subsection{Instalace systému}
-	Jako první provedeme instalaci Debianu 9 na náš stroj. Instalační obrazy jsou dostupné na stránce \url{https://www.debian.org/distrib/}. Obraz Debianu zahrnuje i webový server Apache2, jeho instalaci zajistíme zaškrtnutím volby \uv{web server} u~výběru komponent systému. Při zavádění systému taktéž vytvoříme uživatele \uv{mahasys}.
+	Jako první provedeme instalaci Debianu 9 na náš stroj. Instalační obrazy jsou dostupné na stránce \url{https://www.debian.org/distrib/}. Obraz Debianu zahrnuje i webový server Apache2, jeho instalaci zajistíme zaškrtnutím volby \uv{web server} u~výběru komponent systému. Při instalaci systému taktéž vytvoříme uživatele \uv{mahasys}.
 \subsection{Nastavení uživatele}
 	Po instalaci systému bude dalším krokem nastavení vytvořeného uživatele. Nejprve za pomoci uživatele \uv{root} doinstalujeme nástroj sudo, a to příkazem \verb|apt-get intsall sudo|. Dále přidáme uživatele mahasys do skupiny uživatelů sudo pokynem \verb|adduser mahasys sudo|. Poté se pomocí \verb|su mahasys| přepneme na uživatele mahasys.
 \subsection{Instalace PHP}
 	Aplikace používá skriptovací jazyk PHP verze 7.2. Spuštěním následujících příkazů nainstalujeme tuto verzi PHP a její rozšíření.
 	\begin{verbatim}
 	sudo apt-get install apt-transport-https ca-certificates
-	sudo wget https://packages.sury.org/php/apt.gpg
+	wget https://packages.sury.org/php/apt.gpg
 	sudo mv apt.gpg /etc/apt/trusted.gpg.d/php.gpg 
 	echo "deb https://packages.sury.org/php/ stretch main" | 
 	sudo tee /etc/apt/sources.list.d/php.list
@@ -440,7 +440,7 @@ Pro architekturu systému bude využita struktura Nette. Půjde tedy o~architekt
 	\end{verbatim}
 	Dále povolíme modul rewrite příkazem \verb|sudo a2enmod rewrite| a restartujeme Apache: \verb|sudo apache2ctl -k restart|.
 \subsection{Stažení aplikace}
-	Aplikaci nainstalujeme do složky /var/www/html. Přesuneme se do ní příkazem \verb|cd /var/www/html|. Samotnou aplikaci stáhneme pomocí\newline\verb|sudo wget | \url{http://147.251.253.183:1080/dolezj24/mahasys/repository/production/archive.zip}. Stažený archiv rozbalíme příkazem\newline\verb|sudo unzip archive.zip| a vzniklou složku přejmenujeme --\newline\verb|sudo mv mahasys* mahasys|. Do této složky se přesuneme a pomocí\newline\verb|sudo chmod -R a+rw temp log| přidáme práva čtení a zápisu všem uživatelům pro složky temp a log. A~na závěr nainstalujeme všechny balíčky, na kterých aplikace závisí příkazem \verb|sudo php composer.phar install|.
+	Aplikaci nainstalujeme do složky /var/www/html. Přesuneme se do ní příkazem \verb|cd /var/www/html|. Samotnou aplikaci stáhneme pomocí\newline\verb|wget | \url{http://147.251.253.183:1080/dolezj24/mahasys/repository/production/archive.zip}. Stažený archiv rozbalíme příkazem\newline\verb|sudo unzip archive.zip| a vzniklou složku přejmenujeme --\newline\verb|sudo mv mahasys* mahasys|. Do této složky se přesuneme a pomocí\newline\verb|sudo chmod -R a+rw temp log| přidáme práva čtení a zápisu všem uživatelům pro složky temp a log. A~na závěr nainstalujeme všechny balíčky, na kterých aplikace závisí příkazem \verb|sudo php composer.phar install|.
 \subsection{Diagram nasazení}
 	Diagram nasazení\ref{deployment_view} popisuje fyzické rozmístění komponent a hardwarových zdrojů systému včetně jejich propojení.\cite{si1_pred7}
 
@@ -564,17 +564,48 @@ Pro možnost nastavení nově vytvořeného datového typu pro sloupec entity v~
 	\end{enumerate}
 
 \subsection{Výstupní dotazník}
-	Po provedení testu jednotlivý testeři zodpoví následující dotazník pro získání zpětné vazby.
+	Po provedení testu jednotlivý testeři zodpoví následující dotazník pro získání zpětné vazby. Pro některé otázky jsou k~dispozici 3 odpovědi, které bude možné dále rozvést.
 	\begin{enumerate}
 		\item Jaká byla srozumitelnost navigace?
+		\begin{itemize}
+			\item Špatná -- často jsem nevěděl kde jsem a jak se kam dostat.
+			\item Průměrná -- většinou jsem měl přehled, ale byli případy, kdy jsem se v~systému ztratil.
+			\item Dobrá -- velmi přehledná.
+		\end{itemize}
 		\item Jak hodnotíte jednoznačnost pojmenování datových polí?
-		\item Bylo vždy zřejmé jaký datový typ vyplnit (číslo, volba ano/ne, text) a zda je pole povinné?
-		\item Stěžovalo vám používání aplikace ještě něco jiného (chybějící tlačítka, špatné reakce prvků uživatelského rozhraní na vaše pokyny atp.)?
+		\begin{itemize}
+			\item Špatná -- často nejednoznačné.
+			\item Průměrná -- jednoznačné s~výjímkami.
+			\item Dobrá -- nezaznamenal jsem nejednoznačnost.
+		\end{itemize}
+		\item Bylo vždy zřejmé jaký datový typ vyplnit (číslo, volba ano/ne, text atp.) a zda je pole povinné?
+		\begin{itemize}
+			\item Ne -- často nejasné.
+			\item Ne -- občas nejasné.
+			\item Ano -- vždy zřejmé.
+		\end{itemize}
 		\item Rozptylovali vás nějaké vizuální vlastnosti systému?
-		\item Chyběli vám nějaké jednoduché funkce (klávesové zkratky apod.)?
-		\item Jak hodnotíte rychlost odezvy systému?
-		\item Jak jste spokojen s~vizuální stránkou aplikace?
-		\item Jak jste obecně spokojen s~fungováním systému?
+		\item Chyběli vám určité jednoduché funkce (klávesové zkratky apod.)?
+		\item Jak hodnotíte rychlost odezvy aplikace?
+		\begin{itemize}
+			\item Pomalá -- časové odezvy na akce velmi pomalé.
+			\item Průměrná -- reakce systému s~nepatrným zpožděním.
+			\item Rychlé -- okamžité odezvy.
+		\end{itemize}
+	\newpage
+		\item Jak jste spokojen s~vizuální stránkou systému?
+		\begin{itemize}
+			\item Ošklivá -- vzhled aplikace se mně nelíbí.
+			\item Průměrná -- vcelku v~pořádku, ale nějaká vylepšení bych uvítal.
+			\item Pěkná -- se vzhledem jsem spokojen.
+		\end{itemize}
+		\item Stěžovalo vám používání aplikace ještě něco jiného (chybějící tlačítka, špatné reakce prvků uživatelského rozhraní na vaše pokyny atp.)?
+		\item Jak jste obecně spokojen s~fungováním aplikace?
+		\begin{itemize}
+			\item Nespokojen -- s~aplikací se pracuje špatně.
+			\item Spokejen s~výhradami -- aplikace je použitelná, ale menší překážky se vyskytly.
+			\item Spokojen -- s~aplikací se pracuje velmi dobře.
+		\end{itemize}
 	\end{enumerate}
 
 
